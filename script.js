@@ -2,18 +2,15 @@
 // 1. CONTROLADOR DE NAVEGAÇÃO DE ABAS EXCLUSIVAS (SPA)
 // ==========================================================================
 function irParaAba(nomeAba) {
-    // Esconde todas as abas funcionais (.view-pane) e desativa botões (.nav-btn)
     document.querySelectorAll('.view-pane').forEach(content => content.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(button => button.classList.remove('active'));
     
-    // Ativa a aba atual e o botão correto
     const viewPane = document.getElementById(`view-${nomeAba}`);
     const navBtn = document.getElementById(`btn-tab-${nomeAba}`);
     
     if (viewPane) viewPane.classList.add('active');
     if (navBtn) navBtn.classList.add('active');
     
-    // Biblioteca dinâmica de títulos da barra superior
     const bibliotecaTitulos = {
         painel: ["Monitoramento de Impacto Agroecológico", "Tecnologia aplicada ao desenvolvimento sustentável da Escola do Campo rural."],
         agroecologia: ["Espaço de Capacitação Científica", "Visão detalhada e aprofundada das seis grandes diretrizes conservacionistas."],
@@ -29,19 +26,19 @@ function irParaAba(nomeAba) {
 }
 
 // ==========================================================================
-// 2. SISTEMA DE CAPACITAÇÃO E MODAIS DIÁLOGOS INJETADOS
+// 2. SISTEMA DE DIRETRIZES E MODAIS DIÁLOGOS
 // ==========================================================================
 const bdsDiretrizesAgroecologicas = {
     "cobertura": {
         titulo: "Cobertura Permanente do Solo",
         sub: "Proteção mecânica e manutenção térmica da microvida",
-        corpo: "A manutenção do solo coberto, seja por palhada residual (plantio direto) ou por plantas de cobertura, reduz drasticamente o impacto direto das gotas de chuva, mitigando a erosão laminar. Além disso, funciona como um isolante térmico que conserva a humidade e favorece a proliferação de microrganismos benéficos nas camadas superficiais.",
+        corpo: "A manutenção do solo coberto, seja por palhada residual (plantio direto) ou por plantas de cobertura, reduz drasticamente o impacto direto das gotas de chuva, mitigando a erosão laminar. Além disso, funciona como um isolante térmico que conserva a umidade e favorece a proliferação de microrganismos benéficos nas camadas superficiais.",
         tag: "Solo e Água"
     },
     "policultivo": {
         titulo: "Policultivos e Rotação de Culturas",
         sub: "Quebra de ciclos de pragas e sinergia de nutrientes",
-        corpo: "Cultivar múltiplas espécies na mesma área diversifica o sistema radicular, melhorando a estrutura física do solo. A inclusão de leguminosas fixa o nitrogénio atmosférico biologicamente, enquanto a rotação sistemática interrompe o ciclo reprodutivo de pragas e patógenos específicos de uma única cultura.",
+        corpo: "Cultivar múltiplas espécies na mesma área diversifica o sistema radicular, melhorando a estrutura física do solo. A inclusão de leguminosas fixa o nitrogênio atmosférico biologicamente, enquanto a rotação sistemática interrompe o ciclo reprodutivo de pragas e patógenos específicos de uma única cultura.",
         tag: "Biodiversidade"
     },
     "insumos": {
@@ -59,13 +56,13 @@ const bdsDiretrizesAgroecologicas = {
     "agua": {
         titulo: "Manejo Ecológico da Água",
         sub: "Captação, infiltração localizada e conservação de microbacias",
-        corpo: "Estratégia focada em desacelerar o escoamento superficial da água através de curvas de nível, cordões de vegetação e bacias de retenção (barragens subterrâneas). Promove a infiltração profunda para recarga de lençóis freáticos e utiliza sistemas de irrigação supereficientes, como a microaspersão gotejada.",
+        corpo: "Estratégia focada em desacelerar o escoamento superficial da água através de curvas de nível, cordões de vegetação e bacias de retenção. Promove a infiltração profunda para recarga de lençóis freáticos e utiliza sistemas de irrigação supereficientes, como o gotejamento.",
         tag: "Recursos Hídricos"
     },
     "comunidades": {
-        titulo: "Socioecologia e Circuitos Curtos de Comercialização",
-        sub: "Valorização do saber local, soberania alimentar e mercados de proximidade",
-        corpo: "A agroecologia transcende a técnica agrícola; ela integra o bem-estar humano. Fortalece cooperativas familiares, apoia feiras ecológicas locais, reduz a pegada de carbono do transporte de alimentos e promove a soberania alimentar, garantindo que a comunidade rural se mantenha autossuficiente e economicamente viável.",
+        titulo: "Socioecologia e Circuitos Curtos",
+        sub: "Valorização do saber local e mercados de proximidade",
+        corpo: "A agroecologia transcende a técnica agrícola; ela integra o bem-estar humano. Fortalece cooperativas familiares, apoia feiras ecológicas locais, reduz a pegada de carbono do transporte de alimentos e promove a soberania alimentar, garantindo que a comunidade rural se mantenha sustentável.",
         tag: "Socioeconomia"
     }
 };
@@ -75,7 +72,7 @@ function dispararModalInjetado(chaveDiretriz) {
     if (!alvo) return;
 
     const templateHtml = `
-        <span class="tech-tag" style="margin-bottom:12px;">${alvo.tag}</span>
+        <span class="tech-tag" style="margin-bottom:12px; display:inline-block; background:var(--primary-green); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.75rem;">${alvo.tag}</span>
         <h2 style="color:var(--primary-green); font-weight:800; margin-bottom:6px;">${alvo.titulo}</h2>
         <h4 style="color:var(--text-light); font-weight:600; margin-bottom:20px; font-size:0.95rem;">${alvo.sub}</h4>
         <div style="line-height:1.6; color:var(--text-dark); font-size:0.92rem; text-align:justify; background:#f8faf9; padding:20px; border-radius:10px; border:1px solid var(--border-gray);">
@@ -110,65 +107,70 @@ function processarCalculoDiagnostico() {
     const s4 = parseInt(document.getElementById('sim-agrofloresta').value) || 0;
     const s5 = parseInt(document.getElementById('sim-agua').value) || 0;
 
-    // Fórmula ponderada baseada nas metas de impacto sustentável do campo
     const notaFinalPonderada = Math.round((s1 * 0.25) + (s2 * 0.20) + (s3 * 0.25) + (s4 * 0.15) + (s5 * 0.15));
 
-    // Atualização síncrona do DOM
     document.getElementById('score-display-num').innerText = notaFinalPonderada;
     document.getElementById('bar-fill-diagnostico').style.width = `${notaFinalPonderada}%`;
     document.getElementById('metric-simulador').innerText = `${notaFinalPonderada}/100`;
 
     const blocoFeedback = document.getElementById('output-feedback-box');
     blocoFeedback.classList.remove('hidden');
+    blocoFeedback.style.padding = "15px";
+    blocoFeedback.style.borderRadius = "8px";
+    blocoFeedback.style.fontSize = "0.9rem";
+    blocoFeedback.style.lineHeight = "1.5";
 
     if (notaFinalPonderada >= 80) {
-        blocoFeedback.className = "output-alert bom";
+        blocoFeedback.style.background = "#e6f4ea";
+        blocoFeedback.style.color = "#137333";
         blocoFeedback.innerHTML = "<strong>🏆 Excelente Nível de Sustentabilidade:</strong> A propriedade adota práticas integradas de alto impacto ecológico. Recomenda-se manter a rotação e iniciar a certificação orgânica formal.";
     } else if (notaFinalPonderada >= 50) {
-        blocoFeedback.className = "output-alert alerta";
+        blocoFeedback.style.background = "#fef7e0";
+        blocoFeedback.style.color = "#b06000";
         blocoFeedback.innerHTML = "<strong>⚠️ Nível de Transição Agroecológica:</strong> Existem boas iniciativas locais, mas o sistema ainda apresenta dependência moderada ou pontos de vulnerabilidade contra erosão/escassez.";
     } else {
-        blocoFeedback.className = "output-alert perigo";
-        blocoFeedback.innerHTML = "<strong>🚨 Alerta Crítico de Degradação:</strong> Manejo convencional agressivo detetado. Alta suscetibilidade à exaustão mineral do solo e perda severa de humidade. Intervenção imediata sugerida.";
+        blocoFeedback.style.background = "#fce8e6";
+        blocoFeedback.style.color = "#c5221f";
+        blocoFeedback.innerHTML = "<strong>🚨 Alerta Crítico de Degradação:</strong> Manejo convencional agressivo detectado. Alta suscetibilidade à exaustão mineral do solo e perda severa de umidade. Intervenção imediata sugerida.";
     }
     
     verificarEAtualizarTrofeus();
 }
 
 // ==========================================================================
-// 4. MOTOR DO QUIZ EM TRÊS NÍVEIS PROGRESSIVOS (30 QUESTÕES INTEGRADAS)
+// 4. MOTOR DO QUIZ EM TRÊS NÍVEIS PROGRESSIVOS (30 QUESTÕES)
 // ==========================================================================
 const bancoQuestoesQuiz = [
-    // NÍVEL FÁCIL (Questões 1 a 10)
-    { nivel: "facil", q: "Qual o principal objetivo ecológico da cobertura permanente do solo?", o: ["Eliminar microrganismos", "Impedir a infiltração de ar", "Reduzir o impacto mecânico da chuva e reter humidade", "Facilitar a aração mecânica profunda"], a: 2 },
-    { nivel: "facil", q: "Como as leguminosas atuam na fertility do solo dentro de uma rotação de culturas?", o: ["Absorvem nitrogénio excessivo", "Fixam o nitrogénio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
+    // NÍVEL FÁCIL
+    { nivel: "facil", q: "Qual o principal objetivo ecológico da cobertura permanente do solo?", o: ["Eliminar microrganismos", "Impedir a infiltração de ar", "Reduzir o impacto mecânico da chuva e reter umidade", "Facilitar a aração mecânica profunda"], a: 2 },
+    { nivel: "facil", q: "Como as leguminosas atuam na fertilidade do solo dentro de uma rotação de culturas?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
     { nivel: "facil", q: "O que caracteriza a 'erosão laminar' em solos sem proteção?", o: ["Abertura de crateras profundas", "A remoção uniforme da camada superficial mais rica em matéria orgânica", "A quebra de rochas profundas", "O aumento da fauna de minhocas"], a: 1 },
-    { nivel: "facil", q: "A diversificação biológica melhora a estabilidade económica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
+    { nivel: "facil", q: "A diversificação biológica melhora a estabilidade econômica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
     { nivel: "facil", q: "As matas ciliares são fundamentais para os ecossistemas agrícolas porque:", o: ["Evitam o assoreamento de rios e filtram resíduos", "Serveme unicamente como divisórias", "Fornecem lenha de corte diário", "Absorvem água dos rios secando áreas"], a: 0 },
-    { nivel: "facil", q: "Qual a função da bioestrutura (agregados do solo) na agroecologia?", o: ["Impedir que as raízes respirem", "Garantir porosidade equilibrada para circulação de água e ar", "Tornar o solo impermeável", "Facilitar a lixiviação de minerais"], a: 1 },
+    { nivel: "facil", q: "Qual la função da bioestrutura (agregados do solo) na agroecologia?", o: ["Impedir que as raízes respirem", "Garantir porosidade equilibrada para circulação de água e ar", "Tornar o solo impermeável", "Facilitar a lixiviação de minerais"], a: 1 },
     { nivel: "facil", q: "O conceito de 'plantas companheiras' baseia-se em quê?", o: ["Espécies que competem por espaço", "Associações vegetais onde uma espécie beneficia a outra", "Plantas que devem ser colhidas juntas", "Espécies ornamentais sem valor"], a: 1 },
     { nivel: "facil", q: "Em agroecologia, os insetos vulgarmente chamados 'pragas' são vistos como:", o: ["Inimigos que devem ser extintos", "Sinais indicadores de desequilíbrio ecológico no sistema", "Animais impossíveis de controlar", "Seres sem relevância trófica"], a: 1 },
     { nivel: "facil", q: "O uso de adubos verdes (como a mucuna ou guandu) serve para:", o: ["Colorir o campo para ecoturismo", "Produzir biomassa, cobrir o solo e fixar/reciclar nutrientes", "Substituir a cultura principal", "Eliminar a necessidade de rotação"], a: 1 },
     { nivel: "facil", q: "O que significa o termo 'período de carência' na aplicação de defensivos?", o: ["O tempo de germinação na sementeira", "O intervalo de segurança entre a aplicação e a colheita segura", "A falta de chuva ideal na adubação", "O tempo de repouso do trator"], a: 1 },
 
-    // NÍVEL MÉDIO (Questões 11 a 20)
-    { nivel: "medio", q: "A compostagem orgânica substitui fertilizantes sintéticos de alta solubilidade porque:", o: ["Liberta nutrientes de forma lenta e melhora a estrutura do solo", "Acidifica o solo matando insetos", "Contem hormonas de crescimento", "Evita a necessidade de irrigar"], a: 0 },
-    { nivel: "medio", q: "Por que os monocultivos extensivos são biologicamente mais vulneráveis a pragas?", o: ["Atraem mais polinizadores", "Falta luz solar entre as linhas", "Oferecem alimento abundante e homogéneo para uma única espécie", "Esgotam apenas a água superficial"], a: 2 },
+    // NÍVEL MÉDIO
+    { nivel: "medio", q: "A compostagem orgânica substitui fertilizantes sintéticos de alta solubilidade porque:", o: ["Libera nutrientes de forma lenta e melhora a estrutura do solo", "Acidifica o solo matando insetos", "Contem hormônios de crescimento", "Evita a necessidade de irrigar"], a: 0 },
+    { nivel: "medio", q: "Por que os monocultivos extensivos são biologicamente mais vulneráveis a pragas?", o: ["Atraem mais polinizadores", "Falta luz solar entre as linhas", "Oferecem alimento abundante e homogêneo para uma única espécie", "Esgotam apenas a água superficial"], a: 2 },
     { nivel: "medio", q: "O controle biológico conservacionista consiste em:", o: ["Introduzir espécies exóticas de laboratório", "Preservar e atrair predadores naturais já existentes no local", "Aplicar defensivos químicos nas bordas", "Isolar o campo com telas plásticas"], a: 1 },
     { nivel: "medio", q: "A calda bordalesa é um insumo alternativo composto essencialmente por:", o: ["Cloro concentrado e detergente", "Sulfato de cobre, cal hidratada e água", "Petróleo bruto refinado", "Extrato concentrado de soja"], a: 1 },
-    { nivel: "medio", q: "Como funcionam os bioinsumos baseados em fungos entomopatogénicos (Beauveria bassiana)?", o: ["Queimam as folhas externamente", "Infetam e controlam insetos-alvo de forma específica", "Nutrem a planta pelos estômatos", "Repelem pássaros pelo odor"], a: 1 },
+    { nivel: "medio", q: "Como funcionam os bioinsumos baseados em fungos entomopatogênicos (Beauveria bassiana)?", o: ["Queimam as folhas externamente", "Infectam e controlam insetos-alvo de forma específica", "Nutrem a planta pelos estômatos", "Repelem pássaros pelo odor"], a: 1 },
     { nivel: "medio", q: "Qual a principal vantagem da estratificação vertical nos Sistemas Agroflorestais?", o: ["Impedir a entrada de vento", "Otimizar o uso da luz solar em diferentes alturas pelas plantas", "Facilitar a colheita mecanizada", "Reduzir a produção de matéria orgânica"], a: 1 },
     { nivel: "medio", q: "Nos SAFs, o manejo por podas sistemáticas das árvores serve para:", o: ["Eliminar árvores velhas precocemente", "Estimular a entrada de luz e gerar biomassa para cobrir o solo", "Impedir que deem frutos pesados", "Diminuir a profundidade das raízes"], a: 1 },
-    { nivel: "medio", q: "O que diferencia um SAF de um reflorestamento comercial convencional (ex: eucalipto)?", o: ["O SAF utiliza apenas plantas importadas", "O SAF integra espécies florestais com culturas alimentares ou animais", "O reflorestamento não permite corte", "O SAF dispensa água da chuva"], a: 1 },
+    { nivel: "medio", q: "O que diferencia um SAF de um reflorestamento comercial convencional?", o: ["O SAF utiliza apenas plantas importadas", "O SAF integra espécies florestais com culturas alimentares ou animais", "O reflorestamento não permite corte", "O SAF dispensa água da chuva"], a: 1 },
     { nivel: "medio", q: "Como o cultivo em 'curvas de nível' atua na proteção dos recursos hídricos?", o: ["Acelera o escoamento da água", "Reduz a velocidade da água superficial, aumentando a infiltração", "Modifica a química da água da chuva", "Mantém o solo encharcado"], a: 1 },
-    { nivel: "medio", q: "A compactação do solo por tráfego pesado de máquinas afeta a água pois:", o: ["Aumenta o armazenamento de humidade", "Reduz a porosidade, impedindo a infiltração e gerando enxurradas", "Purifica a água eliminando argilas", "Acelera a evapotranspiração foliar"], a: 1 },
+    { nivel: "medio", q: "A compactação do solo por tráfego pesado de máquinas afeta a água pois:", o: ["Aumenta o armazenamento de umidade", "Reduz a porosidade, impedindo a infiltração e gerando enxurradas", "Purifica a água eliminando argilas", "Acelera a evapotranspiração foliar"], a: 1 },
 
-    // NÍVEL DIFÍCIL (Questões 21 a 30)
+    // NÍVEL DIFÍCIL
     { nivel: "dificil", q: "A introdução de árvores em pastagens (Sistemas Silvipastoris) traz qual benefício animal?", o: ["Redução do espaço de caminhada", "Conforto térmico através de sombra, melhorando a produtividade", "Alimentação baseada em folhas secas", "Aumento da velocidade de corrida"], a: 1 },
     { nivel: "dificil", q: "Sistemas agroflorestais auxiliam na mitigação das mudanças climáticas globais através de:", o: ["Emissão controlada de enxofre", "Sequestro e fixação de carbono na biomassa lenhosa e no solo", "Reflexão total dos raios ultravioleta", "Diminuição da gravidade localizada"], a: 1 },
-    { nivel: "dificil", q: "Qual a desvantagem ecológica da irrigação por inundação contínua frente ao gotejamento?", o: ["Consumo mínimo de energia elétrica", "Desperdício severo de água e riscos de salinização do solo", "Impossibilidade de aplicar adubos", "Aumento da humidade do ar regional"], a: 1 },
-    { nivel: "dificil", q: "O que expressa o conceito de 'cisterna de calçadão' na agricultura familiar semiárida?", o: ["Estrutura urbana de águas cinzentas", "Tecnologia social para captar chuva escoada em superfícies cimentadas", "Canal aberto para drenar brejos", "Piscina decorativa de piscicultura"], a: 1 },
-    { nivel: "dificil", q: "O que define um 'circuito curto de comercialização' na venda de alimentos?", o: ["Vendas internacionais por corretoras", "A comercialização direta entre produtor e consumidor (feiras, cabazes)", "Contratos com redes multinacionais", "Troca exclusiva sem uso de moedas"], a: 1 },
+    { nivel: "dificil", q: "Qual a desvantagem ecológica da irrigação por inundação contínua frente ao gotejamento?", o: ["Consumo mínimo de energia elétrica", "Desperdício severo de água e riscos de salinização do solo", "Impossibilidade de aplicar adubos", "Aumento da umidade do ar regional"], a: 1 },
+    { nivel: "dificil", q: "O que expressa o conceito de 'cisterna de calçadão' na agricultura familiar?", o: ["Estrutura urbana de águas cinzentas", "Tecnologia social para captar chuva escoada em superfícies cimentadas", "Canal aberto para drenar brejos", "Piscina decorativa de piscicultura"], a: 1 },
+    { nivel: "dificil", q: "O que define um 'circuito curto de comercialização' na venda de alimentos?", o: ["Vendas internacionais por corretoras", "A comercialização direta entre produtor e consumidor (feiras, sacolas)", "Contratos com redes multinacionais", "Troca exclusiva sem uso de moedas"], a: 1 },
     { nivel: "dificil", q: "A 'Certificação Participativa' de produtos orgânicos baseia-se em:", o: ["Auditorias pagas a empresas isoladas", "Redes de confiança mútua entre produtores, técnicos e consumidores", "Testes químicos em cada lote", "Selos comprados em balcões estatais"], a: 1 },
     { nivel: "dificil", q: "Como a transição agroecológica apoia a 'Soberania Alimentar' das comunidades?", o: ["Obriga a importação de sementes", "Garante autonomia na produção de alimentos e conservação de sementes crioulas", "Prioriza culturas de exportação", "Substitui hábitos tradicionais"], a: 1 },
     { nivel: "dificil", q: "O êxodo rural de jovens nas comunidades rurais pode ser mitigado por:", o: ["Mecanização que elimine empregos", "Adoção de tecnologias sustentáveis, internet no campo e valorização do trabalho", "Fechamento de escolas rurais", "Proibição legal de migração"], a: 1 },
@@ -187,15 +189,13 @@ function inicializarEstruturaQuiz(nivelEscolhido = "facil") {
     indiceQuestaoAtual = 0;
     scoreAcertosQuiz = 0;
     
-    // Filtro relacional de arrays com base no nível técnico do aluno
     questoesFiltradas = bancoQuestoesQuiz.filter(q => q.nivel === nivelAtual);
     
     document.getElementById('quiz-painel-conclusao').classList.add('hidden');
     document.getElementById('quiz-core-box').classList.remove('hidden');
     
     const nomesNiveis = { facil: "FÁCIL 🌱", medio: "MÉDIO 🌽", dificil: "DIFÍCIL 🌳" };
-    const badgeNivel = document.getElementById('quiz-nivel-badge');
-    if (badgeNivel) badgeNivel.innerText = `Nível: ${nomesNiveis[nivelAtual]}`;
+    document.getElementById('quiz-nivel-badge').innerText = `Nível: ${nomesNiveis[nivelAtual]}`;
     
     renderizarQuestaoQuiz();
 }
@@ -215,6 +215,16 @@ function renderizarQuestaoQuiz() {
     dadosQuestao.o.forEach((opcaoTexto, idOpcao) => {
         const elementoBotao = document.createElement('button');
         elementoBotao.className = "quiz-opcao-btn";
+        elementoBotao.style.width = "100%";
+        elementoBotao.style.padding = "12px 16px";
+        elementoBotao.style.textAlign = "left";
+        elementoBotao.style.background = "#fff";
+        elementoBotao.style.border = "1px solid var(--border-gray)";
+        elementoBotao.style.borderRadius = "8px";
+        elementoBotao.style.cursor = "pointer";
+        elementoBotao.style.fontSize = "0.92rem";
+        elementoBotao.style.transition = "all 0.2s";
+        
         elementoBotao.innerText = opcaoTexto;
         elementoBotao.onclick = () => avaliarRespostaSelecionada(idOpcao, elementoBotao);
         containerOpcoes.appendChild(elementoBotao);
@@ -227,12 +237,19 @@ function avaliarRespostaSelecionada(idSelecionado, botaoClicado) {
     todosBotoes.forEach(btn => btn.disabled = true);
 
     if (idSelecionado === dadosQuestao.a) {
-        botaoClicado.classList.add('correta');
+        botaoClicado.style.background = "#e6f4ea";
+        botaoClicado.style.borderColor = "#137333";
+        botaoClicado.style.color = "#137333";
         scoreAcertosQuiz++;
         scoreTotalGeral++;
     } else {
-        botaoClicado.classList.add('errada');
-        todosBotoes[dadosQuestao.a].classList.add('correta');
+        botaoClicado.style.background = "#fce8e6";
+        botaoClicado.style.borderColor = "#c5221f";
+        botaoClicado.style.color = "#c5221f";
+        
+        todosBotoes[dadosQuestao.a].style.background = "#e6f4ea";
+        todosBotoes[dadosQuestao.a].style.borderColor = "#137333";
+        todosBotoes[dadosQuestao.a].style.color = "#137333";
     }
 
     setTimeout(() => {
@@ -255,17 +272,17 @@ function finalizarExibicaoNivelQuiz() {
 
     const txtAnalise = document.getElementById('quiz-analise-texto');
     const containerAcao = document.getElementById('quiz-acao-container');
-    if (containerAcao) containerAcao.innerHTML = ""; 
+    containerAcao.innerHTML = ""; 
 
     if (nivelAtual === "facil") {
-        txtAnalise.innerText = `Parabéns! Completaste o Nível Fácil com ${scoreAcertosQuiz} acertos. Estás pronto para elevar o nível técnico e avançar para os desafios do ecossistema Médio?`;
-        if (containerAcao) containerAcao.innerHTML = `<button class="btn-primary" onclick="inicializarEstruturaQuiz('medio')">Avançar para o Nível Médio 🌽</button>`;
+        txtAnalise.innerText = `Parabéns! Você completou o Nível Fácil com ${scoreAcertosQuiz} acertos. Vamos avançar para o nível Médio?`;
+        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('medio')">Avançar para o Nível Médio 🌽</button>`;
     } else if (nivelAtual === "medio") {
-        txtAnalise.innerText = `Excelente progresso! O nível Médio foi concluído com ${scoreAcertosQuiz} acertos nesta fase. Agora resta o último e mais complexo desafio: o Nível Difícil.`;
-        if (containerAcao) containerAcao.innerHTML = `<button class="btn-primary" onclick="inicializarEstruturaQuiz('dificil')">Avançar para o Nível Difícil 🌳</button>`;
+        txtAnalise.innerText = `Excelente progresso! O nível Médio foi concluído com ${scoreAcertosQuiz} acertos. Agora vem o desafio final: Nível Difícil.`;
+        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('dificil')">Avançar para o Nível Difícil 🌳</button>`;
     } else {
-        txtAnalise.innerText = `Fim da Jornada Científica! Percorreste todas as 30 perguntas da plataforma. Pontuação acumulada final: ${scoreTotalGeral} de 30 acertos.`;
-        if (containerAcao) containerAcao.innerHTML = `<button class="btn-secondary" onclick="resetarQuizCompleto()">Reiniciar Todo o Quiz 🌱</button>`;
+        txtAnalise.innerText = `Fim da Jornada Científica! Você percorreu todas as 30 perguntas. Pontuação acumulada final: ${scoreTotalGeral} de 30 acertos.`;
+        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px; background:#6c757d;" onclick="resetarQuizCompleto()">Reiniciar Todo o Quiz 🌱</button>`;
     }
     
     verificarEAtualizarTrofeus();
@@ -277,7 +294,7 @@ function resetarQuizCompleto() {
 }
 
 // ==========================================================================
-// 5. MÓDULO GAMIFICADO: JOGO DA MEMÓRIA (FISHER-YATES ENGENHARIA)
+// 5. MÓDULO GAMIFICADO: JOGO DA MEMÓRIA
 // ==========================================================================
 const cartasMemoriaOriginais = [
     { nome: "Solo Protegido", icon: "🌱" }, { nome: "Solo Protegido", icon: "🌱" },
@@ -321,9 +338,19 @@ function iniciarNovoJogoMemoria() {
     cartasEmbaralhadas.forEach(objetoDado => {
         const elementoCarta = document.createElement('div');
         elementoCarta.className = "memory-tile";
+        elementoCarta.style.height = "100px";
+        elementoCarta.style.background = "#e9ecef";
+        elementoCarta.style.borderRadius = "8px";
+        elementoCarta.style.cursor = "pointer";
+        elementoCarta.style.display = "flex";
+        elementoCarta.style.alignItems = "center";
+        elementoCarta.style.justifyContent = "center";
+        elementoCarta.style.border = "1px solid var(--border-gray)";
         
         const faceVerso = document.createElement('div');
         faceVerso.className = "tile-back";
+        faceVerso.style.fontSize = "1.5rem";
+        faceVerso.style.color = "#6c757d";
         faceVerso.innerText = "？";
 
         const faceFrente = document.createElement('div');
@@ -332,7 +359,7 @@ function iniciarNovoJogoMemoria() {
         faceFrente.style.flexDirection = "column";
         faceFrente.style.alignItems = "center";
         faceFrente.style.justifyContent = "center";
-        faceFrente.innerHTML = `<span style="font-size:2rem; margin-bottom:4px;">${objetoDado.icon}</span><span style="font-size:0.65rem; font-weight:700; text-transform:uppercase; color:var(--primary-green); text-align:center;">${objetoDado.nome}</span>`;
+        faceFrente.innerHTML = `<span style="font-size:1.8rem; margin-bottom:2px;">${objetoDado.icon}</span><span style="font-size:0.6rem; font-weight:700; color:var(--primary-green); text-align:center;">${objetoDado.nome}</span>`;
 
         elementoCarta.appendChild(faceVerso);
         elementoCarta.appendChild(faceFrente);
@@ -348,6 +375,7 @@ function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
     if (vetorTemporarioCartas.length >= 2) return;
 
     elementoCarta.classList.add('flipped');
+    elementoCarta.style.background = "#fff";
     elementoCarta.querySelector('.tile-back').style.display = "none";
     elementoCarta.querySelector('.tile-front').style.display = "flex";
 
@@ -360,23 +388,28 @@ function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
         if (vetorTemporarioCartas[0].d.nome === vetorTemporarioCartas[1].d.nome) {
             vetorTemporarioCartas[0].el.classList.add('matched');
             vetorTemporarioCartas[1].el.classList.add('matched');
+            
+            vetorTemporarioCartas[0].el.style.borderColor = "var(--primary-green)";
+            vetorTemporarioCartas[1].el.style.borderColor = "var(--primary-green)";
             vetorTemporarioCartas = [];
             
             if (document.querySelectorAll('.memory-tile.matched').length === cartasMemoriaOriginais.length) {
                 clearInterval(timerIdInterv);
                 jogoIniciado = false;
                 setTimeout(() => { 
-                    alert(`🎉 Vitória! Missão computacional completada em ${jogadasEfetuadas} jogadas e ${segundosCorridos} segundos!`); 
+                    alert(`🎉 Vitória! Missão completada em ${jogadasEfetuadas} jogadas e ${segundosCorridos} segundos!`); 
                     verificarEAtualizarTrofeus();
                 }, 400);
             }
         } else {
             setTimeout(() => {
                 vetorTemporarioCartas[0].el.classList.remove('flipped');
+                vetorTemporarioCartas[0].el.style.background = "#e9ecef";
                 vetorTemporarioCartas[0].el.querySelector('.tile-back').style.display = "flex";
                 vetorTemporarioCartas[0].el.querySelector('.tile-front').style.display = "none";
                 
                 vetorTemporarioCartas[1].el.classList.remove('flipped');
+                vetorTemporarioCartas[1].el.style.background = "#e9ecef";
                 vetorTemporarioCartas[1].el.querySelector('.tile-back').style.display = "flex";
                 vetorTemporarioCartas[1].el.querySelector('.tile-front').style.display = "none";
                 vetorTemporarioCartas = [];
@@ -386,7 +419,7 @@ function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
 }
 
 // ==========================================================================
-// 6. CONTROLADOR DINÂMICO DE CONQUISTAS AND MEDALHAS
+// 6. CONTROLADOR DE CONQUISTAS
 // ==========================================================================
 function verificarEAtualizarTrofeus() {
     const medalhaSimulador = document.getElementById('medalha-simulador');
@@ -399,18 +432,18 @@ function verificarEAtualizarTrofeus() {
         const notaSim = Math.round((s1 * 0.25) + (s2 * 0.20) + (s3 * 0.25) + (s4 * 0.15) + (s5 * 0.15));
 
         if (notaSim >= 80) {
-            medalhaSimulador.classList.remove('bloqueada');
-            medalhaSimulador.classList.add('desbloqueada');
+            medalhaSimulador.style.opacity = "1";
             medalhaSimulador.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
+            medalhaSimulador.querySelector('.status-medalha').style.color = "var(--primary-green)";
         }
     }
 
     const medalhaQuiz = document.getElementById('medalha-quiz');
     if (medalhaQuiz) {
         if (scoreTotalGeral >= 25) {
-            medalhaQuiz.classList.remove('bloqueada');
-            medalhaQuiz.classList.add('desbloqueada');
+            medalhaQuiz.style.opacity = "1";
             medalhaQuiz.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
+            medalhaQuiz.querySelector('.status-medalha').style.color = "var(--primary-green)";
         }
     }
 
@@ -418,27 +451,22 @@ function verificarEAtualizarTrofeus() {
     if (medalhaMemoria) {
         const totalCartasViradas = document.querySelectorAll('.memory-tile.matched').length;
         if (totalCartasViradas === cartasMemoriaOriginais.length && jogadasEfetuadas > 0 && jogadasEfetuadas <= 18) {
-            medalhaMemoria.classList.remove('bloqueada');
-            medalhaMemoria.classList.add('desbloqueada');
+            medalhaMemoria.style.opacity = "1";
             medalhaMemoria.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
+            medalhaMemoria.querySelector('.status-medalha').style.color = "var(--primary-green)";
         }
     }
 }
 
 // ==========================================================================
-// 7. INICIALIZADOR AUTOMÁTICO DE EVENTOS DOM
+// 7. INICIALIZADOR AUTOMÁTICO
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     irParaAba('painel');
-    
-    const tSimulador = document.getElementById('medalha-simulador');
-    const tQuiz = document.getElementById('medalha-quiz');
-    const tMemoria = document.getElementById('medalha-memoria');
-    
-    if (tSimulador) tSimulador.className = "card-base conquista-card bloqueada";
-    if (tQuiz) tQuiz.className = "card-base conquista-card bloqueada";
-    if (tMemoria) tMemoria.className = "card-base conquista-card bloqueada";
-    
-    // Deixa o Quiz engatilhado no nível inicial padrão
     inicializarEstruturaQuiz('facil');
+    
+    // Deixa as medalhas visíveis com opacidade de bloqueio controlada via JS
+    document.getElementById('medalha-simulador').style.opacity = "0.6";
+    document.getElementById('medalha-quiz').style.opacity = "0.6";
+    document.getElementById('medalha-memoria').style.opacity = "0.6";
 });
