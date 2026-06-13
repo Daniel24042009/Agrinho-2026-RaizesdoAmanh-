@@ -1,550 +1,444 @@
 // ==========================================================================
-// CONTROLADOR DE NAVEGAÇÃO DE ABAS EXCLUSIVAS (SINCRONIZADO COM O SEU HTML)
+// 1. CONTROLADOR DE NAVEGAÇÃO DE ABAS EXCLUSIVAS (SPA)
 // ==========================================================================
 function irParaAba(nomeAba) {
+    // Esconde todas as abas funcionais (.view-pane) e desativa botões (.nav-btn)
     document.querySelectorAll('.view-pane').forEach(content => content.classList.remove('active'));
     document.querySelectorAll('.nav-btn').forEach(button => button.classList.remove('active'));
     
+    // Ativa a aba atual e o botão correto
     const viewPane = document.getElementById(`view-${nomeAba}`);
     const navBtn = document.getElementById(`btn-tab-${nomeAba}`);
     
     if (viewPane) viewPane.classList.add('active');
     if (navBtn) navBtn.classList.add('active');
     
+    // Biblioteca dinâmica de títulos da barra superior
     const bibliotecaTitulos = {
         painel: ["Monitoramento de Impacto Agroecológico", "Tecnologia aplicada ao desenvolvimento sustentável da Escola do Campo rural."],
         agroecologia: ["Espaço de Capacitação Científica", "Visão detalhada e aprofundada das seis grandes diretrizes conservacionistas."],
-        licoes: ["Quiz e Avaliação Continuada", "Fixação teórica através de blocos de múltipla escolha integrados."],
+        licoes: ["Quiz e Avaliação Continuada", "Fixação teórica através de blocos de múltipla escolha em três níveis."],
         materiais: ["Central de Recursos Didáticos", "Visualização integrada de acervos científicos públicos sem links externos."],
-        desafios: ["Módulos de Gamificação Prática", "Lógica de computação e pareamento para memorização biológica activa."],
-        progresso: ["Painel de Métricas e Resultados", "Análise de evolução conceitual obtida nos simuladores computadorizados."]
+        desafios: ["Módulos de Gamificação Ativa", "Consolidação de conceitos através de dinâmicas de programação e memória."]
     };
-    
+
     if (bibliotecaTitulos[nomeAba]) {
-        document.getElementById('page-title').innerText = bibliotecaTitulos[nomeAba][0];
-        document.getElementById('page-subtitle').innerText = bibliotecaTitulos[nomeAba][1];
-    }
-    
-    if (nomeAba === 'desafios') {
-        inicializarJogo();
-    }
-    if (nomeAba === 'progresso') {
-        desenharGrafico();
-        verificarConquistas();
-        atualizarRanking();
-    }
-}
-
-// Inicializações ao carregar
-document.addEventListener("DOMContentLoaded", () => {
-    carregarProgressoSalvo();
-    executarDiagnostico();
-});
-
-// Banco de dados de estado para persistência local
-let dadosUsuario = {
-    notaSimulador: 0,
-    acertosQuiz: 0,
-    jogoCompleto: false
-};
-
-function salvarNoNavegador() {
-    localStorage.setItem('raizesAmanha_progresso', JSON.stringify(dadosUsuario));
-}
-
-function carregarProgressoSalvo() {
-    const salvo = localStorage.getItem('raizesAmanha_progresso');
-    if (salvo) {
-        dadosUsuario = JSON.parse(salvo);
-        document.getElementById('metric-quiz').innerText = `${dadosUsuario.acertosQuiz}/30`;
+        document.getElementById('dinamico-titulo-aba').innerText = bibliotecaTitulos[nomeAba][0];
+        document.getElementById('dinamico-subtitulo-aba').innerText = bibliotecaTitulos[nomeAba][1];
     }
 }
 
 // ==========================================================================
-// 1. SIMULADOR DE DIAGNÓSTICO
+// 2. SISTEMA DE CAPACITAÇÃO E MODAIS DIÁLOGOS INJETADOS
 // ==========================================================================
-function ejecutarDiagnostico() {
-    const solo = document.getElementById('solo').value;
-    const agua = document.getElementById('agua').value;
-    const insumos = document.getElementById('insumos').value;
-    const biodiversidade = document.getElementById('biodiversidade').value;
-    
-    let nota = 0;
-    if (solo === 'excelente') nota += 25; else if (solo === 'alto') nota += 18; else if (solo === 'medio') nota += 10; else nota += 3;
-    if (agua === 'excelente') nota += 25; else if (agua === 'alto') nota += 18; else if (agua === 'medio') nota += 10; else nota += 3;
-    if (insumos === 'excelente') nota += 25; else if (insumos === 'alto') nota += 18; else if (insumos === 'medio') nota += 10; else nota += 3;
-    if (biodiversidade === 'excelente') nota += 25; else if (biodiversidade === 'alto') nota += 18; else if (biodiversidade === 'medio') nota += 10; else nota += 3;
-
-    document.getElementById('pontos-valor').innerText = nota;
-    document.getElementById('metric-simulador').innerText = nota + "%";
-
-    document.getElementById('pct-cultivo').innerText = Math.round(nota * 0.9) + "%";
-    document.getElementById('bar-cultivo').style.width = Math.round(nota * 0.9) + "%";
-    document.getElementById('pct-ambiental').innerText = Math.round(nota * 1.0) + "%";
-    document.getElementById('bar-ambiental').style.width = Math.round(nota * 1.0) + "%";
-    document.getElementById('pct-gestao').innerText = Math.round(nota * 0.85) + "%";
-    document.getElementById('bar-gestao').style.width = Math.round(nota * 0.85) + "%";
-
-    const badge = document.getElementById('status-badge');
-    const detalheBox = document.getElementById('resultado-diagnostico-detalhe');
-    detalheBox.style.display = "block";
-
-    if (nota >= 80) {
-        badge.className = "pill-status state-active"; badge.innerText = "EXCELENTE";
-        detalheBox.className = "output-alert bom";
-        detalheBox.innerHTML = `<strong>✨ Índice Impecável: ${nota}%</strong><br>Propriedade modelo! Os manejos adotados conservam a macroestrutura rústica do solo.`;
-    } else if (nota >= 50) {
-        badge.className = "pill-status state-wait"; badge.innerText = "REGULAR";
-        detalheBox.className = "output-alert alerta";
-        detalheBox.innerHTML = `<strong>🌿 Índice Intermediário: ${nota}%</strong><br>Atenção às recomendações técnicas. É viável expandir o plantio direto.`;
-    } else {
-        badge.className = "pill-status state-wait"; badge.innerText = "ALERTA CRÍTICO";
-        detalheBox.className = "output-alert perigo";
-        detalheBox.innerHTML = `<strong>⚠️ Risco Severo Detectado: ${nota}%</strong><br>Alto índice de degradação estrutural.`;
-    }
-
-    dadosUsuario.notaSimulador = nota;
-    salvarNoNavegador();
-}
-
-// ==========================================================================
-// 2. INFOGRÁFICOS DO POPUP (CONTEÚDO DO ACERVO DIGITAL DA UFPR)
-// ==========================================================================
-const dadosEmbrapaPopups = {
-    rotacao: {
-        titulo: "🔄 Rotação de Culturas e Cobertura",
-        intro: "Prática baseada no plantio alternado e planejado de diferentes vegetações ao longo das safras na mesma área geográfica. Evita que o solo sofra exaustão por extração repetitiva dos mesmos micronutrientes.",
-        beneficios: ["Interrompe o ciclo biológico reprodutivo de pragas e nematoides.", "Melhora significativamente a macroestrutura física do solo através de diferentes sistemas radiculares.", "Aumenta a infiltração de água e reduz drasticamente a erosão laminar."],
-        exemplo: "1º Ano: Milho (explora o solo e gera palhada) → 2º Ano: Soja (fixa nitrogênio) → 3º Ano: Plantas de Cobertura (Braquiária, Milheto, Crotalária e Nabo Forrageiro)."
+const bdsDiretrizesAgroecologicas = {
+    "cobertura": {
+        titulo: "Cobertura Permanente do Solo",
+        sub: "Proteção mecânica e manutenção térmica da microvida",
+        corpo: "A manutenção do solo coberto, seja por palhada residual (plantio direto) ou por plantas de cobertura, reduz drasticamente o impacto direto das gotas de chuva, mitigando a erosão laminar. Além disso, funciona como um isolante térmico que conserva a humidade e favorece a proliferação de microrganismos benéficos nas camadas superficiais.",
+        tag: "Solo e Água"
     },
-    adubacao: {
-        titulo: "🌱 Adubação Verde e Cobertura Viva",
-        intro: "Utilização estratégica de plantas cultivadas, principalmente leguminosas, que realizam simbiose natural com bactérias fixadoras para capturar o nitrogênio presente na atmosfera e injetá-lo diretamente na terra.",
-        beneficios: ["Fixação biológica de Nitrogênio puro a custo zero.", "Proteção mecânica contra o impacto direto das gotas de chuva (evita selamento superficial).", "Aumento expressivo no teor de matéria orgânica e carbono a longo prazo."],
-        exemplo: "Semeadura direta de Crotalária ou Feijão-de-porco nas janelas de entressafras. Solo coberto, solo protegido!"
+    "policultivo": {
+        titulo: "Policultivos e Rotação de Culturas",
+        sub: "Quebra de ciclos de pragas e sinergia de nutrientes",
+        corpo: "Cultivar múltiplas espécies na mesma área diversifica o sistema radicular, melhorando a estrutura física do solo. A inclusão de leguminosas fixa o nitrogénio atmosférico biologicamente, enquanto a rotação sistemática interrompe o ciclo reprodutivo de pragas e patógenos específicos de uma única cultura.",
+        tag: "Biodiversidade"
     },
-    mip: {
-        titulo: "🐞 MIP - Manejo Integrado de Pragas",
-        intro: "Conjunto ecológico de tomada de decisões que monitora as populações de pragas econômicas. Só autoriza intervenção direta quando os danos ultrapassam o custo do controle, priorizando os inimigos naturais e bioinseticidas.",
-        beneficios: ["Redução drástica no custo de aquisição de defensivos químicos sintéticos.", "Preservação de predadores benéficos (como joaninhas e tesourinhas).", "Reduz riscos de intoxicação na comunidade escolar e familiar."],
-        exemplo: "Uso de armadilhas biológicas de feromônios e liberação assistida de microvespas parasitoides."
+    "insumos": {
+        titulo: "Redução e Substituição de Insumos Químicos",
+        sub: "Transição para bioinsumos e caldas protetoras naturais",
+        corpo: "Esta diretriz foca na diminuição gradual de fertilizantes sintéticos de alta solubilidade e pesticidas químicos, substituindo-os por compostagem orgânica, biofertilizantes líquidos, inoculantes microbianos e extratos botânicos. O objetivo é restaurar o equilíbrio biológico sem criar dependência externa.",
+        tag: "Defesa Biológica"
     },
-    safs: {
-        titulo: "🌳 Sistemas Agroflorestais (SAFs)",
-        intro: "Abordagem produtiva pioneira que mimetiza a arquitetura e a dinâmica biológica de uma floresta nativa, integrando no mesmo arranjo árvores altas, frutíferas, culturas anuais e/ou criação animal.",
-        beneficios: ["Ciclagem profunda de nutrientes capturados por raíces arbóreas.", "Múltiplas fontes de renda na mesma área (madeira, frutas e grãos).", "Criação de microclimas amenos que protegem as plantas contra secas severas."],
-        exemplo: "Consórcio de linhas de eucalipto ou árvores nativas com faixas produtivas de café, milho ou pastagens."
+    "agrofloresta": {
+        titulo: "Sistemas Agroflorestais (SAFs)",
+        sub: "Integração vertical e mimetismo estrutural da floresta",
+        corpo: "Os SAFs consorciam árvores perenes com culturas anuais e/ou criação de animais. Esta organização mimetiza a estratificação de uma floresta natural, otimizando a captação de energia solar em diferentes níveis, reciclando nutrientes profundos através das raízes das árvores e gerando microclimas estáveis.",
+        tag: "Sistemas Complexos"
     },
-    nascentes: {
-        titulo: "💧 Recuperação e Proteção de Nascentes",
-        intro: "Intervenção mecânica imediata nas Áreas de Preservação Permanente (APPs) para blindar os olhos d'água contra fontes de contaminação e compactação severas causadas pelo livre trânsito de animais de grande porte.",
-        beneficios: ["Garantia de vazão contínua e pureza física da água consumida.", "Retorno natural da vegetação ciliar nativa no entorno imediato.", "Evita o assoreamento de córregos e riachos da microbacia."],
-        exemplo: "Instalação de cercas rígidas num raio mínimo de 50 metros e plantio manual de mudas nativas da região."
+    "agua": {
+        titulo: "Manejo Ecológico da Água",
+        sub: "Captação, infiltração localizada e conservação de microbacias",
+        corpo: "Estratégia focada em desacelerar o escoamento superficial da água através de curvas de nível, cordões de vegetação e bacias de retenção (barragens subterrâneas). Promove a infiltração profunda para recarga de lençóis freáticos e utiliza sistemas de irrigação supereficientes, como a microaspersão gotejada.",
+        tag: "Recursos Hídricos"
     },
-    curvas: {
-        titulo: "🚜 Curvas de Nível e Terraceamento",
-        intro: "Técnicas milenares de engenharia rústica que consistem in identificar as linhas de mesma altitude em encostas e construir barreiras ou degraus para quebrar a força gravitacional de descida das enxurradas.",
-        beneficios: ["Retém a água na lavoura, forçando sua infiltração lenta no lençol freático.", "Impeça o arraste da camada fértil superficial do solo.", "Elimina de forma absoluta a formação de voçorocas e sulcos erosivos."],
-        exemplo: "Marcação de terrenos inclinados com pé-de-galinha ou nível de mangueira para construção de terraços de retenção."
+    "comunidades": {
+        titulo: "Socioecologia e Circuitos Curtos de Comercialização",
+        sub: "Valorização do saber local, soberania alimentar e mercados de proximidade",
+        corpo: "A agroecologia transcende a técnica agrícola; ela integra o bem-estar humano. Fortalece cooperativas familiares, apoia feiras ecológicas locais, reduz a pegada de carbono do transporte de alimentos e promove a soberania alimentar, garantindo que a comunidade rural se mantenha autossuficiente e economicamente viável.",
+        tag: "Socioeconomia"
     }
 };
 
-function mostrarModal(idAlvo) {
-    const item = dadosEmbrapaPopups[idAlvo];
-    if (!item) return;
-    
-    let bulletListHtml = "";
-    item.beneficios.forEach(b => {
-        bulletListHtml += `<li style="margin-bottom:6px;">🔹 ${b}</li>`;
-    });
-    
-    const layoutInjetado = `
-        <div style="border-bottom:1px solid var(--border-gray); padding-bottom:12px; margin-bottom:16px;">
-            <h2 style="color:var(--primary-green); font-weight:800;">${item.titulo}</h2>
+function dispararModalInjetado(chaveDiretriz) {
+    const alvo = bdsDiretrizesAgroecologicas[chaveDiretriz];
+    if (!alvo) return;
+
+    const templateHtml = `
+        <span class="tech-tag" style="margin-bottom:12px;">${alvo.tag}</span>
+        <h2 style="color:var(--primary-green); font-weight:800; margin-bottom:6px;">${alvo.titulo}</h2>
+        <h4 style="color:var(--text-light); font-weight:600; margin-bottom:20px; font-size:0.95rem;">${alvo.sub}</h4>
+        <div style="line-height:1.6; color:var(--text-dark); font-size:0.92rem; text-align:justify; background:#f8faf9; padding:20px; border-radius:10px; border:1px solid var(--border-gray);">
+            ${alvo.corpo}
         </div>
-        <div style="background:#f4f7f5; padding:14px; border-radius:8px; font-size:0.9rem; line-height:1.5; margin-bottom:16px; color:var(--text-dark);">${item.intro}</div>
-        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:20px;">
-            <div>
-                <h4 style="color:var(--primary-green); margin-bottom:8px;">📌 Benefícios da Prática:</h4>
-                <ul style="list-style:none; padding:0; font-size:0.85rem; color:var(--text-light);">${bulletListHtml}</ul>
-            </div>
-            <div>
-                <h4 style="color:var(--primary-green); margin-bottom:8px;">🛠️ Como Funciona / Exemplo:</h4>
-                <p style="font-size:0.85rem; line-height:1.4; color:var(--text-light);">${item.exemplo}</p>
-                <div style="margin-top:14px; padding:10px; border-radius:6px; background:#e8f5e9; color:#2e7d32; font-size:0.78rem; font-weight:bold;">
-                    🌾 Mais vida no solo = Mais estabilidade econômica!
-                </div>
-            </div>
+        <div style="margin-top:25px; text-align:right;">
+            <button class="btn-primary" onclick="ocultarModal()">Entendido, Fechar</button>
         </div>
     `;
-    
-    document.getElementById('modal-content-injector').innerHTML = layoutInjetado;
+
+    document.getElementById('modal-content-injector').innerHTML = templateHtml;
     document.getElementById('global-modal-overlay').classList.remove('hidden');
 }
 
-function ocultarModal() { document.getElementById('global-modal-overlay').classList.add('hidden'); }
-function fecharModalPorCliqueFora(e) { if (e.target.id === 'global-modal-overlay') ocultarModal(); }
+function ocultarModal() {
+    document.getElementById('global-modal-overlay').classList.add('hidden');
+}
+
+function fecharModalPorCliqueFora(e) {
+    if (e.target.id === 'global-modal-overlay') {
+        ocultarModal();
+    }
+}
 
 // ==========================================================================
-// 3. QUIZ DE FIXAÇÃO CONTINUADA (30 QUESTÕES)
+// 3. MOTOR DO SIMULADOR DE DIAGNÓSTICO MATEMÁTICO (CORRIGIDO)
 // ==========================================================================
-const databaseQuestoes = {
-    facil: [
-        { q: "Qual o principal objetivo da rotação de culturas?", o: ["Desgastar o solo mais rápido", "Quebrar ciclos de pragas e doenças", "Usar apenas um tipo de adubo", "Aumentar o uso de químicos"], a: 1 },
-        { q: "O que é adubação verde?", o: ["Pintar as plantas de verde", "Uso de plantas específicas para melhorar o solo", "Aplicar fertilizante sintético", "Irrigar com água tratada"], a: 1 },
-        { q: "Qual inseto é um predador natural famoso no controle biológico (MIP)?", o: ["Lagarta-do-cartucho", "Joaninha", "Gafanhoto", "Cochonilha"], a: 1 },
-        { q: "As curvas de nível servem principalmente para evitar o quê?", o: ["A erosão provocada pelas chuvas", "O crescimento das plantas", "A presença de pássaros", "O vento excessivo"], a: 0 },
-        { q: "O que significa a sigla SAFs?", o: ["Sistemas Agroflorestais", "Sistemas de Adubação Forte", "Sustentabilidade Agrícola", "Associação de Produtores"], a: 0 },
-        { q: "Qual a distância mínima recomendada para proteger uma nascente?", o: ["5 metros", "10 metros", "50 metros", "2 metros"], a: 2 },
-        { q: "A palhada deixada sobre o solo ajuda a manter o quê?", o: ["O solo seco", "A umidade e a temperatura adequadas", "As pragas escondidas", "O solo compactado"], a: 1 },
-        { q: "As plantas leguminosas ajudam a fixar qual elemento no solo?", o: ["Oxigênio", "Nitrogênio", "Ferro", "Cálcio"], a: 1 },
-        { q: "O que o gado NÃO deve fazer na área de uma nascente protegida?", o: ["Ficar longe da cerca", "Pisotear e sujar a água", "Beber água fora da APP", "Sombra em árvores distantes"], a: 1 },
-        { q: "A agroecologia busca imitar o funcionamento de qual sistema?", o: ["Uma fábrica industrial", "A própria natureza", "Um laboratório químico", "Uma cidade urbana"], a: 1 }
-    ],
-    medio: [
-        { q: "No plantio consorciado de milho e soja, qual a vantagem da soja?", o: ["Sombra excessiva", "Fornecimento biológico de nitrogênio", "Atrair lagartas", "Produzir sementes inférteis"], a: 1 },
-        { q: "Qual a principal função do terraceamento em declives acentuados?", o: ["Facilitar o trânsito de pedestres", "Fracionar e reter o fluxo volumoso das enxurradas", "Aumentar a evaporação da água", "Estilizar a paisagem rústica"], a: 1 },
-        { q: "O nível econômico de dano no MIP serve para determinar o quê?", o: ["O preço final do grão no mercado", "O momento exato em que a praga causa prejuízo real justificando intervenção", "O custo do combustível do trator", "A quantidade de adubo por hectare"], a: 1 },
-        { q: "Qual elemento é central na transição agroecológica?", o: ["Uso massivo de sementes transgênicas", "Redução gradual de insumos sintéticos industriais", "Abandono total da rotação de culturas", "Aumento do desmatamento legal"], a: 1 },
-        { q: "Que benefício os Corredores Ecológicos trazem às propriedades?", o: ["Isolamento completo dos animais", "Livre trânsito e fluxo gênico da fauna silvestre entre fragmentos florestais", "Facilidade para queimar os campos", "Aumento da erosão nas margens"], a: 1 },
-        { q: "A 'cobertura morta' atua como barreira contra qual processo físico?", o: ["Compactação subterrânea pura", "Impacto direto das gotas de chuva evitando o selamento superficial", "Evaporação do lençol freático profundo", "Crescimento de raíces pivotantes"], a: 1 },
-        { q: "Por que árvores nativas são mantidas em pastagens no modelo sustentável?", o: ["Para atrapalhar o maquinário", "Proporcionar conforto térmico ao gado e reciclar nutrientes profundos", "Secar o solo ao redor", "Impedir o nascimento do capim"], a: 1 },
-        { q: "Qual destino correto deve ser dado às embalagens vazias de agrotóxicos?", o: ["Queimar nos fundos da propriedade", "Tríplice lavagem, perfuração e devolução nos centros credenciados", "Enterrar próximo ao riacho", "Reutilizar para guardar água de consumo"], a: 1 },
-        { q: "O dessecamento excessivo sem palhada expõe o solo a qual dano?", o: ["Lixiviação extrema provocada pelo vento e lixiviação hídrica imediata", "Aumento excessivo de matéria orgânica", "Crescimento espontâneo de árvores", "Encharcamento perpétuo"], a: 0 },
-        { q: "A compostagem transforma resíduos orgânicos em qual material?", o: ["Fertilizante químico solúvel", "Adubo estabilizado rico em húmus e nutrientes", "Defensivo sintético de alta potência", "Plástico biodegradável rígido"], a: 1 }
-    ],
-    dificil: [
-        { q: "Qual enzima bacteriana é responsável pela quebra do triplo enlace do N2 na fixação biológica?", o: ["Amilase bacteriana", "Nitrogenase", "Polimerase II", "Celulase termoativa"], a: 1 },
-        { q: "Como os Sistemas Agroflorestais mitigam as oscilações térmicas extremas no microclima?", o: ["Através do bombeamento hidráulico subterrâneo", "Pelo amortecimento térmico promovido pela densidade do dossel arbóreo", "Gerando correntes de vento térmicas", "Por reflexão total das radiações ultravioletas"], a: 1 },
-        { q: "O selamento superficial do solo (compactação da camada zero) decorre de qual dinâmica?", o: ["Energia cinética do impacto direto das gotas de chuva sobre a terra desnuda", "Crescimento radicular lateral de monoculturas", "Uso prolongado de adubação orgânica líquida", "Falta de minerais magnéticos no subsolo"], a: 0 },
-        { q: "Como a rotação de culturas altera as propriedades biológicas do solo?", o: ["Estilizando a estrutura molecular do oxigênio", "Exsudando compostos carbonados diversos que fomentam microbiota especializada benéfica", "Neutralizando permanentemente o pH natural", "Eliminando os macroorganismos decompositores"], a: 1 },
-        { q: "Qual a justificativa físico-química para a tríplice lavagem de embalagens?", o: ["Limpar o rótulo para facilitar a leitura", "Desprender mais de 99,9% dos resíduos químicos impregnados maximizando a descontaminação", "Alterar a composição molecular do plástico", "Permitir o reuso doméstico seguro do vasilhame"], a: 1 },
-        { q: "Na engenharia de solo, qual o princípio hidráulico das curvas de nível com terraços de retenção?", o: ["Acelerar o escoamento hídrico superficial direcionado", "Infiltrar a água por redução da energia potencial gravitacional do fluxo enxurrada", "Evaporar o excesso de chuva acumulada", "Drenar a umidade para fora da microbacia"], a: 1 },
-        { q: "Qual a principal limitação ecológica no uso continuado de bioinseticidas à base de Bacillus thuringiensis (Bt)?", o: ["Eles volatilizam rapidamente abaixo de 10°C", "Seleção de populações de pragas resistentes caso manejados sem rotação de princípios ativos", "Intoxicação severa de polinizadores como abelhas melíferas", "Incompatibilidade mecânica com pulverizadores de barra"], a: 1 },
-        { q: "A micorrização atua de qual forma nas raíces das culturas agrícolas?", o: ["Atacando tecidos celulares meristemáticos", "Expandindo a área de absorção hídrica e fosfática através de hifas fúngicas simbióticas", "Inibindo o crescimento de pelos absorventes", "Tornando as raízes impermeáveis"], a: 1 },
-        { q: "O processo de lixiviação consiste em qual fenômeno pedológico?", o: ["Acúmulo de palhada densa na superfície do terreno", "Lavagem e transporte de nutrientes solúveis rumo às camadas profundas pelo fluxo hídrico descendente", "Fixação estável de minerais nas argilas superficiais", "Subida capilar de sais minerais em épocas de estiagem"], a: 1 },
-        { q: "Qual a meta estrutural final de uma transição agroecológica complexa de nível 3?", o: ["Trocar um insumo comercial industrial por outro biológico isolado", "Redesenhar o agroecossistema para funcionar autonomamente mimetizando processos naturais", "Mecanizar totalmente as áreas de preservação florestal", "Substituir a lavoura por pastagem intensiva rotacionada"], a: 1 }
-    ]
-};
+function processarCalculoDiagnostico() {
+    const s1 = parseInt(document.getElementById('sim-cobertura').value) || 0;
+    const s2 = parseInt(document.getElementById('sim-policultivo').value) || 0;
+    const s3 = parseInt(document.getElementById('sim-insumos').value) || 0;
+    const s4 = parseInt(document.getElementById('sim-agrofloresta').value) || 0;
+    const s5 = parseInt(document.getElementById('sim-agua').value) || 0;
 
-let nivelQuizAtual = 'facil';
+    // Fórmula ponderada baseada nas metas de impacto sustentável do campo
+    const notaFinalPonderada = Math.round((s1 * 0.25) + (s2 * 0.20) + (s3 * 0.25) + (s4 * 0.15) + (s5 * 0.15));
+
+    // Atualização síncrona do DOM
+    document.getElementById('score-display-num').innerText = notaFinalPonderada;
+    document.getElementById('bar-fill-diagnostico').style.width = `${notaFinalPonderada}%`;
+    document.getElementById('metric-simulador').innerText = `${notaFinalPonderada}/100`;
+
+    const blocoFeedback = document.getElementById('output-feedback-box');
+    blocoFeedback.classList.remove('hidden');
+
+    if (notaFinalPonderada >= 80) {
+        blocoFeedback.className = "output-alert bom";
+        blocoFeedback.innerHTML = "<strong>🏆 Excelente Nível de Sustentabilidade:</strong> A propriedade adota práticas integradas de alto impacto ecológico. Recomenda-se manter a rotação e iniciar a certificação orgânica formal.";
+    } else if (notaFinalPonderada >= 50) {
+        blocoFeedback.className = "output-alert alerta";
+        blocoFeedback.innerHTML = "<strong>⚠️ Nível de Transição Agroecológica:</strong> Existem boas iniciativas locais, mas o sistema ainda apresenta dependência moderada ou pontos de vulnerabilidade contra erosão/escassez.";
+    } else {
+        blocoFeedback.className = "output-alert perigo";
+        blocoFeedback.innerHTML = "<strong>🚨 Alerta Crítico de Degradação:</strong> Manejo convencional agressivo detetado. Alta suscetibilidade à exaustão mineral do solo e perda severa de humidade. Intervenção imediata sugerida.";
+    }
+    
+    verificarEAtualizarTrofeus();
+}
+
+// ==========================================================================
+// 4. MOTOR DO QUIZ EM TRÊS NÍVEIS PROGRESSIVOS (30 QUESTÕES INTEGRADAS)
+// ==========================================================================
+const bancoQuestoesQuiz = [
+    // NÍVEL FÁCIL (Questões 1 a 10)
+    { nivel: "facil", q: "Qual o principal objetivo ecológico da cobertura permanente do solo?", o: ["Eliminar microrganismos", "Impedir a infiltração de ar", "Reduzir o impacto mecânico da chuva e reter humidade", "Facilitar a aração mecânica profunda"], a: 2 },
+    { nivel: "facil", q: "Como as leguminosas atuam na fertility do solo dentro de uma rotação de culturas?", o: ["Absorvem nitrogénio excessivo", "Fixam o nitrogénio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
+    { nivel: "facil", q: "O que caracteriza a 'erosão laminar' em solos sem proteção?", o: ["Abertura de crateras profundas", "A remoção uniforme da camada superficial mais rica em matéria orgânica", "A quebra de rochas profundas", "O aumento da fauna de minhocas"], a: 1 },
+    { nivel: "facil", q: "A diversificação biológica melhora a estabilidade económica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
+    { nivel: "facil", q: "As matas ciliares são fundamentais para os ecossistemas agrícolas porque:", o: ["Evitam o assoreamento de rios e filtram resíduos", "Serveme unicamente como divisórias", "Fornecem lenha de corte diário", "Absorvem água dos rios secando áreas"], a: 0 },
+    { nivel: "facil", q: "Qual a função da bioestrutura (agregados do solo) na agroecologia?", o: ["Impedir que as raízes respirem", "Garantir porosidade equilibrada para circulação de água e ar", "Tornar o solo impermeável", "Facilitar a lixiviação de minerais"], a: 1 },
+    { nivel: "facil", q: "O conceito de 'plantas companheiras' baseia-se em quê?", o: ["Espécies que competem por espaço", "Associações vegetais onde uma espécie beneficia a outra", "Plantas que devem ser colhidas juntas", "Espécies ornamentais sem valor"], a: 1 },
+    { nivel: "facil", q: "Em agroecologia, os insetos vulgarmente chamados 'pragas' são vistos como:", o: ["Inimigos que devem ser extintos", "Sinais indicadores de desequilíbrio ecológico no sistema", "Animais impossíveis de controlar", "Seres sem relevância trófica"], a: 1 },
+    { nivel: "facil", q: "O uso de adubos verdes (como a mucuna ou guandu) serve para:", o: ["Colorir o campo para ecoturismo", "Produzir biomassa, cobrir o solo e fixar/reciclar nutrientes", "Substituir a cultura principal", "Eliminar a necessidade de rotação"], a: 1 },
+    { nivel: "facil", q: "O que significa o termo 'período de carência' na aplicação de defensivos?", o: ["O tempo de germinação na sementeira", "O intervalo de segurança entre a aplicação e a colheita segura", "A falta de chuva ideal na adubação", "O tempo de repouso do trator"], a: 1 },
+
+    // NÍVEL MÉDIO (Questões 11 a 20)
+    { nivel: "medio", q: "A compostagem orgânica substitui fertilizantes sintéticos de alta solubilidade porque:", o: ["Liberta nutrientes de forma lenta e melhora a estrutura do solo", "Acidifica o solo matando insetos", "Contem hormonas de crescimento", "Evita a necessidade de irrigar"], a: 0 },
+    { nivel: "medio", q: "Por que os monocultivos extensivos são biologicamente mais vulneráveis a pragas?", o: ["Atraem mais polinizadores", "Falta luz solar entre as linhas", "Oferecem alimento abundante e homogéneo para uma única espécie", "Esgotam apenas a água superficial"], a: 2 },
+    { nivel: "medio", q: "O controle biológico conservacionista consiste em:", o: ["Introduzir espécies exóticas de laboratório", "Preservar e atrair predadores naturais já existentes no local", "Aplicar defensivos químicos nas bordas", "Isolar o campo com telas plásticas"], a: 1 },
+    { nivel: "medio", q: "A calda bordalesa é um insumo alternativo composto essencialmente por:", o: ["Cloro concentrado e detergente", "Sulfato de cobre, cal hidratada e água", "Petróleo bruto refinado", "Extrato concentrado de soja"], a: 1 },
+    { nivel: "medio", q: "Como funcionam os bioinsumos baseados em fungos entomopatogénicos (Beauveria bassiana)?", o: ["Queimam as folhas externamente", "Infetam e controlam insetos-alvo de forma específica", "Nutrem a planta pelos estômatos", "Repelem pássaros pelo odor"], a: 1 },
+    { nivel: "medio", q: "Qual a principal vantagem da estratificação vertical nos Sistemas Agroflorestais?", o: ["Impedir a entrada de vento", "Otimizar o uso da luz solar em diferentes alturas pelas plantas", "Facilitar a colheita mecanizada", "Reduzir a produção de matéria orgânica"], a: 1 },
+    { nivel: "medio", q: "Nos SAFs, o manejo por podas sistemáticas das árvores serve para:", o: ["Eliminar árvores velhas precocemente", "Estimular a entrada de luz e gerar biomassa para cobrir o solo", "Impedir que deem frutos pesados", "Diminuir a profundidade das raízes"], a: 1 },
+    { nivel: "medio", q: "O que diferencia um SAF de um reflorestamento comercial convencional (ex: eucalipto)?", o: ["O SAF utiliza apenas plantas importadas", "O SAF integra espécies florestais com culturas alimentares ou animais", "O reflorestamento não permite corte", "O SAF dispensa água da chuva"], a: 1 },
+    { nivel: "medio", q: "Como o cultivo em 'curvas de nível' atua na proteção dos recursos hídricos?", o: ["Acelera o escoamento da água", "Reduz a velocidade da água superficial, aumentando a infiltração", "Modifica a química da água da chuva", "Mantém o solo encharcado"], a: 1 },
+    { nivel: "medio", q: "A compactação do solo por tráfego pesado de máquinas afeta a água pois:", o: ["Aumenta o armazenamento de humidade", "Reduz a porosidade, impedindo a infiltração e gerando enxurradas", "Purifica a água eliminando argilas", "Acelera a evapotranspiração foliar"], a: 1 },
+
+    // NÍVEL DIFÍCIL (Questões 21 a 30)
+    { nivel: "dificil", q: "A introdução de árvores em pastagens (Sistemas Silvipastoris) traz qual benefício animal?", o: ["Redução do espaço de caminhada", "Conforto térmico através de sombra, melhorando a produtividade", "Alimentação baseada em folhas secas", "Aumento da velocidade de corrida"], a: 1 },
+    { nivel: "dificil", q: "Sistemas agroflorestais auxiliam na mitigação das mudanças climáticas globais através de:", o: ["Emissão controlada de enxofre", "Sequestro e fixação de carbono na biomassa lenhosa e no solo", "Reflexão total dos raios ultravioleta", "Diminuição da gravidade localizada"], a: 1 },
+    { nivel: "dificil", q: "Qual a desvantagem ecológica da irrigação por inundação contínua frente ao gotejamento?", o: ["Consumo mínimo de energia elétrica", "Desperdício severo de água e riscos de salinização do solo", "Impossibilidade de aplicar adubos", "Aumento da humidade do ar regional"], a: 1 },
+    { nivel: "dificil", q: "O que expressa o conceito de 'cisterna de calçadão' na agricultura familiar semiárida?", o: ["Estrutura urbana de águas cinzentas", "Tecnologia social para captar chuva escoada em superfícies cimentadas", "Canal aberto para drenar brejos", "Piscina decorativa de piscicultura"], a: 1 },
+    { nivel: "dificil", q: "O que define um 'circuito curto de comercialização' na venda de alimentos?", o: ["Vendas internacionais por corretoras", "A comercialização direta entre produtor e consumidor (feiras, cabazes)", "Contratos com redes multinacionais", "Troca exclusiva sem uso de moedas"], a: 1 },
+    { nivel: "dificil", q: "A 'Certificação Participativa' de produtos orgânicos baseia-se em:", o: ["Auditorias pagas a empresas isoladas", "Redes de confiança mútua entre produtores, técnicos e consumidores", "Testes químicos em cada lote", "Selos comprados em balcões estatais"], a: 1 },
+    { nivel: "dificil", q: "Como a transição agroecológica apoia a 'Soberania Alimentar' das comunidades?", o: ["Obriga a importação de sementes", "Garante autonomia na produção de alimentos e conservação de sementes crioulas", "Prioriza culturas de exportação", "Substitui hábitos tradicionais"], a: 1 },
+    { nivel: "dificil", q: "O êxodo rural de jovens nas comunidades rurais pode ser mitigado por:", o: ["Mecanização que elimine empregos", "Adoção de tecnologias sustentáveis, internet no campo e valorização do trabalho", "Fechamento de escolas rurais", "Proibição legal de migração"], a: 1 },
+    { nivel: "dificil", q: "A transição agroecológica difere da agricultura orgânica convencional simplificada porque:", o: ["Permite o uso oculto de venenos", "Propõe uma reestruturação ecológica integral do agroecossistema e das relações", "Foca unicamente na substituição de insumos", "Proíbe tecnologia digital"], a: 1 },
+    { nivel: "dificil", q: "Qual o papel ecológico dos microrganismos solubilizadores de fósforo no solo?", o: ["Tornar o fósforo fixado na terra disponível para as raízes naturalmente", "Produzir fósforo sintético na argila", "Substituir a necessidade de luz solar", "Reduzir o crescimento de ervas"], a: 0 }
+];
+
+let nivelAtual = "facil"; 
+let questoesFiltradas = [];
 let indiceQuestaoAtual = 0;
-let totalAcertosQuiz = 0;
+let scoreAcertosQuiz = 0;
+let scoreTotalGeral = 0; 
 
-function mudarNivelQuiz(novoNivel) {
-    nivelQuizAtual = novoNivel;
+function inicializarEstruturaQuiz(nivelEscolhido = "facil") {
+    nivelAtual = nivelEscolhido;
     indiceQuestaoAtual = 0;
-    document.getElementById('lbl-nivel-atual').innerText = novoNivel;
+    scoreAcertosQuiz = 0;
+    
+    // Filtro relacional de arrays com base no nível técnico do aluno
+    questoesFiltradas = bancoQuestoesQuiz.filter(q => q.nivel === nivelAtual);
+    
+    document.getElementById('quiz-painel-conclusao').classList.add('hidden');
+    document.getElementById('quiz-core-box').classList.remove('hidden');
+    
+    const nomesNiveis = { facil: "FÁCIL 🌱", medio: "MÉDIO 🌽", dificil: "DIFÍCIL 🌳" };
+    const badgeNivel = document.getElementById('quiz-nivel-badge');
+    if (badgeNivel) badgeNivel.innerText = `Nível: ${nomesNiveis[nivelAtual]}`;
+    
     renderizarQuestaoQuiz();
 }
 
 function renderizarQuestaoQuiz() {
-    const listaQuestoes = databaseQuestoes[nivelQuizAtual];
-    const dadosQuestao = listaQuestoes[indiceQuestaoAtual];
+    const dadosQuestao = questoesFiltradas[indiceQuestaoAtual];
     
-    const totalQ = listaQuestoes.length;
-    const porcentagem = ((indiceQuestaoAtual + 1) / totalQ) * 100;
-    document.getElementById('quiz-txt-progress').innerText = `Questão ${indiceQuestaoAtual + 1} de ${totalQ}`;
-    document.getElementById('quiz-bar-fill').style.width = `${porcentagem}%`;
-    
-    document.getElementById('quiz-question-title').innerText = dadosQuestao.q;
-    
-    const caixaOpcoes = document.getElementById('quiz-options-box');
-    caixaOpcoes.innerHTML = "";
-    
-    dadosQuestao.o.forEach((opcao, indice) => {
-        const btn = document.createElement('button');
-        btn.innerText = opcao;
-        btn.style.cssText = "width:100%; text-align:left; padding:12px 16px; border:1px solid var(--border-gray); border-radius:8px; background:#fff; cursor:pointer; display:block; font-size: 0.9rem;";
-        btn.onclick = () => checarRespostaQuiz(indice, btn);
-        caixaOpcoes.appendChild(btn);
+    document.getElementById('quiz-txt-progresso').innerText = `Questão ${indiceQuestaoAtual + 1} de ${questoesFiltradas.length}`;
+    const percentagemProgresso = ((indiceQuestaoAtual + 1) / questoesFiltradas.length) * 100;
+    document.getElementById('quiz-bar-progress-fill').style.width = `${percentagemProgresso}%`;
+
+    document.getElementById('quiz-pergunta-texto').innerText = dadosQuestao.q;
+
+    const containerOpcoes = document.getElementById('quiz-container-opcoes');
+    containerOpcoes.innerHTML = "";
+
+    dadosQuestao.o.forEach((opcaoTexto, idOpcao) => {
+        const elementoBotao = document.createElement('button');
+        elementoBotao.className = "quiz-opcao-btn";
+        elementoBotao.innerText = opcaoTexto;
+        elementoBotao.onclick = () => avaliarRespostaSelecionada(idOpcao, elementoBotao);
+        containerOpcoes.appendChild(elementoBotao);
     });
-    
-    document.getElementById('btn-next-question').disabled = true;
 }
 
-function checarRespostaQuiz(indiceSelecionado, elementoClicado) {
-    const listaQuestoes = databaseQuestoes[nivelQuizAtual];
-    const respostaCorreta = listaQuestoes[indiceQuestaoAtual].a;
-    const todosBotoes = document.getElementById('quiz-options-box').querySelectorAll('button');
-    
-    todosBotoes.forEach(b => b.disabled = true);
-    
-    if (indiceSelecionado === respostaCorreta) {
-        elementoClicado.style.background = "#e8f5e9";
-        elementoClicado.style.borderColor = "#2e7d32";
-        totalAcertosQuiz++;
-        dadosUsuario.acertosQuiz = Math.max(dadosUsuario.acertosQuiz, totalAcertosQuiz);
-        salvarNoNavegador();
+function avaliarRespostaSelecionada(idSelecionado, botaoClicado) {
+    const dadosQuestao = questoesFiltradas[indiceQuestaoAtual];
+    const todosBotoes = document.querySelectorAll('.quiz-opcao-btn');
+    todosBotoes.forEach(btn => btn.disabled = true);
+
+    if (idSelecionado === dadosQuestao.a) {
+        botaoClicado.classList.add('correta');
+        scoreAcertosQuiz++;
+        scoreTotalGeral++;
     } else {
-        elementoClicado.style.background = "#ffebee";
-        elementoClicado.style.borderColor = "#c62828";
-        todosBotoes[respostaCorreta].style.background = "#e8f5e9";
+        botaoClicado.classList.add('errada');
+        todosBotoes[dadosQuestao.a].classList.add('correta');
     }
-    
-    document.getElementById('metric-quiz').innerText = `${dadosUsuario.acertosQuiz}/30`;
-    document.getElementById('btn-next-question').disabled = false;
+
+    setTimeout(() => {
+        indiceQuestaoAtual++;
+        if (indiceQuestaoAtual < questoesFiltradas.length) {
+            renderizarQuestaoQuiz();
+        } else {
+            finalizarExibicaoNivelQuiz();
+        }
+    }, 1200);
 }
 
-function proximaQuestao() {
-    const listaQuestoes = databaseQuestoes[nivelQuizAtual];
-    indiceQuestaoAtual++;
-    
-    if (indiceQuestaoAtual < listaQuestoes.length) {
-        renderizarQuestaoQuiz();
+function finalizarExibicaoNivelQuiz() {
+    document.getElementById('quiz-core-box').classList.add('hidden');
+    const painelFim = document.getElementById('quiz-painel-conclusao');
+    painelFim.classList.remove('hidden');
+
+    document.getElementById('quiz-score-final').innerText = `${scoreAcertosQuiz} / ${questoesFiltradas.length}`;
+    document.getElementById('metric-quiz').innerText = `${scoreTotalGeral}/30`;
+
+    const txtAnalise = document.getElementById('quiz-analise-texto');
+    const containerAcao = document.getElementById('quiz-acao-container');
+    if (containerAcao) containerAcao.innerHTML = ""; 
+
+    if (nivelAtual === "facil") {
+        txtAnalise.innerText = `Parabéns! Completaste o Nível Fácil com ${scoreAcertosQuiz} acertos. Estás pronto para elevar o nível técnico e avançar para os desafios do ecossistema Médio?`;
+        if (containerAcao) containerAcao.innerHTML = `<button class="btn-primary" onclick="inicializarEstruturaQuiz('medio')">Avançar para o Nível Médio 🌽</button>`;
+    } else if (nivelAtual === "medio") {
+        txtAnalise.innerText = `Excelente progresso! O nível Médio foi concluído com ${scoreAcertosQuiz} acertos nesta fase. Agora resta o último e mais complexo desafio: o Nível Difícil.`;
+        if (containerAcao) containerAcao.innerHTML = `<button class="btn-primary" onclick="inicializarEstruturaQuiz('dificil')">Avançar para o Nível Difícil 🌳</button>`;
     } else {
-        alert(`🎉 Nível ${nivelQuizAtual.toUpperCase()} finalizado!`);
-        indiceQuestaoAtual = 0;
-        renderizarQuestaoQuiz();
+        txtAnalise.innerText = `Fim da Jornada Científica! Percorreste todas as 30 perguntas da plataforma. Pontuação acumulada final: ${scoreTotalGeral} de 30 acertos.`;
+        if (containerAcao) containerAcao.innerHTML = `<button class="btn-secondary" onclick="resetarQuizCompleto()">Reiniciar Todo o Quiz 🌱</button>`;
     }
+    
+    verificarEAtualizarTrofeus();
 }
-setTimeout(() => { if(document.getElementById('quiz-question-title')) renderizarQuestaoQuiz(); }, 500);
 
-// ==========================================================================
-// 4. CENTRAL DE MÍDIAS
-// ==========================================================================
-function abrirMidia(tipoMidia) {
-    const container = document.getElementById('media-viewport-container');
-    const box = document.getElementById('media-frame-box');
-    const titulo = document.getElementById('media-viewport-title');
-    
-    container.style.display = "block";
-    box.innerHTML = "";
-    
-    if (tipoMidia === 'pdf') {
-        titulo.innerHTML = "📄 Livro Técnico: Conservando os Solos (Manual do Acervo Digital da UFPR)";
-        const urlPdf = "https://acervodigital.ufpr.br/xmlui/bitstream/handle/1884/85232/Conservando_os_solos.pdf?sequence=1&isAllowed=y";
-        box.innerHTML = `<iframe src="https://docs.google.com/gview?url=${encodeURIComponent(urlPdf)}&embedded=true" style="width:100%; height:100%; border:none;"></iframe>`;
-    } else if (tipoMidia === 'video') {
-        titulo.innerHTML = "🎥 Videoaula Prática: Preservação de Nascentes Rurais";
-        box.innerHTML = `<iframe src="https://www.youtube.com/embed/FHraCDyIhrI" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>`;
-    }
-    container.scrollIntoView({ behavior: 'smooth' });
-}
-function fecharMidia() {
-    document.getElementById('media-viewport-container').style.display = "none";
-    document.getElementById('media-frame-box').innerHTML = "";
+function resetarQuizCompleto() {
+    scoreTotalGeral = 0;
+    inicializarEstruturaQuiz('facil');
 }
 
 // ==========================================================================
-// 5. JOGO DA MEMÓRIA
+// 5. MÓDULO GAMIFICADO: JOGO DA MEMÓRIA (FISHER-YATES ENGENHARIA)
 // ==========================================================================
 const cartasMemoriaOriginais = [
-    { nome: "Plantio Direto", icone: "🚜" }, { nome: "Plantio Direto", icone: "🚜" },
-    { nome: "Adubação Verde", icone: "🌿" }, { nome: "Adubação Verde", icone: "🌿" },
-    { nome: "Rotação Culturas", icone: "🔄" }, { nome: "Rotação Culturas", icone: "🔄" },
-    { nome: "Controle Biológico", icone: "🐞" }, { nome: "Controle Biológico", icone: "🐞" },
-    { nome: "Mata Ciliar", icone: "🌳" }, { nome: "Mata Ciliar", icone: "🌳" },
-    { nome: "Cerca de Proteção", icone: "💧" }, { nome: "Cerca de Proteção", icone: "💧" }
+    { nome: "Solo Protegido", icon: "🌱" }, { nome: "Solo Protegido", icon: "🌱" },
+    { nome: "Policultivo", icon: "🌽" },    { nome: "Policultivo", icon: "🌽" },
+    { nome: "Bioinsumo", icon: "🧪" },      { nome: "Bioinsumo", icon: "🧪" },
+    { nome: "Agrofloresta", icon: "🌳" },   { nome: "Agrofloresta", icon: "🌳" },
+    { nome: "Água Conservada", icon: "💧" }, { nome: "Água Conservada", icon: "💧" },
+    { nome: "Comunidade", icon: "🏡" },     { nome: "Comunidade", icon: "🏡" }
 ];
+
 let vetorTemporarioCartas = [];
 let jogadasEfetuadas = 0;
-let segundosJogo = 0;
 let timerIdInterv = null;
+let segundosCorridos = 0;
 let jogoIniciado = false;
 
-function embaralharFisherYates(array) {
-    let m = array.length, t, i;
-    while (m) {
-        i = Math.floor(Math.random() * m--);
-        t = array[m]; array[m] = array[i]; array[i] = t;
-    }
-    return array;
-}
-function iniciarTimerJogo() {
-    if (jogoIniciado) return;
+function iniciarNovoJogoMemoria() {
+    vetorTemporarioCartas = [];
+    jogadasEfetuadas = 0;
+    segundosCorridos = 0;
     jogoIniciado = true;
-    segundosJogo = 0;
+    
+    document.getElementById('moves-val').innerText = "0";
+    document.getElementById('timer-val').innerText = "0s";
+    
     clearInterval(timerIdInterv);
     timerIdInterv = setInterval(() => {
-        segundosJogo++;
-        const mins = String(Math.floor(segundosJogo / 60)).padStart(2, '0');
-        const secs = String(segundosJogo % 60).padStart(2, '0');
-        document.getElementById('timer-val').innerText = `${mins}:${secs}`;
+        segundosCorridos++;
+        document.getElementById('timer-val').innerText = `${segundosCorridos}s`;
     }, 1000);
-}
-function inicializarJogo() {
-    clearInterval(timerIdInterv);
-    document.getElementById('timer-val').innerText = "00:00";
-    document.getElementById('moves-val').innerText = "0";
-    jogadasEfetuadas = 0; jogoIniciado = false; vetorTemporarioCartas = [];
-    
-    const cartasEmbaralhadas = embaralharFisherYates([...cartasMemoriaOriginais]);
-    const canvas = document.getElementById('canvas-tabuleiro-memoria');
-    canvas.innerHTML = "";
-    
-    cartasEmbaralhadas.forEach(item => {
-        const bloco = document.createElement('div');
-        bloco.className = "memory-tile"; 
-        bloco.innerHTML = `
-            <div class="tile-back">🌱</div>
-            <div class="tile-front" style="display:none; flex-direction:column; align-items:center; justify-content:center; height:100%; font-weight:700;">
-                <span style="font-size:1.6rem; margin-bottom:4px;">${item.icone}</span>
-                <span style="font-size:0.75rem; color:var(--primary-green); text-align:center;">${item.nome}</span>
-            </div>
-        `;
-        bloco.onclick = () => virarCartaTabuleiro(bloco, item);
-        canvas.appendChild(bloco);
+
+    const cartasEmbaralhadas = [...cartasMemoriaOriginais];
+    for (let i = cartasEmbaralhadas.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cartasEmbaralhadas[i], cartasEmbaralhadas[j]] = [cartasEmbaralhadas[j], cartasEmbaralhadas[i]];
+    }
+
+    const canvasGrade = document.getElementById('memory-canvas');
+    canvasGrade.innerHTML = "";
+
+    cartasEmbaralhadas.forEach(objetoDado => {
+        const elementoCarta = document.createElement('div');
+        elementoCarta.className = "memory-tile";
+        
+        const faceVerso = document.createElement('div');
+        faceVerso.className = "tile-back";
+        faceVerso.innerText = "？";
+
+        const faceFrente = document.createElement('div');
+        faceFrente.className = "tile-front";
+        faceFrente.style.display = "none";
+        faceFrente.style.flexDirection = "column";
+        faceFrente.style.alignItems = "center";
+        faceFrente.style.justifyContent = "center";
+        faceFrente.innerHTML = `<span style="font-size:2rem; margin-bottom:4px;">${objetoDado.icon}</span><span style="font-size:0.65rem; font-weight:700; text-transform:uppercase; color:var(--primary-green); text-align:center;">${objetoDado.nome}</span>`;
+
+        elementoCarta.appendChild(faceVerso);
+        elementoCarta.appendChild(faceFrente);
+
+        elementoCarta.onclick = () => gerirCliqueCartaMemoria(elementoCarta, objetoDado);
+        canvasGrade.appendChild(elementoCarta);
     });
 }
-function virarCartaTabuleiro(elementoCarta, objetoDado) {
-    if (elementoCarta.classList.contains('flipped') || elementoCarta.classList.contains('matched') || vetorTemporarioCartas.length >= 2) return;
-    iniciarTimerJogo();
+
+function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
+    if (!jogoIniciado) return;
+    if (elementoCarta.classList.contains('flipped') || elementoCarta.classList.contains('matched')) return;
+    if (vetorTemporarioCartas.length >= 2) return;
+
     elementoCarta.classList.add('flipped');
     elementoCarta.querySelector('.tile-back').style.display = "none";
     elementoCarta.querySelector('.tile-front').style.display = "flex";
-    
+
     vetorTemporarioCartas.push({ el: elementoCarta, d: objetoDado });
     
     if (vetorTemporarioCartas.length === 2) {
         jogadasEfetuadas++;
         document.getElementById('moves-val').innerText = jogadasEfetuadas;
+        
         if (vetorTemporarioCartas[0].d.nome === vetorTemporarioCartas[1].d.nome) {
             vetorTemporarioCartas[0].el.classList.add('matched');
             vetorTemporarioCartas[1].el.classList.add('matched');
             vetorTemporarioCartas = [];
+            
             if (document.querySelectorAll('.memory-tile.matched').length === cartasMemoriaOriginais.length) {
                 clearInterval(timerIdInterv);
-                dadosUsuario.jogoCompleto = true;
-                salvarNoNavegador();
-                setTimeout(() => { alert("🎉 Jogo concluído com sucesso!"); }, 400);
+                jogoIniciado = false;
+                setTimeout(() => { 
+                    alert(`🎉 Vitória! Missão computacional completada em ${jogadasEfetuadas} jogadas e ${segundosCorridos} segundos!`); 
+                    verificarEAtualizarTrofeus();
+                }, 400);
             }
         } else {
             setTimeout(() => {
                 vetorTemporarioCartas[0].el.classList.remove('flipped');
                 vetorTemporarioCartas[0].el.querySelector('.tile-back').style.display = "flex";
                 vetorTemporarioCartas[0].el.querySelector('.tile-front').style.display = "none";
+                
                 vetorTemporarioCartas[1].el.classList.remove('flipped');
                 vetorTemporarioCartas[1].el.querySelector('.tile-back').style.display = "flex";
                 vetorTemporarioCartas[1].el.querySelector('.tile-front').style.display = "none";
                 vetorTemporarioCartas = [];
-            }, 900);
+            }, 1000);
         }
     }
 }
 
 // ==========================================================================
-// 6. NOVOS RECURSOS: GRÁFICO CANVAS, MEDALHAS, RANKING E CERTIFICADO
+// 6. CONTROLADOR DINÂMICO DE CONQUISTAS AND MEDALHAS
 // ==========================================================================
-function desenharGrafico() {
-    const canvas = document.getElementById("graficoDesempenho");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+function verificarEAtualizarTrofeus() {
+    const medalhaSimulador = document.getElementById('medalha-simulador');
+    if (medalhaSimulador) {
+        const s1 = parseInt(document.getElementById('sim-cobertura').value) || 0;
+        const s2 = parseInt(document.getElementById('sim-policultivo').value) || 0;
+        const s3 = parseInt(document.getElementById('sim-insumos').value) || 0;
+        const s4 = parseInt(document.getElementById('sim-agrofloresta').value) || 0;
+        const s5 = parseInt(document.getElementById('sim-agua').value) || 0;
+        const notaSim = Math.round((s1 * 0.25) + (s2 * 0.20) + (s3 * 0.25) + (s4 * 0.15) + (s5 * 0.15));
 
-    const dados = [dadosUsuario.notaSimulador, (dadosUsuario.acertosQuiz / 30) * 100, dadosUsuario.jogoCompleto ? 100 : 0];
-    const labels = ["Simulador", "Quiz", "Jogo"];
-    const cores = ["#97cc52", "#2e7d32", "#0f271c"];
-
-    // Desenha as Barras do Gráfico em 2D Puro
-    for (let i = 0; i < dados.length; i++) {
-        const x = 50 + (i * 110);
-        const alturaBarra = (dados[i] / 100) * 140;
-        const y = 180 - alturaBarra;
-
-        // Caixa da Barra
-        ctx.fillStyle = cores[i];
-        ctx.fillRect(x, y, 60, alturaBarra);
-
-        // Texto da Porcentagem acima da barra
-        ctx.fillStyle = "#1d2d24";
-        ctx.font = "bold 12px 'Plus Jakarta Sans'";
-        ctx.fillText(Math.round(dados[i]) + "%", x + 15, y - 8);
-
-        // Rótulo abaixo da barra
-        ctx.font = "600 11px 'Plus Jakarta Sans'";
-        ctx.fillText(labels[i], x + 5, 200);
+        if (notaSim >= 80) {
+            medalhaSimulador.classList.remove('bloqueada');
+            medalhaSimulador.classList.add('desbloqueada');
+            medalhaSimulador.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
+        }
     }
 
-    // Linha de Base do Gráfico
-    ctx.strokeStyle = "#e2e9e4";
-    ctx.beginPath();
-    ctx.moveTo(30, 180);
-    ctx.lineTo(380, 180);
-    ctx.stroke();
-}
+    const medalhaQuiz = document.getElementById('medalha-quiz');
+    if (medalhaQuiz) {
+        if (scoreTotalGeral >= 25) {
+            medalhaQuiz.classList.remove('bloqueada');
+            medalhaQuiz.classList.add('desbloqueada');
+            medalhaQuiz.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
+        }
+    }
 
-function verificarConquistas() {
-    const container = document.getElementById("conquistas-container");
-    if (!container) return;
-
-    const lista = [
-        { id: "c1", nome: "Primeiro Diagnóstico", desc: "Executou o simulador agro-ambiental", cond: dadosUsuario.notaSimulador > 0, icone: "🚜" },
-        { id: "c2", nome: "Especialista em Solo", desc: "Alcançou nota máxima (100) no simulador", cond: dadosUsuario.notaSimulador === 100, icone: "💎" },
-        { id: "c3", nome: "Mestre do Quiz", desc: "Acertou pelo menos 10 questões", cond: dadosUsuario.acertosQuiz >= 10, icone: "🧠" },
-        { id: "c4", nome: "Pensamento Computacional", desc: "Venceu o jogo da memória Fisher-Yates", cond: dadosUsuario.jogoCompleto, icone: "⚡" }
-    ];
-
-    container.innerHTML = "";
-    lista.forEach(item => {
-        const div = document.createElement("div");
-        div.className = `conquista-card ${item.cond ? 'desbloqueada' : 'bloqueada'}`;
-        div.style.cssText = `display:flex; align-items:center; gap:12px; padding:12px; border-radius:10px; border:1px solid var(--border-gray); ${item.cond ? 'background:#e8f5e9;' : 'background:#f1f1f1; opacity:0.6;'}`;
-        
-        div.innerHTML = `
-            <div style="font-size:1.8rem;">${item.cond ? item.icone : "🔒"}</div>
-            <div>
-                <h4 style="margin:0; font-size:0.9rem; color:var(--primary-green);">${item.nome}</h4>
-                <p style="margin:2px 0 0 0; font-size:0.75rem; color:var(--text-light);">${item.desc}</p>
-            </div>
-        `;
-        container.appendChild(div);
-    });
-
-    // Controle de Liberação do Certificado
-    const btnCert = document.getElementById("btn-certificado");
-    if (dadosUsuario.notaSimulador >= 70) {
-        btnCert.disabled = false;
-        btnCert.innerText = "📜 Emitir Certificado de Conclusão";
-        btnCert.className = "btn-primary ease-btn";
-    } else {
-        btnCert.disabled = true;
+    const medalhaMemoria = document.getElementById('medalha-memoria');
+    if (medalhaMemoria) {
+        const totalCartasViradas = document.querySelectorAll('.memory-tile.matched').length;
+        if (totalCartasViradas === cartasMemoriaOriginais.length && jogadasEfetuadas > 0 && jogadasEfetuadas <= 18) {
+            medalhaMemoria.classList.remove('bloqueada');
+            medalhaMemoria.classList.add('desbloqueada');
+            medalhaMemoria.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
+        }
     }
 }
 
-function atualizarRanking() {
-    const container = document.getElementById("ranking-status");
-    if (!container) return;
+// ==========================================================================
+// 7. INICIALIZADOR AUTOMÁTICO DE EVENTOS DOM
+// ==========================================================================
+document.addEventListener("DOMContentLoaded", () => {
+    irParaAba('painel');
     
-    // Simulação de colegas da Escola do Campo
-    const alunos = [
-        { nome: "Mariana Silva", pontos: 95 },
-        { nome: "Daniel Ribeiro (Você)", pontos: Math.round((dadosUsuario.notaSimulador + (dadosUsuario.acertosQuiz/30*100)) / 2) },
-        { nome: "Carlos Santos", pontos: 78 },
-        { nome: "Lucas Lima", pontos: 62 }
-    ];
-
-    alunos.sort((a, b) => b.pontos - a.pontos);
-    container.innerHTML = alunos.map((al, idx) => `<div><strong>${idx + 1}º ${al.nome}</strong> — ${al.pontos} Pontos Médios</div>`).join("");
-}
-
-function generarCertificado() {
-    const janelaImpressao = window.open("", "_blank");
-    janelaImpressao.document.write(`
-        <html>
-        <head>
-            <title>Certificado - Raízes do Amanhã</title>
-            <style>
-                body { font-family: 'Plus Jakarta Sans', sans-serif; text-align: center; padding: 50px; background: #f4f7f5; }
-                .border-box { border: 10px double #0f271c; padding: 40px; background: #fff; max-width: 700px; margin: auto; box-shadow: 0 0 20px rgba(0,0,0,0.1); }
-                h1 { color: #0f271c; font-size: 2.5rem; margin-bottom: 5px; }
-                h3 { color: #97cc52; margin-top: 0; letter-spacing: 2px; }
-                p { font-size: 1.1rem; color: #1d2d24; line-height: 1.6; }
-                .assinatura { margin-top: 50px; border-top: 1px solid #1d2d24; display: inline-block; width: 250px; padding-top: 5px; font-weight: bold; }
-            </style>
-        </head>
-        <body>
-            <div class="border-box">
-                <h1>CERTIFICADO ACADÊMICO</h1>
-                <h3>CONCURSO AGRINHO 2026</h3>
-                <br><br>
-                <p>Certificamos que o aluno <strong>Daniel Ribeiro</strong> concluiu com êxito os módulos de fiscalização, diagnóstico tecnológico e fixação científica em agricultura sustentável na plataforma <strong>Raízes do Amanhã</strong>, obtendo aproveitamento excelente de ${dadosUsuario.notaSimulador}% no simulador.</p>
-                <br><br>
-                <div class="assinatura">Escola do Campo Rural</div>
-            </div>
-            <script>window.print();</script>
-        </body>
-        </html>
-    `);
-    janelaImpressao.document.close();
-}
+    const tSimulador = document.getElementById('medalha-simulador');
+    const tQuiz = document.getElementById('medalha-quiz');
+    const tMemoria = document.getElementById('medalha-memoria');
+    
+    if (tSimulador) tSimulador.className = "card-base conquista-card bloqueada";
+    if (tQuiz) tQuiz.className = "card-base conquista-card bloqueada";
+    if (tMemoria) tMemoria.className = "card-base conquista-card bloqueada";
+    
+    // Deixa o Quiz engatilhado no nível inicial padrão
+    inicializarEstruturaQuiz('facil');
+});
