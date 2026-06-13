@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Raízes do Amanhã - Inteligência Sustentável</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-layout">
+        <aside class="sidebar-container">
+            <div class="brand-wrapper">
+                <div class="brand-avatar">🌾</div>
+                <div>
+                    <h2 class="brand-title">Raízes do Amanhã </h2>
+                    <span class="brand-subtitle">Daniel Ribeiro</span>
+                </div>
+            </div>
+            
+            <nav class="nav-list">
+                <button class="nav-btn active" id="btn-tab-painel" onclick="irParaAba('painel')">📊 Painel Inicial</button>
+                <button class="nav-btn" id="btn-tab-agroecologia" onclick="irParaAba('agroecologia')">🌱 Agroecologia</button>
+                <button class="nav-btn" id="btn-tab-licoes" onclick="irParaAba('licoes')">📚 Lições do Campo</button>
+                <button class="nav-btn" id="btn-tab-materiais" onclick="irParaAba('materiais')">📂 Materiais de Apoio</button>
+                <button class="nav-btn" id="btn-tab-desafios" onclick="irParaAba('desafios')">🏆 Desafios & Jogos</button>
+                <button class="nav-btn" id="btn-tab-progresso" onclick="irParaAba('progresso')">📈 Meu Progresso</button>
+            </nav>
+
+            <div class="sidebar-alert-box">
+                <h4 class="alert-box-title">TECNOLOGIA RURAL</h4>
+                <p class="alert-box-desc">Sustentabilidade Rústica e Computação Aplicada.</p>
+                <div class="alert-box-avatars">
+                    <span class="mini-av">🧑‍🌾</span>
+                    <span class="mini-av">👩‍🌾</span>
+                </div>
+                <button class="alert-box-action">Projeto Ativo</button>
+            </div>
+        </aside>
+
+        <main class="main-viewport">
+            <header class="header-viewport">
+                <div class="header-titles">
+                    <h1 id="page-title">Monitoramento de Impacto Agroecológico</h1>
+                    <p id="page-subtitle">Tecnologia aplicada ao desenvolvimento sustentável da Escola do Campo rural.</p>
+                </div>
+                <div class="header-right">
+                    <div class="bell-trigger">🔔<span class="bell-badge">2</span></div>
+                    <div class="profile-badge">🟢 Aluno Online</div>
+                </div>
+            </header>
+
+            <!-- ABA: PAINEL -->
+            <div id="view-painel" class="view-pane active">
+                <section class="banner-hero">
+                    <div class="banner-core">
+                        <h1 class="banner-heading">Raizes do Amanhã</h1>
+                        <h3 class="banner-subheading">PLATAFORMA DIGITAL DE INTELIGÊNCIA AGROECOLÓGICA</h3>
+                        <div class="banner-highlight">
+                            <p>O agro que produz, preserva e transforma gerações.</p>
+                        </div>
+                        <p class="banner-paragraph">No interior de Antônio Olinto, a agricultura familiar impulsiona a nossa comunidade. Desenvolvemos este painel para avaliar, monitorar e sugerir melhorias sustentáveis baseadas das diretrizes ambientais e tecnológicas aplicadas ao campo.</p>
+                    </div>
+                    <div class="banner-tags">
+                        <span class="tag-pill">🌾 Produção Consciente</span>
+                        <span class="tag-pill">🌧️ Meio Ambiente Preservado</span>
+                        <span class="tag-pill">👥 Comunidade Fortalecida</span>
+                        <span class="tag-pill">⏳ Futuro Sustentável</span>
+                    </div>
+                </section>
+
+                <div class="grid-dashboard">
+                    <section class="card-base">
+                        <h3 class="card-title">⚙️ Simulador de Diagnóstico Agro-Ambiental</h3>
+                        <p class="card-subtitle">Selecione as práticas atuais da propriedade rústica para analisar o desempenho:</p>
+
+                        <form id="simulador-form" onsubmit="return false;">
+                            <div class="input-block">
+                                <label class="input-label">🌾 1. Manejo do Solo</label>
+                                <select id="solo" class="select-field" onchange="executarDiagnostico()">
+                                    <option value="excelente">Plantio Direto Consolidado + Rotação Complexa + Adubação Verde</option>
+                                    <option value="alto">Plantio Direto Simples & Rotação de Culturas Básica</option>
+                                    <option value="medio">Cultivo Mínimo com Gradeamento Esporádico e Pouca Cobertura</option>
+                                    <option value="baixo">Arado Convencional Intensivo & Monocultura Contínua</option>
+                                </select>
+                            </div>
+
+                            <div class="input-block">
+                                <label class="input-label">💧 2. Recursos Hídricos e Áreas de Preservação (APP)</label>
+                                <select id="agua" class="select-field" onchange="executarDiagnostico()">
+                                    <option value="excelente">Preservação Total de Nascentes com Cercamento e Reflorestamento Ativo</option>
+                                    <option value="alto">Mata Ciliar Conservada e Fontes Isoladas de Animais</option>
+                                    <option value="medio">Acesso Controlado do Gado com Bebedouros Separados</option>
+                                    <option value="baixo">Ausência de Mata Ciliar, Erosão Marginal e Degradação de Fontes</option>
+                                </select>
+                            </div>
+
+                            <div class="input-block">
+                                <label class="input-label">🧪 3. Manejo de Insumos e Defensivos</label>
+                                <select id="insumos" class="select-field" onchange="executarDiagnostico()">
+                                    <option value="excelente">MIP (Manejo Integrado), Uso de Biológicos e Tríplice Lavagem Completa</option>
+                                    <option value="alto">Uso sob Recomendação Técnico e Destinação Correta de Embalagens</option>
+                                    <option value="medio">Uso Correto de EPIs, porém com Descarte de Sobras sem Critério</option>
+                                    <option value="baixo">Uso Intensivo de Defensivos Químicos sem Equipamentos ou Receita</option>
+                                </select>
+                            </div>
+
+                            <div class="input-block">
+                                <label class="input-label">🐾 4. Biodiversidade & Manejo de Fauna</label>
+                                <select id="biodiversidade" class="select-field" onchange="executarDiagnostico()">
+                                    <option value="excelente">Manutenção de Corredores Ecológicos Conectados e Reserva Legal 100% Averbada</option>
+                                    <option value="alto">Preservação da Reserva Legal Exigida por Lei sem Conexões Específicas</option>
+                                    <option value="medio">Presença de Árvores Nativas Isoladas espalhadas pelas Pastagens</option>
+                                    <option value="baixo">Desmatamento Total ou Queimadas Periódicas para Expansão de Lavoura</option>
+                                </select>
+                            </div>
+                        </form>
+                    </section>
+
+                    <section class="card-base">
+                        <h3 class="card-title">📊 Resultado do Diagnóstico</h3>
+                        <p class="card-subtitle">Métricas calculadas em tempo real com base nas diretrizes do campo:</p>
+
+                        <div class="score-row">
+                            <div>
+                                <span class="score-meta">PONTUAÇÃO GERAL</span>
+                                <div class="score-number"><span id="pontos-valor">--</span><span class="score-base">/100</span></div>
+                            </div>
+                            <span id="status-badge" class="pill-status state-wait">AGUARDANDO SELEÇÃO</span>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar-meta"><span>Práticas de Cultivo</span><span id="pct-cultivo">0%</span></div>
+                            <div class="bar-rail"><div id="bar-cultivo" class="bar-fill"></div></div>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar-meta"><span>Conservação Ambiental</span><span id="pct-ambiental">0%</span></div>
+                            <div class="bar-rail"><div id="bar-ambiental" class="bar-fill"></div></div>
+                        </div>
+
+                        <div class="bar-group">
+                            <div class="bar-meta"><span>Gestão & Sociedade</span><span id="pct-gestao">0%</span></div>
+                            <div class="bar-rail"><div id="bar-gestao" class="bar-fill"></div></div>
+                        </div>
+                        
+                        <div id="resultado-diagnostico-detalhe" class="output-alert hidden" style="margin-top: 15px;"></div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- ABA: AGROECOLOGIA -->
+            <div id="view-agroecologia" class="view-pane">
+                <section class="card-base">
+                    <h2 class="card-title">🌱 Manual Técnico Interativo de Práticas Agroecológicas</h2>
+                    <p class="card-subtitle"> Navegue pelos cards e descubra soluções que ajudam a produzir mais, preservando o solo, a água e a biodiversidade:</p>
+                    
+                    <div class="agro-grid-complet">
+                        <div class="agro-card-extended" onclick="mostrarModal('rotacao')">
+                            <div class="agro-img-placeholder">🔄 Rotação de Culturas</div>
+                            <div class="agro-card-content">
+                                <h4>🔄 Rotação e Diversificação de Culturas</h4>
+                                <p>O plantio alternado de diferentes espécies quebra o ciclo de pragas e doenças e impede a exaustão nutricional.</p>
+                                <span class="tech-tag">Manejo de Solo</span>
+                            </div>
+                        </div>
+
+                        <div class="agro-card-extended" onclick="mostrarModal('adubacao')">
+                            <div class="agro-img-placeholder">🌿 Adubação Verde</div>
+                            <div class="agro-card-content">
+                                <h4>🌿 Adubação Verde e Cobertura Viva</h4>
+                                <p>Plantas de cobertura que protegem o solo contra chuvas e fixam o nitrogênio atmosférico biologicamente.</p>
+                                <span class="tech-tag">Nutrição Orgânica</span>
+                            </div>
+                        </div>
+
+                        <div class="agro-card-extended" onclick="mostrarModal('mip')">
+                            <div class="agro-img-placeholder">🐞 Manejo Integrado (MIP)</div>
+                            <div class="agro-card-content">
+                                <h4>🐞 MIP - Manejo Integrado de Pragas</h4>
+                                <p>Estratégia que prioriza o controle biológico natural e reduz drasticamente defensivos químicos sintéticos.</p>
+                                <span class="tech-tag">Proteção Biológica</span>
+                            </div>
+                        </div>
+
+                        <div class="agro-card-extended" onclick="mostrarModal('safs')">
+                            <div class="agro-img-placeholder">🌳 Sistemas Agroflorestais</div>
+                            <div class="agro-card-content">
+                                <h4>🌳 Sistemas Agroflorestais (SAFs)</h4>
+                                <p>Consorciação planejada que combina árvores perenes, arbustos e cultivos agrícolas no mesmo arranjo.</p>
+                                <span class="tech-tag">Biodiversidade</span>
+                            </div>
+                        </div>
+
+                        <div class="agro-card-extended" onclick="mostrarModal('nascentes')">
+                            <div class="agro-img-placeholder">💧 Proteção de Nascentes</div>
+                            <div class="agro-card-content">
+                                <h4>💧 Recuperação e Proteção de Nascentes</h4>
+                                <p>Blindagem mecânica e reflorestamento de olhos d'água em Áreas de Preservação Permanente.</p>
+                                <span class="tech-tag">Recursos Hídricos</span>
+                            </div>
+                        </div>
+
+                        <div class="agro-card-extended" onclick="mostrarModal('curvas')">
+                            <div class="agro-img-placeholder">🚜 Curvas de Nível</div>
+                            <div class="agro-card-content">
+                                <h4>🚜 Curvas de Nível e Terraceamento</h4>
+                                <p>Estruturação mecânica em encostas para reduzir a velocidade das enxurradas e impedir erosões graves.</p>
+                                <span class="tech-tag">Engenharia Rústica</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ABA: LIÇÕES -->
+            <div id="view-licoes" class="view-pane">
+                <section class="card-base">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 10px;">
+                        <div>
+                            <h2 class="card-title">📚 Quiz de Fixação Continuada</h2>
+                            <p class="card-subtitle">Selecione a complexidade desejada para iniciar as avaliações estruturadas:</p>
+                        </div>
+                        <div class="quiz-selector-buttons" style="display: flex; gap: 8px;">
+                            <button class="btn-level ease-btn" onclick="mudarNivelQuiz('facil')">🌱 Fácil (1-10)</button>
+                            <button class="btn-level med-btn" onclick="mudarNivelQuiz('medio')">🌿 Médio (11-20)</button>
+                            <button class="btn-level hard-btn" onclick="mudarNivelQuiz('dificil')">🌳 Difícil (21-30)</button>
+                        </div>
+                    </div>
+
+                    <div id="info-nivel-bloco" style="background: #edf2ef; padding: 12px 16px; border-radius: 8px; font-weight: 700; margin-bottom: 20px; color: var(--primary-green);">
+                        Nível Selecionado: <span id="lbl-nivel-atual" style="text-transform: uppercase;">Fácil</span>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <div style="display:flex; justify-content:space-between; font-size:0.8rem; font-weight:700; color:var(--text-light); margin-bottom:4px;">
+                            <span>Progresso da Avaliação</span>
+                            <span id="quiz-txt-progress">Questão 1 de 10</span>
+                        </div>
+                        <div style="width:100%; height:8px; background:#e2e9e4; border-radius:10px; overflow:hidden;">
+                            <div id="quiz-bar-fill" style="width: 10%; height:100%; background:var(--accent-lime); transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+
+                    <div id="quiz-question-container">
+                        <h3 id="quiz-question-title" style="margin-bottom: 20px; font-size: 1.1rem; color: var(--primary-green);">Carregando questão...</h3>
+                        <div id="quiz-options-box" style="display: flex; flex-direction: column; gap: 10px;"></div>
+                    </div>
+
+                    <div style="margin-top: 25px; display: flex; justify-content: flex-end;">
+                        <button id="btn-next-question" class="btn-primary" onclick="proximaQuestao()" disabled>Próxima Questão ➡️</button>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ABA: MATERIAIS -->
+            <div id="view-materiais" class="view-pane">
+                <section class="card-base">
+                    <h2 class="card-title">📂 Central de Recursos Didáticos e Mídias</h2>
+                    <p class="card-subtitle">Abra manuais oficiais e vídeo-tutoriais em nosso visualizador seguro incorporado (Viewport Frame):</p>
+                    
+                    <div style="display: flex; gap: 12px; margin-bottom: 25px;">
+                        <button class="btn-primary" onclick="abrirMidia('pdf')">📄 Abrir Cartilha do Solo (UFPR)</button>
+                        <button class="btn-primary" onclick="abrirMidia('video')">🎥 Assistir Videoaula Prática (Nascentes)</button>
+                    </div>
+
+                    <div id="media-viewport-container" class="content-card" style="display: none; background: #fafbfc; border: 2px solid var(--border-gray); height: 500px; position: relative; padding: 0; overflow: hidden; border-radius: 12px;">
+                        <div style="background: var(--primary-green); color: white; padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;">
+                            <h4 id="media-viewport-title" style="margin: 0; font-size: 0.95rem;">📄 Documento Técnico</h4>
+                            <button onclick="fecharMidia()" style="background: none; border: none; color: white; font-size: 1.2rem; cursor: pointer; font-weight: bold;">✕</button>
+                        </div>
+                        <div id="media-frame-box" style="width: 100%; height: calc(100% - 45px);"></div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- ABA: DESAFIOS -->
+            <div id="view-desafios" class="view-pane">
+                <section class="card-base">
+                    <h2 class="card-title">🏆 Jogo da Memória Computacional Agroecológico</h2>
+                    <p class="card-subtitle">Combine os conceitos idênticos utilizando o algoritmo de embaralhamento reverso Fisher-Yates:</p>
+                    
+                    <div style="display: flex; gap: 20px; margin-bottom: 20px; font-weight: 700; color: var(--primary-green); background: #edf2ef; padding: 12px 16px; border-radius: 8px;">
+                        <div>⚡ Movimentos: <span id="moves-val">0</span></div>
+                        <div>⏱️ Cronômetro: <span id="timer-val">00:00</span></div>
+                        <button class="btn-secondary" onclick="inicializarJogo()" style="padding: 4px 10px; font-size: 0.8rem; margin-left: auto;">🔄 Reiniciar Jogo</button>
+                    </div>
+
+                    <div id="canvas-tabuleiro-memoria" class="memory-grid-canvas"></div>
+                </section>
+            </div>
+
+            <!-- ABA: PROGRESSO (SUPER ATUALIZADA) -->
+            <div id="view-progresso" class="view-pane">
+                <div class="grid-dashboard">
+                    <section class="card-base">
+                        <h2 class="card-title">📈 Análise de Rendimento Acadêmico</h2>
+                        <p class="card-subtitle">Gráfico analítico gerado via renderização computacional bidimensional nativa (HTML5 Canvas):</p>
+                        
+                        <div style="display: flex; justify-content: center; background: #ffffff; padding: 15px; border-radius: 12px; border: 1px solid var(--border-gray);">
+                            <canvas id="graficoDesempenho" width="400" height="220" style="max-width: 100%; height: auto;"></canvas>
+                        </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                            <div style="background: #f8faf9; padding: 16px; border-radius: 10px; border: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4 style="color: var(--primary-green); margin-bottom: 4px;">Último Diagnóstico Efetuado</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-light);">Nota calculada no simulador</p>
+                                </div>
+                                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-green);" id="metric-simulador">--</div>
+                            </div>
+
+                            <div style="background: #f8faf9; padding: 16px; border-radius: 10px; border: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <h4 style="color: var(--primary-green); margin-bottom: 4px;">Acertos no Quiz (Geral)</h4>
+                                    <p style="font-size: 0.8rem; color: var(--text-light);">Questões respondidas corretamente</p>
+                                </div>
+                                <div style="font-size: 1.8rem; font-weight: 800; color: var(--primary-green);" id="metric-quiz">0/30</div>
+                            </div>
+                        </div>
+
+                        <!-- CARD DO RANKING ESCOLAR -->
+                        <div style="margin-top: 20px; background: #fff; padding: 20px; border-radius: 12px; border: 1px solid var(--border-gray);">
+                            <h3 class="card-title" style="font-size: 1rem; margin-bottom: 12px;">🏅 Ranking da Turma (Simulação)</h3>
+                            <div id="ranking-status" style="font-size: 0.9rem; line-height: 1.6; color: var(--text-dark);"></div>
+                        </div>
+
+                        <!-- EMISSÃO DE CERTIFICADO -->
+                        <div style="margin-top: 20px; text-align: center;">
+                            <button class="btn-primary" id="btn-certificado" onclick="gerarCertificado()" style="width: 100%; padding: 14px; font-size: 1rem;" disabled>🔒 Desbloquear Certificado (Mínimo 70 pontos)</button>
+                        </div>
+                    </section>
+
+                    <!-- SEÇÃO DE CONQUISTAS (TROFÉUS GAMIFICADOS) -->
+                    <section class="card-base">
+                        <h2 class="card-title">🏅 Medalhas e Conquistas Digitais</h2>
+                        <p class="card-subtitle">Complete as missões computacionais e pedagógicas para liberar as insígnias rurais:</p>
+                        <div id="conquistas-container" style="display: flex; flex-direction: column; gap: 12px;"></div>
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL OVERLAY -->
+    <div id="global-modal-overlay" class="modal-backdrop hidden" onclick="fecharModalPorCliqueFora(event)">
+        <div class="modal-box-body">
+            <button class="modal-btn-x" onclick="ocultarModal()">✕</button>
+            <div id="modal-content-injector"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
