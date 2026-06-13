@@ -1,17 +1,10 @@
-Aqui está o código do arquivo **`style.css`** completo, limpo e totalmente ajustado.
-
-Ele traz de volta a **identidade visual original exata** (com o fundo escuro na barra lateral e o verde-limão brilhante nos botões ativos) conforme as imagens enviadas, além de incluir a estilização perfeita para a nova aba de **Referências** e manter o layout 100% responsivo e livre de erros.
-
-### Código do `style.css`
-
-```css
 /* ==========================================================================
-   RESET DE ESTILOS, VARIÁVEIS DE COR E COMPORTAMENTO PADRÃO
+   VARIÁVEIS DE AMBIENTE E DEFINIÇÕES ESTRUTURAIS
    ========================================================================== */
 :root {
-    --primary-green: #0f271c;        /* O verde escuro oficial da barra lateral */
-    --accent-lime: #97cc52;          /* O verde limão brilhante dos elementos ativos */
-    --body-bg: #f4f7f5;              /* O fundo cinza claro sutil do painel */
+    --primary-green: #0f271c;        
+    --accent-lime: #97cc52;          
+    --body-bg: #f4f7f5;              
     --card-bg: #ffffff;
     --text-dark: #1d2d24;
     --text-light: #53695c;
@@ -32,13 +25,14 @@ body {
     overflow-x: hidden;
 }
 
-/* CONTAINER GERAL DO APP */
 .app-layout {
     display: flex;
     min-height: 100vh;
 }
 
-/* SIDEBAR - IDENTIDADE VISUAL RÚSTICA */
+/* ==========================================================================
+   SIDEBAR LATERAL (BARRA DE NAVEGAÇÃO INTERNA)
+   ========================================================================== */
 .sidebar-container {
     width: 280px;
     background-color: var(--primary-green);
@@ -81,7 +75,6 @@ body {
     font-weight: 500;
 }
 
-/* LISTA DE NAVEGAÇÃO */
 .nav-list {
     padding: 24px 16px;
     display: flex;
@@ -116,14 +109,29 @@ body {
     color: #ffffff;
 }
 
-/* ESTADO ATIVO - BOTÃO SELECIONADO */
 .nav-btn.active {
     background-color: var(--accent-lime);
     color: var(--primary-green) !important;
     font-weight: 700;
 }
 
-/* VIEWPORT DE CONTEÚDO PRINCIPAL */
+.sidebar-footer {
+    margin-top: auto; 
+    padding: 20px; 
+    border-top: 1px solid rgba(255,255,255,0.08); 
+    text-align: center;
+}
+
+.sidebar-footer span {
+    font-size: 0.72rem; 
+    color: #a4b3a9; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   VIEWPORT PRINCIPAL DO ECOSSISTEMA
+   ========================================================================== */
 .main-viewport {
     flex-grow: 1;
     display: flex;
@@ -132,7 +140,6 @@ body {
     overflow: hidden;
 }
 
-/* BARRA SUPERIOR DINÂMICA */
 .topbar-dashboard {
     background-color: #ffffff;
     padding: 20px 40px;
@@ -152,14 +159,12 @@ body {
     color: var(--text-light);
 }
 
-/* ÁREA DE SCROLL DOS CONTEÚDOS */
 .content-scroller {
     padding: 40px;
     flex-grow: 1;
     overflow-y: auto;
 }
 
-/* CONTROLE DAS ABAS (SPA) */
 .view-pane {
     display: none;
 }
@@ -174,15 +179,9 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* GRID DO PAINEL INICIAL */
-.dashboard-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr;
-    gap: 30px;
-    align-items: start;
-}
-
-/* CARDS BASE */
+/* ==========================================================================
+   ELEMENTOS DE COMPONENTES INTERNOS E CARDS
+   ========================================================================== */
 .card-base {
     background: var(--card-bg);
     border: 1px solid var(--border-gray);
@@ -191,28 +190,90 @@ body {
     box-shadow: 0 4px 12px rgba(15, 39, 28, 0.02);
 }
 
-/* SELETORES ESTILIZADOS */
+.card-section-title {
+    color: var(--primary-green); 
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.15rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+.input-group-wrapper {
+    margin-bottom: 18px;
+}
+
+.field-label {
+    font-weight: 600; 
+    display: block; 
+    margin-bottom: 6px;
+    font-size: 0.9rem;
+}
+
 .styled-select {
+    width: 100%; 
+    padding: 10px 14px; 
+    border-radius: 8px; 
+    border: 1px solid var(--border-gray); 
+    background-color: #fff;
+    font-size: 0.9rem;
+    color: var(--text-dark);
     appearance: none;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230f271c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
     background-repeat: no-repeat;
     background-position: right 12px center;
     background-size: 16px;
-    padding-right: 40px !important;
+    padding-right: 40px;
     outline: none;
-    transition: border-color 0.2s;
 }
 
 .styled-select:focus {
-    border-color: var(--accent-lime) !important;
+    border-color: var(--accent-lime);
 }
 
-/* CAIXA DE ALERTA DE FEEDBACK DO SIMULADOR */
+/* MÓDULO RESULTADOS E FEEDBACKS */
+.gauge-score-wrapper {
+    margin-bottom: 15px; 
+    display: flex; 
+    align-items: baseline;
+}
+
+.score-display {
+    font-size: 3rem; 
+    font-weight: 800; 
+    color: var(--primary-green);
+}
+
+.score-max-label {
+    font-size: 1rem; 
+    font-weight: 600; 
+    color: var(--text-light); 
+    margin-left: 10px;
+}
+
+.progress-bar-container {
+    background: #e9ecef; 
+    border-radius: 10px; 
+    height: 12px; 
+    width: 100%; 
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    width: 0%; 
+    height: 100%; 
+    background: var(--accent-lime); 
+    transition: width 0.5s ease;
+}
+
 .output-alert {
-    padding: 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    line-height: 1.5;
     animation: popAlert 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -221,47 +282,248 @@ body {
     to { transform: scale(1); opacity: 1; }
 }
 
-/* BOTÕES GERAIS */
-.btn-primary {
-    background: var(--primary-green);
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
+/* ==========================================================================
+   ABA 2: GRID DE DIRETRIZES AGROECOLOGIA
+   ========================================================================== */
+.agro-cards-grid {
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+    gap: 20px;
+}
+
+.click-card {
+    cursor: pointer; 
+    padding: 24px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.click-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(15, 39, 28, 0.06);
+    border-color: var(--accent-lime);
+}
+
+.card-icon-emoji {
+    font-size: 2.2rem; 
+    margin-bottom: 12px;
+}
+
+.click-card h4 {
+    font-size: 1.05rem;
     font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
+    margin-bottom: 6px;
+    color: var(--primary-green);
 }
 
-.btn-primary:hover {
-    background: #163a29;
+.click-card p {
+    font-size: 0.85rem; 
+    color: var(--text-light);
+    line-height: 1.4;
 }
 
-.btn-primary:active {
-    transform: scale(0.98);
+/* ==========================================================================
+   ABA 3: COMPONENTES DO QUIZ CIENTÍFICO
+   ========================================================================== */
+.quiz-header-wrapper {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    border-bottom: 2px solid var(--border-gray); 
+    padding-bottom: 14px; 
+    margin-bottom: 20px;
 }
 
-/* CLASSES UTILITÁRIAS */
-.hidden {
-    display: none !important;
+#quiz-nivel-badge {
+    background: var(--primary-green); 
+    color: #fff; 
+    padding: 6px 14px; 
+    border-radius: 6px; 
+    font-size: 0.82rem; 
+    font-weight: 800;
 }
 
-/* ELEMENTOS DO QUIZ */
+#quiz-pergunta-texto {
+    color: var(--primary-green); 
+    font-size: 1.2rem; 
+    font-weight: 700; 
+    margin-bottom: 25px; 
+    line-height: 1.4;
+}
+
+#quiz-container-opcoes {
+    display: flex; 
+    flex-direction: column; 
+    gap: 12px;
+}
+
 .quiz-opcao-btn {
-    transition: all 0.15s ease;
+    width: 100%;
+    padding: 14px 18px;
+    text-align: left;
+    background: #fff;
+    border: 1px solid var(--border-gray);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.92rem;
     font-weight: 500;
     color: var(--text-dark);
+    transition: all 0.15s ease;
 }
 
 .quiz-opcao-btn:hover:not(:disabled) {
     background-color: #f0f4f1 !important;
     border-color: var(--primary-green) !important;
-    padding-left: 22px !important;
+    padding-left: 24px !important;
 }
 
-/* JOGO DA MEMÓRIA */
+#quiz-painel-conclusao {
+    text-align: center; 
+    padding: 30px 10px;
+}
+
+#quiz-painel-conclusao h2 {
+    color: var(--primary-green); 
+    font-weight: 800; 
+    margin-bottom: 8px;
+}
+
+#quiz-score-final {
+    font-size: 2.5rem; 
+    font-weight: 800; 
+    color: var(--primary-green); 
+    margin: 15px 0;
+}
+
+#quiz-analise-texto {
+    color: var(--text-dark); 
+    line-height: 1.6; 
+    max-width: 500px; 
+    margin: 0 auto 25px auto; 
+    font-size: 0.92rem;
+}
+
+/* ==========================================================================
+   ABA 4: MATERIAIS DE APOIO (PDF & VÍDEO CONVERSAÇÃO)
+   ========================================================================== */
+.materials-flex-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 30px;
+}
+
+.material-box {
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+}
+
+.pdf-fallback-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f8faf9;
+    border: 1px dashed var(--border-gray);
+    border-radius: 10px;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.pdf-icon-center {
+    font-size: 4rem;
+    margin-bottom: 16px;
+}
+
+.pdf-fallback-container h4 {
+    font-size: 1.1rem;
+    color: var(--primary-green);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.pdf-fallback-container p {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.5;
+    max-width: 360px;
+    margin-bottom: 24px;
+}
+
+.pdf-download-btn {
+    text-decoration: none;
+    padding: 14px 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(15, 39, 28, 0.15);
+}
+
+.video-responsive-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--border-gray);
+    background: #000;
+}
+
+.video-responsive-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.video-caption-box {
+    margin-top: auto;
+    background: #f8faf9;
+    padding: 18px;
+    border-radius: 10px;
+    border: 1px solid var(--border-gray);
+    font-size: 0.86rem;
+    line-height: 1.5;
+    color: var(--text-dark);
+}
+
+/* ==========================================================================
+   ABA 5 & 6: JOGO DA MEMÓRIA E REFERÊNCIAS
+   ========================================================================== */
+.game-control-bar {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 25px; 
+    background: #f8faf9; 
+    padding: 12px 20px; 
+    border-radius: 10px; 
+    border: 1px solid var(--border-gray);
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.game-control-bar strong {
+    color: var(--primary-green);
+    font-weight: 800;
+}
+
+.memory-board-grid {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 12px;
+}
+
 .memory-tile {
-    perspective: 1000px;
+    background: var(--primary-green);
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-gray);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -280,7 +542,91 @@ body {
     color: #137333 !important;
 }
 
-/* MODAL GLOBAL */
+.references-list {
+    list-style-type: none; 
+    padding: 0; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 14px;
+}
+
+.references-list li {
+    background: #f8faf9; 
+    padding: 18px; 
+    border-radius: 10px; 
+    border: 1px solid var(--border-gray); 
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   BOTÕES GERAIS E CARD INFERIOR DE MÉTRICAS MÓVEIS
+   ========================================================================== */
+.btn-primary {
+    background: var(--primary-green);
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background: #163a29;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.bottom-metrics-grid {
+    margin-top: 30px; 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
+}
+
+.metric-mini-card {
+    background: #f8faf9; 
+    padding: 16px 20px; 
+    border-radius: 12px; 
+    border: 1px solid var(--border-gray); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+}
+
+.metric-mini-card h4 {
+    color: var(--primary-green); 
+    margin-bottom: 4px; 
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.metric-mini-card p {
+    font-size: 0.8rem; 
+    color: var(--text-light);
+}
+
+.metric-value {
+    font-size: 1.8rem; 
+    font-weight: 800; 
+    color: var(--primary-green);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   MODAL DIÁLOGO INTERATIVO
+   ========================================================================== */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -322,7 +668,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s;
 }
 
 .modal-btn-x:hover {
@@ -330,13 +675,8 @@ body {
     color: var(--text-dark);
 }
 
-@keyframes fadeInBg {
-    from { opacity: 0; } to { opacity: 1; }
-}
-
+@keyframes fadeInBg { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUpModal {
     from { transform: translateY(30px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-
-```

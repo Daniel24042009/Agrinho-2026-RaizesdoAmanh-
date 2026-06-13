@@ -15,7 +15,7 @@ function irParaAba(nomeAba) {
         painel: ["Monitoramento de Impacto Agroecológico", "Tecnologia aplicada ao desenvolvimento sustentável da Escola do Campo rural."],
         agroecologia: ["Espaço de Capacitação Científica", "Visão detalhada e aprofundada das seis grandes diretrizes conservacionistas."],
         licoes: ["Lições do Campo - Quiz Dinâmico", "Fixação teórica através de blocos de múltipla escolha em três níveis."],
-        materiais: ["Materiais de Apoio Acadêmico", "Leitura e visualização integrada de acervos técnicos e de sustentabilidade rural."],
+        materiais: ["Materiais de Apoio Acadêmico", "Leitura de acervos técnicos e visualização de mídias didáticas rurais."],
         desafios: ["Desafios & Jogos Interativos", "Consolidação prática de conceitos através do Jogo da Memória Ecológico."],
         referencias: ["Referências Científicas", "Fontes institucionais e bibliográficas que fundamentam a nossa plataforma digital."]
     };
@@ -73,14 +73,14 @@ function dispararModalInjetado(chaveDiretriz) {
     if (!alvo) return;
 
     const templateHtml = `
-        <span class="tech-tag" style="margin-bottom:12px; display:inline-block; background:var(--primary-green); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.75rem;">${alvo.tag}</span>
+        <span class="tech-tag" style="margin-bottom:12px; display:inline-block; background:var(--primary-green); color:#fff; padding:4px 10px; border-radius:4px; font-size:0.75rem; font-weight:700;">${alvo.tag}</span>
         <h2 style="color:var(--primary-green); font-weight:800; margin-bottom:6px;">${alvo.titulo}</h2>
         <h4 style="color:var(--text-light); font-weight:600; margin-bottom:20px; font-size:0.95rem;">${alvo.sub}</h4>
         <div style="line-height:1.6; color:var(--text-dark); font-size:0.92rem; text-align:justify; background:#f8faf9; padding:20px; border-radius:10px; border:1px solid var(--border-gray);">
             ${alvo.corpo}
         </div>
         <div style="margin-top:25px; text-align:right;">
-            <button class="btn-primary" onclick="ocultarModal()">Entendido, Fechar</button>
+            <button class="btn-primary" style="padding:10px 20px;" onclick="ocultarModal()">Entendido, Fechar</button>
         </div>
     `;
 
@@ -124,11 +124,11 @@ function processarCalculoDiagnostico() {
     if (notaFinalPonderada >= 80) {
         blocoFeedback.style.background = "#e6f4ea";
         blocoFeedback.style.color = "#137333";
-        blocoFeedback.innerHTML = "<strong>🏆 Excelente Nível de Sustentabilidade:</strong> A propriedade adota práticas integradas de alto impacto ecológico.";
+        blocoFeedback.innerHTML = "<strong>🏆 Excelente Nível:</strong> A propriedade adota práticas integradas de alto impacto ecológico.";
     } else if (notaFinalPonderada >= 50) {
         blocoFeedback.style.background = "#fef7e0";
         blocoFeedback.style.color = "#b06000";
-        blocoFeedback.innerHTML = "<strong>⚠️ Nível de Transição Agroecológica:</strong> Existem boas iniciativas locais, mas pontos de vulnerabilidade persistem.";
+        blocoFeedback.innerHTML = "<strong>⚠️ Nível de Transição:</strong> Existem boas iniciativas locais, mas pontos de vulnerabilidade persistem.";
     } else {
         blocoFeedback.style.background = "#fce8e6";
         blocoFeedback.style.color = "#c5221f";
@@ -142,7 +142,7 @@ function processarCalculoDiagnostico() {
 const bancoQuestoesQuiz = [
     // FÁCIL
     { nivel: "facil", q: "Qual o principal objetivo ecológico da cobertura permanente do solo?", o: ["Eliminar microrganismos", "Impedir a infiltração de ar", "Reduzir o impacto mecânico da chuva e reter umidade", "Facilitar a aração mecânica profunda"], a: 2 },
-    { nivel: "facil", q: "Como as leguminosas atuam na fertilidade do solo?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
+    { nivel: "facil", q: "Como as leguminosas atuam na fertility do solo?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
     { nivel: "facil", q: "O que caracteriza a 'erosão laminar' em solos sem proteção?", o: ["Abertura de crateras profundas", "A remoção uniforme da camada superficial mais rica em matéria orgânica", "A quebra de rochas profundas", "O aumento da fauna de minhocas"], a: 1 },
     { nivel: "facil", q: "A diversificação biológica melhora a estabilidade económica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
     { nivel: "facil", q: "As matas ciliares são fundamentais para os ecossistemas agrícolas porque:", o: ["Evitam o assoreamento de rios e filtram resíduos", "Serveme unicamente como divisórias", "Fornecem lenha de corte diário", "Absorvem água dos rios secando áreas"], a: 0 },
@@ -158,248 +158,3 @@ const bancoQuestoesQuiz = [
     { nivel: "medio", q: "O controle biológico conservacionista consiste em:", o: ["Introduzir espécies exóticas de laboratório", "Preservar e atrair predadores naturais já existentes no local", "Aplicar defensivos químicos nas bordas", "Isolar o campo com telas plásticas"], a: 1 },
     { nivel: "medio", q: "A calda bordalesa é um insumo alternativo composto essencialmente por:", o: ["Cloro concentrado e detergente", "Sulfato de cobre, cal hidratada e água", "Petróleo bruto refinado", "Extrato concentrado de soja"], a: 1 },
     { nivel: "medio", q: "Como funcionam os bioinsumos baseados em fungos entomopatogênicos (Beauveria bassiana)?", o: ["Queimam as folhas externamente", "Infectam e controlam insetos-alvo de forma específica", "Nutrem a planta pelos estômatos", "Repelem pássaros pelo odor"], a: 1 },
-    { nivel: "medio", q: "Qual a principal vantagem da estratificação vertical nos Sistemas Agroflorestais?", o: ["Impedir a entrada de vento", "Otimizar o uso da luz solar em diferentes alturas pelas plantas", "Facilitar a colheita mecanizada", "Reduzir a produção de matéria orgânica"], a: 1 },
-    { nivel: "medio", q: "Nos SAFs, o manejo por podas sistemáticas das árvores serve para:", o: ["Eliminar árvores velhas precocemente", "Estimular a entrada de luz e gerar biomassa para cobrir o solo", "Impedir que deem frutos pesados", "Diminuir a profundidade das raízes"], a: 1 },
-    { nivel: "medio", q: "O que diferencia um SAF de um reflorestamento comercial convencional?", o: ["O SAF utiliza apenas plantas importadas", "O SAF integra espécies florestais com culturas alimentares ou animais", "O reflorestamento não permite corte", "O SAF dispensa água da chuva"], a: 1 },
-    { nivel: "medio", q: "Como o cultivo em 'curvas de nível' atua na proteção dos recursos hídricos?", o: ["Acelera o escoamento da água", "Reduz a velocidade da água superficial, aumentando a infiltração", "Modifica a química da água da chuva", "Mantém o solo encharcado"], a: 1 },
-    { nivel: "medio", q: "A compactação do solo por tráfego pesado de máquinas afeta a água pois:", o: ["Aumenta o armazenamento de umidade", "Reduz a porosidade, impedindo a infiltração e gerando enxurradas", "Purifica a água eliminando argilas", "Acelera a evapotranspiração foliar"], a: 1 },
-
-    // DIFÍCIL
-    { nivel: "dificil", q: "A introdução de árvores em pastagens (Sistemas Silvipastoris) traz qual benefício animal?", o: ["Redução do espaço de caminhada", "Conforto térmico através de sombra, melhorando a produtividade", "Alimentação baseada em folhas secas", "Aumento da velocidade de corrida"], a: 1 },
-    { nivel: "dificil", q: "Sistemas agroflorestais auxiliam na mitigação das mudanças climáticas globais através de:", o: ["Emissão controlada de enxofre", "Sequestro e fixação de carbono na biomassa lenhosa e no solo", "Reflexão total dos raios ultravioleta", "Diminuição da gravidade localizada"], a: 1 },
-    { nivel: "dificil", q: "Qual a desvantagem ecológica da irrigação por inundação contínua frente ao gotejamento?", o: ["Consumo mínimo de energia elétrica", "Desperdício severo de água e riscos de salinização do solo", "Impossibilidade de aplicar adubos", "Aumento da umidade do ar regional"], a: 1 },
-    { nivel: "dificil", q: "O que expressa o conceito de 'cisterna de calçadão' na agricultura familiar?", o: ["Estrutura urbana de águas cinzentas", "Tecnologia social para captar chuva escoada em superfícies cimentadas", "Canal aberto para drenar brejos", "Piscina decorativa de piscicultura"], a: 1 },
-    { nivel: "dificil", q: "O que define um 'circuito curto de comercialização' na venda de alimentos?", o: ["Vendas internacionais por corretoras", "A comercialização direta entre produtor e consumidor (feiras, sacolas)", "Contratos com redes multinacionais", "Troca exclusiva sem uso de moedas"], a: 1 },
-    { nivel: "dificil", q: "A 'Certificação Participativa' de produtos orgânicos baseia-se em:", o: ["Auditorias pagas a empresas isoladas", "Redes de confiança mútua entre produtores, técnicos e consumidores", "Testes químicos em cada lote", "Selos comprados em balcões estatais"], a: 1 },
-    { nivel: "dificil", q: "Como a transição agroecológica apoia a 'Soberania Alimentar' das comunidades?", o: ["Obriga a importação de sementes", "Garante autonomia na produção de alimentos e conservação de sementes crioulas", "Prioriza culturas de exportação", "Substitui hábitos tradicionais"], a: 1 },
-    { nivel: "dificil", q: "O êxodo rural de jovens nas comunidades rurais pode ser mitigado por:", o: ["Mecanização que elimine empregos", "Adoção de tecnologias sustentáveis, internet no campo e valorização do trabalho", "Fechamento de escolas rurais", "Proibição legal de migração"], a: 1 },
-    { nivel: "dificil", q: "A transição agroecológica difere da agricultura orgânica convencional simplificada porque:", o: ["Permite o uso oculto de venenos", "Propõe uma reestruturação ecológica integral do agroecossistema e das relações", "Foca unicamente na substituição de insumos", "Proíbe tecnologia digital"], a: 1 },
-    { nivel: "dificil", q: "Qual o papel ecológico dos microrganismos solubilizadores de fósforo no solo?", o: ["Tornar o fósforo fixado na terra disponível para as raíces naturalmente", "Produzir fósforo sintético na argila", "Substituir a necessidade de luz solar", "Reduzir o crescimento de ervas"], a: 0 }
-];
-
-let nivelAtual = "facil"; 
-let questoesFiltradas = [];
-let indiceQuestaoAtual = 0;
-let scoreAcertosQuiz = 0;
-let scoreTotalGeral = 0; 
-
-function inicializarEstruturaQuiz(nivelEscolhido = "facil") {
-    nivelAtual = nivelEscolhido;
-    indiceQuestaoAtual = 0;
-    scoreAcertosQuiz = 0;
-    
-    questoesFiltradas = bancoQuestoesQuiz.filter(q => q.nivel === nivelAtual);
-    
-    document.getElementById('quiz-painel-conclusao').classList.add('hidden');
-    document.getElementById('quiz-core-box').classList.remove('hidden');
-    
-    const nomesNiveis = { facil: "FÁCIL 🌱", medio: "MÉDIO 🌽", dificil: "DIFÍCIL 🌳" };
-    document.getElementById('quiz-nivel-badge').innerText = `Nível: ${nomesNiveis[nivelAtual]}`;
-    
-    renderizarQuestaoQuiz();
-}
-
-function renderizarQuestaoQuiz() {
-    const dadosQuestao = questoesFiltradas[indiceQuestaoAtual];
-    document.getElementById('quiz-txt-progresso').innerText = `Questão ${indiceQuestaoAtual + 1} de ${questoesFiltradas.length}`;
-    const percentagemProgresso = ((indiceQuestaoAtual + 1) / questoesFiltradas.length) * 100;
-    document.getElementById('quiz-bar-progress-fill').style.width = `${percentagemProgresso}%`;
-    document.getElementById('quiz-pergunta-texto').innerText = dadosQuestao.q;
-
-    const containerOpcoes = document.getElementById('quiz-container-opcoes');
-    containerOpcoes.innerHTML = "";
-
-    dadosQuestao.o.forEach((opcaoTexto, idOpcao) => {
-        const elementoBotao = document.createElement('button');
-        elementoBotao.className = "quiz-opcao-btn";
-        elementoBotao.style.width = "100%";
-        elementoBotao.style.padding = "12px 16px";
-        elementoBotao.style.textAlign = "left";
-        elementoBotao.style.background = "#fff";
-        elementoBotao.style.border = "1px solid var(--border-gray)";
-        elementoBotao.style.borderRadius = "8px";
-        elementoBotao.style.cursor = "pointer";
-        elementoBotao.style.fontSize = "0.92rem";
-        
-        elementoBotao.innerText = opcaoTexto;
-        elementoBotao.onclick = () => avaliarRespostaSelecionada(idOpcao, elementoBotao);
-        containerOpcoes.appendChild(elementoBotao);
-    });
-}
-
-function avaliarRespostaSelecionada(idSelecionado, botaoClicado) {
-    const dadosQuestao = questoesFiltradas[indiceQuestaoAtual];
-    const todosBotoes = document.querySelectorAll('.quiz-opcao-btn');
-    todosBotoes.forEach(btn => btn.disabled = true);
-
-    if (idSelecionado === dadosQuestao.a) {
-        botaoClicado.style.background = "#e6f4ea";
-        botaoClicado.style.borderColor = "#137333";
-        botaoClicado.style.color = "#137333";
-        scoreAcertosQuiz++;
-        scoreTotalGeral++;
-    } else {
-        botaoClicado.style.background = "#fce8e6";
-        botaoClicado.style.borderColor = "#c5221f";
-        botaoClicado.style.color = "#c5221f";
-        todosBotoes[dadosQuestao.a].style.background = "#e6f4ea";
-    }
-
-    setTimeout(() => {
-        indiceQuestaoAtual++;
-        if (indiceQuestaoAtual < questoesFiltradas.length) {
-            renderizarQuestaoQuiz();
-        } else {
-            finalizarExibicaoNivelQuiz();
-        }
-    }, 1200);
-}
-
-function finalizarExibicaoNivelQuiz() {
-    document.getElementById('quiz-core-box').classList.add('hidden');
-    const painelFim = document.getElementById('quiz-painel-conclusao');
-    painelFim.classList.remove('hidden');
-
-    document.getElementById('quiz-score-final').innerText = `${scoreAcertosQuiz} / ${questoesFiltradas.length}`;
-    document.getElementById('metric-quiz').innerText = `${scoreTotalGeral}/30`;
-
-    const txtAnalise = document.getElementById('quiz-analise-texto');
-    const containerAcao = document.getElementById('quiz-acao-container');
-    containerAcao.innerHTML = ""; 
-
-    if (nivelAtual === "facil") {
-        txtAnalise.innerText = `Nível Fácil concluído com ${scoreAcertosQuiz} acertos. Pronto para o nível Médio?`;
-        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('medio')">Avançar para Médio 🌽</button>`;
-    } else if (nivelAtual === "medio") {
-        txtAnalise.innerText = `Nível Médio concluído com ${scoreAcertosQuiz} acertos. Desafio final: Nível Difícil!`;
-        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('dificil')">Avançar para Difícil 🌳</button>`;
-    } else {
-        txtAnalise.innerText = `Quiz Completo! Pontuação final unificada: ${scoreTotalGeral} de 30 acertos.`;
-        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px; background:#6c757d;" onclick="resetarQuizCompleto()">Reiniciar Quiz 🌱</button>`;
-    }
-}
-
-function resetarQuizCompleto() {
-    scoreTotalGeral = 0;
-    inicializarEstruturaQuiz('facil');
-}
-
-// ==========================================================================
-// 5. MÓDULO GAMIFICADO: JOGO DA MEMÓRIA
-// ==========================================================================
-const cartasMemoriaOriginais = [
-    { nome: "Solo Protegido", icon: "🌱" }, { nome: "Solo Protegido", icon: "🌱" },
-    { nome: "Policultivo", icon: "🌽" },    { nome: "Policultivo", icon: "🌽" },
-    { nome: "Bioinsumo", icon: "🧪" },      { nome: "Bioinsumo", icon: "🧪" },
-    { nome: "Agrofloresta", icon: "🌳" },   { nome: "Agrofloresta", icon: "🌳" },
-    { nome: "Água Conservada", icon: "💧" }, { nome: "Água Conservada", icon: "💧" },
-    { nome: "Comunidade", icon: "🏡" },     { nome: "Comunidade", icon: "🏡" }
-];
-
-let vetorTemporarioCartas = [];
-let jogadasEfetuadas = 0;
-let timerIdInterv = null;
-let segundosCorridos = 0;
-let jogoIniciado = false;
-
-function iniciarNovoJogoMemoria() {
-    vetorTemporarioCartas = [];
-    jogadasEfetuadas = 0;
-    segundosCorridos = 0;
-    jogoIniciado = true;
-    
-    document.getElementById('moves-val').innerText = "0";
-    document.getElementById('timer-val').innerText = "0s";
-    
-    clearInterval(timerIdInterv);
-    timerIdInterv = setInterval(() => {
-        segundosCorridos++;
-        document.getElementById('timer-val').innerText = `${segundosCorridos}s`;
-    }, 1000);
-
-    const cartasEmbaralhadas = [...cartasMemoriaOriginais].sort(() => Math.random() - 0.5);
-    const canvasGrade = document.getElementById('memory-canvas');
-    canvasGrade.innerHTML = "";
-
-    cartasEmbaralhadas.forEach(objetoDado => {
-        const elementoCarta = document.createElement('div');
-        elementoCarta.className = "memory-tile";
-        elementoCarta.style.height = "100px";
-        elementoCarta.style.background = "var(--primary-green)";
-        elementoCarta.style.borderRadius = "8px";
-        elementoCarta.style.cursor = "pointer";
-        elementoCarta.style.display = "flex";
-        elementoCarta.style.alignItems = "center";
-        elementoCarta.style.justifyContent = "center";
-        elementoCarta.style.border = "1px solid var(--border-gray)";
-        
-        const faceVerso = document.createElement('div');
-        faceVerso.className = "tile-back";
-        faceVerso.style.fontSize = "1.5rem";
-        faceVerso.style.color = "#fff";
-        faceVerso.innerText = "？";
-
-        const faceFrente = document.createElement('div');
-        faceFrente.className = "tile-front";
-        faceFrente.style.display = "none";
-        faceFrente.style.flexDirection = "column";
-        faceFrente.style.alignItems = "center";
-        faceFrente.style.justifyContent = "center";
-        faceFrente.innerHTML = `<span style="font-size:1.8rem; margin-bottom:2px;">${objetoDado.icon}</span><span style="font-size:0.6rem; font-weight:700; color:var(--primary-green); text-align:center;">${objetoDado.nome}</span>`;
-
-        elementoCarta.appendChild(faceVerso);
-        elementoCarta.appendChild(faceFrente);
-
-        elementoCarta.onclick = () => gerirCliqueCartaMemoria(elementoCarta, objetoDado);
-        canvasGrade.appendChild(elementoCarta);
-    });
-}
-
-function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
-    if (!jogoIniciado || elementoCarta.classList.contains('flipped') || elementoCarta.classList.contains('matched') || vetorTemporarioCartas.length >= 2) return;
-
-    elementoCarta.classList.add('flipped');
-    elementoCarta.style.background = "#fff";
-    elementoCarta.querySelector('.tile-back').style.display = "none";
-    elementoCarta.querySelector('.tile-front').style.display = "flex";
-
-    vetorTemporarioCartas.push({ el: elementoCarta, d: objetoDado });
-    
-    if (vetorTemporarioCartas.length === 2) {
-        jogadasEfetuadas++;
-        document.getElementById('moves-val').innerText = jogadasEfetuadas;
-        
-        if (vetorTemporarioCartas[0].d.nome === vetorTemporarioCartas[1].d.nome) {
-            vetorTemporarioCartas[0].el.classList.add('matched');
-            vetorTemporarioCartas[1].el.classList.add('matched');
-            vetorTemporarioCartas = [];
-            
-            if (document.querySelectorAll('.memory-tile.matched').length === cartasMemoriaOriginais.length) {
-                clearInterval(timerIdInterv);
-                jogoIniciado = false;
-                setTimeout(() => { alert(`🎉 Jogo concluído com sucesso em ${jogadasEfetuadas} movimentos!`); }, 400);
-            }
-        } else {
-            setTimeout(() => {
-                vetorTemporarioCartas[0].el.classList.remove('flipped');
-                vetorTemporarioCartas[0].el.style.background = "var(--primary-green)";
-                vetorTemporarioCartas[0].el.querySelector('.tile-back').style.display = "flex";
-                vetorTemporarioCartas[0].el.querySelector('.tile-front').style.display = "none";
-                
-                vetorTemporarioCartas[1].el.classList.remove('flipped');
-                vetorTemporarioCartas[1].el.style.background = "var(--primary-green)";
-                vetorTemporarioCartas[1].el.querySelector('.tile-back').style.display = "flex";
-                vetorTemporarioCartas[1].el.querySelector('.tile-front').style.display = "none";
-                vetorTemporarioCartas = [];
-            }, 1000);
-        }
-    }
-}
-
-// ==========================================================================
-// 6. INICIALIZADOR AUTOMÁTICO
-// ==========================================================================
-document.addEventListener("DOMContentLoaded", () => {
-    irParaAba('painel');
-    inicializarEstruturaQuiz('facil');
-});
