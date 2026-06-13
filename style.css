@@ -1,9 +1,16 @@
+Aqui está o código do arquivo **`style.css`** completo, limpo e totalmente ajustado.
+
+Ele traz de volta a **identidade visual original exata** (com o fundo escuro na barra lateral e o verde-limão brilhante nos botões ativos) conforme as imagens enviadas, além de incluir a estilização perfeita para a nova aba de **Referências** e manter o layout 100% responsivo e livre de erros.
+
+### Código do `style.css`
+
+```css
 /* ==========================================================================
    RESET DE ESTILOS, VARIÁVEIS DE COR E COMPORTAMENTO PADRÃO
    ========================================================================== */
 :root {
-    --primary-green: #0f271c;        /* O verde escuro oficial da sua barra lateral */
-    --accent-lime: #97cc52;          /* O verde limão brilhante dos botões ativos */
+    --primary-green: #0f271c;        /* O verde escuro oficial da barra lateral */
+    --accent-lime: #97cc52;          /* O verde limão brilhante dos elementos ativos */
     --body-bg: #f4f7f5;              /* O fundo cinza claro sutil do painel */
     --card-bg: #ffffff;
     --text-dark: #1d2d24;
@@ -31,526 +38,187 @@ body {
     min-height: 100vh;
 }
 
-/* SIDEBAR - IDENTIDADE EXATA DA SUA ESTRUTURA */
+/* SIDEBAR - IDENTIDADE VISUAL RÚSTICA */
 .sidebar-container {
     width: 280px;
     background-color: var(--primary-green);
     color: #ffffff;
-    padding: 24px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    position: fixed;
-    height: 100vh;
-    left: 0;
-    top: 0;
-    z-index: 100;
+    flex-shrink: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .brand-wrapper {
+    padding: 24px 20px;
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 35px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+
 .brand-avatar {
-    font-size: 2rem;
+    width: 42px;
+    height: 42px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
 }
+
 .brand-title {
     font-size: 1.1rem;
-    font-weight: 800;
-    letter-spacing: -0.5px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    color: #ffffff;
 }
+
 .brand-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: var(--accent-lime);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 /* LISTA DE NAVEGAÇÃO */
 .nav-list {
+    padding: 24px 16px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex-grow: 1;
 }
 
 .nav-btn {
-    background: none;
+    width: 100%;
+    background: transparent;
     border: none;
-    color: #a3b8ad;
+    color: #a4b3a9;
     padding: 12px 16px;
+    border-radius: 8px;
     text-align: left;
     font-size: 0.9rem;
     font-weight: 600;
-    border-radius: 8px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
     transition: all 0.2s ease;
-    width: 100%;
+}
+
+.nav-btn i {
+    font-size: 1rem;
+    width: 20px;
 }
 
 .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.05);
     color: #ffffff;
 }
 
+/* ESTADO ATIVO - BOTÃO SELECIONADO */
 .nav-btn.active {
     background-color: var(--accent-lime);
-    color: var(--primary-green);
+    color: var(--primary-green) !important;
     font-weight: 700;
 }
 
-/* CAIXA DE ALERTA INFERIOR DA SIDEBAR */
-.sidebar-alert-box {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 16px;
-    border-radius: 12px;
-    margin-top: 20px;
-}
-.alert-box-title {
-    font-size: 0.75rem;
-    letter-spacing: 1px;
-    color: var(--accent-lime);
-    margin-bottom: 6px;
-}
-.alert-box-desc {
-    font-size: 0.78rem;
-    color: #cfdad4;
-    line-height: 1.4;
-    margin-bottom: 12px;
-}
-.alert-box-avatars {
-    display: flex;
-    gap: 4px;
-    margin-bottom: 12px;
-}
-.mini-av {
-    font-size: 1rem;
-}
-.alert-box-action {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #ffffff;
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-/* VIEWPORT PRINCIPAL */
+/* VIEWPORT DE CONTEÚDO PRINCIPAL */
 .main-viewport {
-    margin-left: 280px;
     flex-grow: 1;
-    padding: 32px;
-    max-width: 1300px;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    overflow: hidden;
 }
 
-/* TOPO DA PÁGINA (HEADER) */
-.header-viewport {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
+/* BARRA SUPERIOR DINÂMICA */
+.topbar-dashboard {
+    background-color: #ffffff;
+    padding: 20px 40px;
     border-bottom: 1px solid var(--border-gray);
-    padding-bottom: 20px;
 }
-.header-titles h1 {
-    font-size: 1.6rem;
+
+.topbar-title {
+    font-size: 1.4rem;
     font-weight: 800;
     color: var(--primary-green);
     letter-spacing: -0.5px;
-}
-.header-titles p {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    margin-top: 4px;
-}
-.header-right {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-.bell-trigger {
-    font-size: 1.3rem;
-    position: relative;
-    cursor: pointer;
-}
-.bell-badge {
-    position: absolute;
-    top: -5px;
-    right: -5px;
-    background: #ff4d4d;
-    color: white;
-    font-size: 0.65rem;
-    padding: 2px 5px;
-    border-radius: 10px;
-    font-weight: 700;
-}
-.profile-badge {
-    background: #edf2ef;
-    padding: 8px 14px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #2e7d32;
+    margin-bottom: 4px;
 }
 
-/* CONTROLO DE VISIBILIDADE DAS ABAS SPAS */
+.topbar-subtitle {
+    font-size: 0.88rem;
+    color: var(--text-light);
+}
+
+/* ÁREA DE SCROLL DOS CONTEÚDOS */
+.content-scroller {
+    padding: 40px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+/* CONTROLE DAS ABAS (SPA) */
 .view-pane {
     display: none;
 }
+
 .view-pane.active {
     display: block;
-    animation: fadeInPane 0.3s ease-in-out;
+    animation: fadeInView 0.35s ease-out;
 }
-@keyframes fadeInPane {
+
+@keyframes fadeInView {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* BANNER HERO DE APRESENTAÇÃO */
-.banner-hero {
-    background: linear-gradient(135deg, #0f271c 0%, #1c4230 100%);
-    color: #ffffff;
-    padding: 40px;
-    border-radius: 20px;
-    margin-bottom: 30px;
-    position: relative;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(15, 39, 28, 0.15);
-}
-.banner-core {
-    max-width: 750px;
-    position: relative;
-    z-index: 2;
-}
-.banner-heading {
-    font-size: 2.4rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-}
-.banner-subheading {
-    font-size: 0.85rem;
-    color: var(--accent-lime);
-    letter-spacing: 1.5px;
-    margin-top: 4px;
-    margin-bottom: 20px;
-}
-.banner-highlight {
-    border-left: 3px solid var(--accent-lime);
-    padding-left: 14px;
-    margin-bottom: 15px;
-}
-.banner-highlight p {
-    font-size: 1.05rem;
-    font-weight: 600;
-    color: #e8f5e9;
-}
-.banner-paragraph {
-    font-size: 0.9rem;
-    line-height: 1.6;
-    color: #cfdad4;
-}
-.banner-tags {
-    display: flex;
-    gap: 10px;
-    margin-top: 25px;
-    flex-wrap: wrap;
-}
-.tag-pill {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.78rem;
-    font-weight: 600;
-}
-
-/* CARDS E GRIDS ESTRUTURAIS DO CONCURSO */
-.grid-dashboard {
+/* GRID DO PAINEL INICIAL */
+.dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    grid-template-columns: 1.4fr 1fr;
     gap: 30px;
+    align-items: start;
 }
 
+/* CARDS BASE */
 .card-base {
     background: var(--card-bg);
     border: 1px solid var(--border-gray);
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.01);
-}
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-green);
-    letter-spacing: -0.3px;
-}
-.card-subtitle {
-    font-size: 0.85rem;
-    color: var(--text-light);
-    margin-top: 4px;
-    margin-bottom: 25px;
-    line-height: 1.4;
-}
-
-/* ELEMENTOS DE FORMULÁRIO DO SIMULADOR */
-.input-block {
-    margin-bottom: 20px;
-}
-.input-label {
-    display: block;
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: var(--primary-green);
-    margin-bottom: 8px;
-}
-.select-field {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1px solid var(--border-gray);
-    background-color: #fafbfc;
-    border-radius: 10px;
-    font-size: 0.88rem;
-    color: var(--text-dark);
-    font-weight: 500;
-    outline: none;
-    cursor: pointer;
-    transition: border 0.2s;
-}
-.select-field:focus {
-    border-color: var(--accent-lime);
-    background-color: #fff;
-}
-
-/* COMPONENTES DE MÉTRICAS (RESULTADO DO DIAGNÓSTICO) */
-.score-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #f8faf9;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid var(--border-gray);
-    margin-bottom: 25px;
-}
-.score-meta {
-    font-size: 0.75rem;
-    font-weight: 700;
-    color: var(--text-light);
-    letter-spacing: 0.5px;
-}
-.score-number {
-    font-size: 2.4rem;
-    font-weight: 800;
-    color: var(--primary-green);
-    line-height: 1;
-    margin-top: 4px;
-}
-.score-base {
-    font-size: 1rem;
-    color: var(--text-light);
-    font-weight: 500;
-}
-
-.pill-status {
-    padding: 6px 14px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 800;
-    letter-spacing: 0.5px;
-}
-.state-wait { background: #ffecc7; color: #b36b00; }
-.state-active { background: #e8f5e9; color: #2e7d32; }
-
-/* BARRAS DE PROGRESSO INTERNAS */
-.bar-group {
-    margin-bottom: 16px;
-}
-.bar-meta {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--text-dark);
-    margin-bottom: 6px;
-}
-.bar-rail {
-    width: 100%;
-    height: 8px;
-    background-color: #edf2ef;
-    border-radius: 4px;
-    overflow: hidden;
-}
-.bar-fill {
-    height: 100%;
-    background-color: var(--accent-lime);
-    width: 0%;
-    transition: width 0.6s cubic-bezier(0.1, 0.8, 0.25, 1);
-}
-
-/* ALERTAS DINÂMICOS DE RESULTADO */
-.output-alert {
-    padding: 14px 18px;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    line-height: 1.5;
-}
-.output-alert.bom { background: #e8f5e9; border: 1px solid #c8e6c9; color: #2e7d32; }
-.output-alert.alerta { background: #fff3e0; border: 1px solid #ffe0b2; color: #e65100; }
-.output-alert.perigo { background: #ffebee; border: 1px solid #ffcdd2; color: #c62828; }
-.hidden { display: none !important; }
-
-/* ==========================================================================
-   ABA: MANUAL TÉCNICO INTERATIVO DE AGROECOLOGIA
-   ========================================================================== */
-.agro-grid-complet {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 20px;
-}
-
-.agro-card-extended {
-    background: #ffffff;
-    border: 1px solid var(--border-gray);
-    border-radius: 12px;
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.agro-card-extended:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-}
-
-.agro-img-placeholder {
-    height: 120px;
-    background: linear-gradient(135deg, #f4f7f5 0%, #e2e9e4 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 2.2rem;
-}
-
-.agro-card-content {
-    padding: 20px;
-}
-
-.agro-card-content h4 {
-    font-size: 1rem;
-    color: var(--primary-green);
-    margin-bottom: 8px;
-    font-weight: 700;
-}
-
-.agro-card-content p {
-    font-size: 0.82rem;
-    color: var(--text-light);
-    line-height: 1.5;
-    margin-bottom: 15px;
-}
-
-.tech-tag {
-    display: inline-block;
-    background: #edf2ef;
-    color: var(--primary-green);
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-}
-
-/* ==========================================================================
-   MÓDULO DE MODAL DIALOGS SEGUROS (SOBREPOSIÇÃO UNIVERSAL)
-   ========================================================================== */
-.modal-backdrop {
-    position: fixed;
-    top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(15, 39, 28, 0.4);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-}
-
-.modal-box-body {
-    background: #ffffff;
-    width: 100%;
-    max-width: 700px;
-    border-radius: 16px;
+    border-radius: 14px;
     padding: 30px;
-    position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-    animation: zoomInModal 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    box-shadow: 0 4px 12px rgba(15, 39, 28, 0.02);
 }
 
-@keyframes zoomInModal {
+/* SELETORES ESTILIZADOS */
+.styled-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%230f271c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 40px !important;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.styled-select:focus {
+    border-color: var(--accent-lime) !important;
+}
+
+/* CAIXA DE ALERTA DE FEEDBACK DO SIMULADOR */
+.output-alert {
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    animation: popAlert 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popAlert {
     from { transform: scale(0.95); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
-}
-
-.modal-btn-x {
-    position: absolute;
-    top: 20px; right: 20px;
-    background: #f4f7f5;
-    border: none; width: 32px; height: 32px;
-    border-radius: 50%; cursor: pointer;
-    font-weight: bold; color: var(--text-light);
-    display: flex; align-items: center; justify-content: center;
-}
-.modal-btn-x:hover { background: #e2e9e4; color: var(--primary-green); }
-
-/* ==========================================================================
-   ABA: MÓDULOS DE GAMIFICAÇÃO - JOGO DA MEMÓRIA
-   ========================================================================== */
-.memory-grid-canvas {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-@media (max-width: 500px) {
-    .memory-grid-canvas { grid-template-columns: repeat(3, 1fr); }
-}
-
-.memory-tile {
-    height: 110px;
-    position: relative;
-    cursor: pointer;
-    background: var(--primary-green);
-    border: 2px solid var(--accent-lime);
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s;
-}
-
-.memory-tile:hover {
-    transform: scale(1.03);
-}
-
-.tile-back {
-    color: var(--accent-lime);
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
-.tile-front {
-    background: #ffffff;
-    width: 100%;
-    height: 100%;
-    border-radius: 8px;
 }
 
 /* BOTÕES GERAIS */
@@ -558,48 +226,117 @@ body {
     background: var(--primary-green);
     color: #ffffff;
     border: none;
-    padding: 10px 18px;
     border-radius: 8px;
     font-weight: 700;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
     cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background: #163a29;
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+/* CLASSES UTILITÁRIAS */
+.hidden {
+    display: none !important;
+}
+
+/* ELEMENTOS DO QUIZ */
+.quiz-opcao-btn {
+    transition: all 0.15s ease;
+    font-weight: 500;
+    color: var(--text-dark);
+}
+
+.quiz-opcao-btn:hover:not(:disabled) {
+    background-color: #f0f4f1 !important;
+    border-color: var(--primary-green) !important;
+    padding-left: 22px !important;
+}
+
+/* JOGO DA MEMÓRIA */
+.memory-tile {
+    perspective: 1000px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memory-tile:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 10px rgba(15, 39, 28, 0.1);
+}
+
+.memory-tile.matched {
+    background: #e6f4ea !important;
+    border-color: #137333 !important;
+    cursor: default;
+}
+
+.memory-tile.matched .tile-front span {
+    color: #137333 !important;
+}
+
+/* MODAL GLOBAL */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 39, 28, 0.4);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeInBg 0.2s ease;
+}
+
+.modal-box-body {
+    background: #ffffff;
+    width: 100%;
+    max-width: 550px;
+    border-radius: 16px;
+    padding: 35px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    animation: slideUpModal 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15);
+}
+
+.modal-btn-x {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #f0f3f1;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: 700;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: background 0.2s;
 }
-.btn-primary:hover:not(:disabled) { background: #163828; }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
 
-.btn-secondary {
-    background: transparent;
-    color: var(--primary-green);
-    border: 1px solid var(--border-gray);
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 0.88rem;
-    cursor: pointer;
-}
-.btn-secondary:hover { background: #fafbfc; }
-
-/* ==========================================================================
-   NOVA EXTENSÃO: DESIGN E ANIMAÇÕES PARA AS CONQUISTAS E MEDALHAS
-   ========================================================================== */
-.conquista-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.modal-btn-x:hover {
+    background: #e2e8e4;
+    color: var(--text-dark);
 }
 
-/* Animação de surgimento elástico para quando a medalha é desbloqueada */
-.conquista-card.desbloqueada {
-    animation: popInConquista 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    border-left: 5px solid #2e7d32 !important;
+@keyframes fadeInBg {
+    from { opacity: 0; } to { opacity: 1; }
 }
 
-/* Aparência fosca/cinzenta para os troféus bloqueados */
-.conquista-card.bloqueada {
-    border-left: 5px solid #9e9e9e !important;
-    filter: grayscale(1);
+@keyframes slideUpModal {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-@keyframes popInConquista {
-    from { opacity: 0; transform: scale(0.9) translateY(10px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-}
+```

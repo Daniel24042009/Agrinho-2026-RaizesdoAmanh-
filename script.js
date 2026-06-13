@@ -14,9 +14,10 @@ function irParaAba(nomeAba) {
     const bibliotecaTitulos = {
         painel: ["Monitoramento de Impacto Agroecológico", "Tecnologia aplicada ao desenvolvimento sustentável da Escola do Campo rural."],
         agroecologia: ["Espaço de Capacitação Científica", "Visão detalhada e aprofundada das seis grandes diretrizes conservacionistas."],
-        licoes: ["Quiz e Avaliação Continuada", "Fixação teórica através de blocos de múltipla escolha em três níveis."],
-        materiais: ["Central de Recursos Didáticos", "Visualização integrada de acervos científicos públicos sem links externos."],
-        desafios: ["Módulos de Gamificação Ativa", "Consolidação de conceitos através de dinâmicas de programação e memória."]
+        licoes: ["Lições do Campo - Quiz Dinâmico", "Fixação teórica através de blocos de múltipla escolha em três níveis."],
+        materiais: ["Materiais de Apoio Acadêmico", "Leitura e visualização integrada de acervos técnicos e de sustentabilidade rural."],
+        desafios: ["Desafios & Jogos Interativos", "Consolidação prática de conceitos através do Jogo da Memória Ecológico."],
+        referencias: ["Referências Científicas", "Fontes institucionais e bibliográficas que fundamentam a nossa plataforma digital."]
     };
 
     if (bibliotecaTitulos[nomeAba]) {
@@ -32,37 +33,37 @@ const bdsDiretrizesAgroecologicas = {
     "cobertura": {
         titulo: "Cobertura Permanente do Solo",
         sub: "Proteção mecânica e manutenção térmica da microvida",
-        corpo: "A manutenção do solo coberto, seja por palhada residual (plantio direto) ou por plantas de cobertura, reduz drasticamente o impacto direto das gotas de chuva, mitigando a erosão laminar. Além disso, funciona como um isolante térmico que conserva a umidade e favorece a proliferação de microrganismos benéficos nas camadas superficiais.",
+        corpo: "A manutenção do solo coberto, seja por palhada residual (plantio direto) ou por plantas de cobertura, reduz drasticamente o impacto direto das gotas de chuva, mitigando a erosão laminar. Além disso, funciona como um isolante térmico que conserva a umidade.",
         tag: "Solo e Água"
     },
     "policultivo": {
         titulo: "Policultivos e Rotação de Culturas",
         sub: "Quebra de ciclos de pragas e sinergia de nutrientes",
-        corpo: "Cultivar múltiplas espécies na mesma área diversifica o systema radicular, melhorando a estrutura física do solo. A inclusion de leguminosas fixa o nitrogênio atmosférico biologicamente, enquanto a rotação sistemática interrompe o ciclo reprodutivo de pragas e patógenos específicos de uma única cultura.",
+        corpo: "Cultivar múltiplas espécies na mesma área diversifica o sistema radicular, melhorando a estrutura física do solo. A inclusão de leguminosas fixa o nitrogênio atmosférico biologicamente.",
         tag: "Biodiversidade"
     },
     "insumos": {
         titulo: "Redução e Substituição de Insumos Químicos",
         sub: "Transição para bioinsumos e caldas protetoras naturais",
-        corpo: "Esta diretriz foca na diminuição gradual de fertilizantes sintéticos de alta solubilidade e pesticidas químicos, substituindo-os por compostagem orgânica, biofertilizantes líquidos, inoculantes microbianos e extratos botânicos. O objetivo é restaurar o equilíbrio biológico sem criar dependência externa.",
+        corpo: "Esta diretriz foca na diminuição gradual de fertilizantes sintéticos de alta solubilidade e pesticidas químicos, substituindo-os por compostagem orgânica e biofertilizantes líquidos.",
         tag: "Defesa Biológica"
     },
     "agrofloresta": {
         titulo: "Sistemas Agroflorestais (SAFs)",
         sub: "Integração vertical e mimetismo estrutural da floresta",
-        corpo: "Os SAFs consorciam árvores perenes com culturas anuais e/ou criação de animais. Esta organização mimetiza a estratificação de uma floresta natural, otimizando a captação de energia solar em diferentes níveis, reciclando nutrientes profundos através das raízes das árvores e gerando microclimas estáveis.",
+        corpo: "Os SAFs consorciam árvores perenes com culturas anuais e/ou criação de animais. Esta organização otimiza a captação de energia solar em diferentes níveis estruturais.",
         tag: "Sistemas Complexos"
     },
     "agua": {
         titulo: "Manejo Ecológico da Água",
         sub: "Captação, infiltração localizada e conservação de microbacias",
-        corpo: "Estratégia focada em desacelerar o escoamento superficial da água através de curvas de nível, cordões de vegetação e bacias de retenção. Promove a infiltração profunda para recarga de lençóis freáticos e utiliza sistemas de irrigação supereficientes, como o gotejamento.",
+        corpo: "Estratégia focada em desacelerar o escoamento superficial da água através de curvas de nível, cordões de vegetação e bacias de retenção profunda.",
         tag: "Recursos Hídricos"
     },
     "comunidades": {
         titulo: "Socioecologia e Circuitos Curtos",
         sub: "Valorização do saber local e mercados de proximidade",
-        corpo: "A agroecologia transcende a técnica agrícola; ela integra o bem-estar humano. Fortalece cooperativas familiares, apoia feiras ecológicas locais, reduz a pegada de carbono do transporte de alimentos e promove a soberania alimentar, garantindo que a comunidade rural se mantenha sustentável.",
+        corpo: "A agroecologia integra o bem-estar humano. Fortalece cooperativas familiares, apoia feiras ecológicas locais e reduz a pegada de carbono do transporte.",
         tag: "Socioeconomia"
     }
 };
@@ -123,27 +124,25 @@ function processarCalculoDiagnostico() {
     if (notaFinalPonderada >= 80) {
         blocoFeedback.style.background = "#e6f4ea";
         blocoFeedback.style.color = "#137333";
-        blocoFeedback.innerHTML = "<strong>🏆 Excelente Nível de Sustentabilidade:</strong> A propriedade adota práticas integradas de alto impacto ecológico. Recomenda-se manter a rotação e iniciar a certificação orgânica formal.";
+        blocoFeedback.innerHTML = "<strong>🏆 Excelente Nível de Sustentabilidade:</strong> A propriedade adota práticas integradas de alto impacto ecológico.";
     } else if (notaFinalPonderada >= 50) {
         blocoFeedback.style.background = "#fef7e0";
         blocoFeedback.style.color = "#b06000";
-        blocoFeedback.innerHTML = "<strong>⚠️ Nível de Transição Agroecológica:</strong> Existem boas iniciativas locais, mas o sistema ainda apresenta dependência moderada ou pontos de vulnerabilidade contra erosão/escassez.";
+        blocoFeedback.innerHTML = "<strong>⚠️ Nível de Transição Agroecológica:</strong> Existem boas iniciativas locais, mas pontos de vulnerabilidade persistem.";
     } else {
         blocoFeedback.style.background = "#fce8e6";
         blocoFeedback.style.color = "#c5221f";
-        blocoFeedback.innerHTML = "<strong>🚨 Alerta Crítico de Degradação:</strong> Manejo convencional agressivo detectado. Alta suscetibilidade à exaustão mineral do solo e perda severa de umidade. Intervenção imediata sugerida.";
+        blocoFeedback.innerHTML = "<strong>🚨 Alerta Crítico:</strong> Manejo convencional agressivo detectado. Alta suscetibilidade à exaustão e perda de umidade.";
     }
-    
-    verificarEAtualizarTrofeus();
 }
 
 // ==========================================================================
 // 4. MOTOR DO QUIZ EM TRÊS NÍVEIS PROGRESSIVOS (30 QUESTÕES)
 // ==========================================================================
 const bancoQuestoesQuiz = [
-    // NÍVEL FÁCIL
+    // FÁCIL
     { nivel: "facil", q: "Qual o principal objetivo ecológico da cobertura permanente do solo?", o: ["Eliminar microrganismos", "Impedir a infiltração de ar", "Reduzir o impacto mecânico da chuva e reter umidade", "Facilitar a aração mecânica profunda"], a: 2 },
-    { nivel: "facil", q: "Como as leguminosas atuam na fertility do solo dentro de uma rotação de culturas?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
+    { nivel: "facil", q: "Como as leguminosas atuam na fertilidade do solo?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
     { nivel: "facil", q: "O que caracteriza a 'erosão laminar' em solos sem proteção?", o: ["Abertura de crateras profundas", "A remoção uniforme da camada superficial mais rica em matéria orgânica", "A quebra de rochas profundas", "O aumento da fauna de minhocas"], a: 1 },
     { nivel: "facil", q: "A diversificação biológica melhora a estabilidade económica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
     { nivel: "facil", q: "As matas ciliares são fundamentais para os ecossistemas agrícolas porque:", o: ["Evitam o assoreamento de rios e filtram resíduos", "Serveme unicamente como divisórias", "Fornecem lenha de corte diário", "Absorvem água dos rios secando áreas"], a: 0 },
@@ -153,7 +152,7 @@ const bancoQuestoesQuiz = [
     { nivel: "facil", q: "O uso de adubos verdes (como a mucuna ou guandu) serve para:", o: ["Colorir o campo para ecoturismo", "Produzir biomassa, cobrir o solo e fixar/reciclar nutrientes", "Substituir a cultura principal", "Eliminar a necessidade de rotação"], a: 1 },
     { nivel: "facil", q: "O que significa o termo 'período de carência' na aplicação de defensivos?", o: ["O tempo de germinação na sementeira", "O intervalo de segurança entre a aplicação e a colheita segura", "A falta de chuva ideal na adubação", "O tempo de repouso do trator"], a: 1 },
 
-    // NÍVEL MÉDIO
+    // MÉDIO
     { nivel: "medio", q: "A compostagem orgânica substitui fertilizantes sintéticos de alta solubilidade porque:", o: ["Libera nutrientes de forma lenta e melhora a estrutura do solo", "Acidifica o solo matando insetos", "Contem hormônios de crescimento", "Evita a necessidade de irrigar"], a: 0 },
     { nivel: "medio", q: "Por que os monocultivos extensivos são biologicamente mais vulneráveis a pragas?", o: ["Atraem mais polinizadores", "Falta luz solar entre as linhas", "Oferecem alimento abundante e homogêneo para uma única espécie", "Esgotam apenas a água superficial"], a: 2 },
     { nivel: "medio", q: "O controle biológico conservacionista consiste em:", o: ["Introduzir espécies exóticas de laboratório", "Preservar e atrair predadores naturais já existentes no local", "Aplicar defensivos químicos nas bordas", "Isolar o campo com telas plásticas"], a: 1 },
@@ -165,7 +164,7 @@ const bancoQuestoesQuiz = [
     { nivel: "medio", q: "Como o cultivo em 'curvas de nível' atua na proteção dos recursos hídricos?", o: ["Acelera o escoamento da água", "Reduz a velocidade da água superficial, aumentando a infiltração", "Modifica a química da água da chuva", "Mantém o solo encharcado"], a: 1 },
     { nivel: "medio", q: "A compactação do solo por tráfego pesado de máquinas afeta a água pois:", o: ["Aumenta o armazenamento de umidade", "Reduz a porosidade, impedindo a infiltração e gerando enxurradas", "Purifica a água eliminando argilas", "Acelera a evapotranspiração foliar"], a: 1 },
 
-    // NÍVEL DIFÍCIL
+    // DIFÍCIL
     { nivel: "dificil", q: "A introdução de árvores em pastagens (Sistemas Silvipastoris) traz qual benefício animal?", o: ["Redução do espaço de caminhada", "Conforto térmico através de sombra, melhorando a produtividade", "Alimentação baseada em folhas secas", "Aumento da velocidade de corrida"], a: 1 },
     { nivel: "dificil", q: "Sistemas agroflorestais auxiliam na mitigação das mudanças climáticas globais através de:", o: ["Emissão controlada de enxofre", "Sequestro e fixação de carbono na biomassa lenhosa e no solo", "Reflexão total dos raios ultravioleta", "Diminuição da gravidade localizada"], a: 1 },
     { nivel: "dificil", q: "Qual a desvantagem ecológica da irrigação por inundação contínua frente ao gotejamento?", o: ["Consumo mínimo de energia elétrica", "Desperdício severo de água e riscos de salinização do solo", "Impossibilidade de aplicar adubos", "Aumento da umidade do ar regional"], a: 1 },
@@ -175,7 +174,7 @@ const bancoQuestoesQuiz = [
     { nivel: "dificil", q: "Como a transição agroecológica apoia a 'Soberania Alimentar' das comunidades?", o: ["Obriga a importação de sementes", "Garante autonomia na produção de alimentos e conservação de sementes crioulas", "Prioriza culturas de exportação", "Substitui hábitos tradicionais"], a: 1 },
     { nivel: "dificil", q: "O êxodo rural de jovens nas comunidades rurais pode ser mitigado por:", o: ["Mecanização que elimine empregos", "Adoção de tecnologias sustentáveis, internet no campo e valorização do trabalho", "Fechamento de escolas rurais", "Proibição legal de migração"], a: 1 },
     { nivel: "dificil", q: "A transição agroecológica difere da agricultura orgânica convencional simplificada porque:", o: ["Permite o uso oculto de venenos", "Propõe uma reestruturação ecológica integral do agroecossistema e das relações", "Foca unicamente na substituição de insumos", "Proíbe tecnologia digital"], a: 1 },
-    { nivel: "dificil", q: "Qual o papel ecológico dos microrganismos solubilizadores de fósforo no solo?", o: ["Tornar o fósforo fixado na terra disponível para as raízes naturalmente", "Produzir fósforo sintético na argila", "Substituir a necessidade de luz solar", "Reduzir o crescimento de ervas"], a: 0 }
+    { nivel: "dificil", q: "Qual o papel ecológico dos microrganismos solubilizadores de fósforo no solo?", o: ["Tornar o fósforo fixado na terra disponível para as raíces naturalmente", "Produzir fósforo sintético na argila", "Substituir a necessidade de luz solar", "Reduzir o crescimento de ervas"], a: 0 }
 ];
 
 let nivelAtual = "facil"; 
@@ -202,11 +201,9 @@ function inicializarEstruturaQuiz(nivelEscolhido = "facil") {
 
 function renderizarQuestaoQuiz() {
     const dadosQuestao = questoesFiltradas[indiceQuestaoAtual];
-    
     document.getElementById('quiz-txt-progresso').innerText = `Questão ${indiceQuestaoAtual + 1} de ${questoesFiltradas.length}`;
     const percentagemProgresso = ((indiceQuestaoAtual + 1) / questoesFiltradas.length) * 100;
     document.getElementById('quiz-bar-progress-fill').style.width = `${percentagemProgresso}%`;
-
     document.getElementById('quiz-pergunta-texto').innerText = dadosQuestao.q;
 
     const containerOpcoes = document.getElementById('quiz-container-opcoes');
@@ -223,7 +220,6 @@ function renderizarQuestaoQuiz() {
         elementoBotao.style.borderRadius = "8px";
         elementoBotao.style.cursor = "pointer";
         elementoBotao.style.fontSize = "0.92rem";
-        elementoBotao.style.transition = "all 0.2s";
         
         elementoBotao.innerText = opcaoTexto;
         elementoBotao.onclick = () => avaliarRespostaSelecionada(idOpcao, elementoBotao);
@@ -246,10 +242,7 @@ function avaliarRespostaSelecionada(idSelecionado, botaoClicado) {
         botaoClicado.style.background = "#fce8e6";
         botaoClicado.style.borderColor = "#c5221f";
         botaoClicado.style.color = "#c5221f";
-        
         todosBotoes[dadosQuestao.a].style.background = "#e6f4ea";
-        todosBotoes[dadosQuestao.a].style.borderColor = "#137333";
-        todosBotoes[dadosQuestao.a].style.color = "#137333";
     }
 
     setTimeout(() => {
@@ -275,17 +268,15 @@ function finalizarExibicaoNivelQuiz() {
     containerAcao.innerHTML = ""; 
 
     if (nivelAtual === "facil") {
-        txtAnalise.innerText = `Parabéns! Completou o Nível Fácil com ${scoreAcertosQuiz} acertos. Vamos avançar para o nível Médio?`;
-        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('medio')">Avançar para o Nível Médio 🌽</button>`;
+        txtAnalise.innerText = `Nível Fácil concluído com ${scoreAcertosQuiz} acertos. Pronto para o nível Médio?`;
+        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('medio')">Avançar para Médio 🌽</button>`;
     } else if (nivelAtual === "medio") {
-        txtAnalise.innerText = `Excelente progresso! O nível Médio foi concluído com ${scoreAcertosQuiz} acertos. Agora vem o desafio final: Nível Difícil.`;
-        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('dificil')">Avançar para o Nível Difícil 🌳</button>`;
+        txtAnalise.innerText = `Nível Médio concluído com ${scoreAcertosQuiz} acertos. Desafio final: Nível Difícil!`;
+        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('dificil')">Avançar para Difícil 🌳</button>`;
     } else {
-        txtAnalise.innerText = `Fim da Jornada Científica! Percorreu todas as 30 perguntas. Pontuação acumulada final: ${scoreTotalGeral} de 30 acertos.`;
-        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px; background:#6c757d;" onclick="resetarQuizCompleto()">Reiniciar Todo o Quiz 🌱</button>`;
+        txtAnalise.innerText = `Quiz Completo! Pontuação final unificada: ${scoreTotalGeral} de 30 acertos.`;
+        containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px; background:#6c757d;" onclick="resetarQuizCompleto()">Reiniciar Quiz 🌱</button>`;
     }
-    
-    verificarEAtualizarTrofeus();
 }
 
 function resetarQuizCompleto() {
@@ -326,12 +317,7 @@ function iniciarNovoJogoMemoria() {
         document.getElementById('timer-val').innerText = `${segundosCorridos}s`;
     }, 1000);
 
-    const cartasEmbaralhadas = [...cartasMemoriaOriginais];
-    for (let i = cartasEmbaralhadas.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [cartasEmbaralhadas[i], cartasEmbaralhadas[j]] = [cartasEmbaralhadas[j], cartasEmbaralhadas[i]];
-    }
-
+    const cartasEmbaralhadas = [...cartasMemoriaOriginais].sort(() => Math.random() - 0.5);
     const canvasGrade = document.getElementById('memory-canvas');
     canvasGrade.innerHTML = "";
 
@@ -350,7 +336,7 @@ function iniciarNovoJogoMemoria() {
         const faceVerso = document.createElement('div');
         faceVerso.className = "tile-back";
         faceVerso.style.fontSize = "1.5rem";
-        faceVerso.style.color = "#6c757d";
+        faceVerso.style.color = "#fff";
         faceVerso.innerText = "？";
 
         const faceFrente = document.createElement('div');
@@ -370,9 +356,7 @@ function iniciarNovoJogoMemoria() {
 }
 
 function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
-    if (!jogoIniciado) return;
-    if (elementoCarta.classList.contains('flipped') || elementoCarta.classList.contains('matched')) return;
-    if (vetorTemporarioCartas.length >= 2) return;
+    if (!jogoIniciado || elementoCarta.classList.contains('flipped') || elementoCarta.classList.contains('matched') || vetorTemporarioCartas.length >= 2) return;
 
     elementoCarta.classList.add('flipped');
     elementoCarta.style.background = "#fff";
@@ -388,18 +372,12 @@ function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
         if (vetorTemporarioCartas[0].d.nome === vetorTemporarioCartas[1].d.nome) {
             vetorTemporarioCartas[0].el.classList.add('matched');
             vetorTemporarioCartas[1].el.classList.add('matched');
-            
-            vetorTemporarioCartas[0].el.style.borderColor = "var(--primary-green)";
-            vetorTemporarioCartas[1].el.style.borderColor = "var(--primary-green)";
             vetorTemporarioCartas = [];
             
             if (document.querySelectorAll('.memory-tile.matched').length === cartasMemoriaOriginais.length) {
                 clearInterval(timerIdInterv);
                 jogoIniciado = false;
-                setTimeout(() => { 
-                    alert(`🎉 Vitória! Missão completada em ${jogadasEfetuadas} jogadas e ${segundosCorridos} segundos!`); 
-                    verificarEAtualizarTrofeus();
-                }, 400);
+                setTimeout(() => { alert(`🎉 Jogo concluído com sucesso em ${jogadasEfetuadas} movimentos!`); }, 400);
             }
         } else {
             setTimeout(() => {
@@ -419,54 +397,9 @@ function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
 }
 
 // ==========================================================================
-// 6. CONTROLADOR DE CONQUISTAS
-// ==========================================================================
-function verificarEAtualizarTrofeus() {
-    const medalhaSimulador = document.getElementById('medalha-simulador');
-    if (medalhaSimulador) {
-        const s1 = parseInt(document.getElementById('sim-cobertura').value) || 0;
-        const s2 = parseInt(document.getElementById('sim-policultivo').value) || 0;
-        const s3 = parseInt(document.getElementById('sim-insumos').value) || 0;
-        const s4 = parseInt(document.getElementById('sim-agrofloresta').value) || 0;
-        const s5 = parseInt(document.getElementById('sim-agua').value) || 0;
-        const notaSim = Math.round((s1 * 0.25) + (s2 * 0.20) + (s3 * 0.25) + (s4 * 0.15) + (s5 * 0.15));
-
-        if (notaSim >= 80) {
-            medalhaSimulador.style.opacity = "1";
-            medalhaSimulador.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
-            medalhaSimulador.querySelector('.status-medalha').style.color = "var(--primary-green)";
-        }
-    }
-
-    const medalhaQuiz = document.getElementById('medalha-quiz');
-    if (medalhaQuiz) {
-        if (scoreTotalGeral >= 25) {
-            medalhaQuiz.style.opacity = "1";
-            medalhaQuiz.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
-            medalhaQuiz.querySelector('.status-medalha').style.color = "var(--primary-green)";
-        }
-    }
-
-    const medalhaMemoria = document.getElementById('medalha-memoria');
-    if (medalhaMemoria) {
-        const totalCartasViradas = document.querySelectorAll('.memory-tile.matched').length;
-        if (totalCartasViradas === cartasMemoriaOriginais.length && jogadasEfetuadas > 0 && jogadasEfetuadas <= 18) {
-            medalhaMemoria.style.opacity = "1";
-            medalhaMemoria.querySelector('.status-medalha').innerText = "🔓 Desbloqueada";
-            medalhaMemoria.querySelector('.status-medalha').style.color = "var(--primary-green)";
-        }
-    }
-}
-
-// ==========================================================================
-// 7. INICIALIZADOR AUTOMÁTICO
+// 6. INICIALIZADOR AUTOMÁTICO
 // ==========================================================================
 document.addEventListener("DOMContentLoaded", () => {
     irParaAba('painel');
     inicializarEstruturaQuiz('facil');
-    
-    // Configura opacidade inicial para bloqueado
-    document.getElementById('medalha-simulador').style.opacity = "0.6";
-    document.getElementById('medalha-quiz').style.opacity = "0.6";
-    document.getElementById('medalha-memoria').style.opacity = "0.6";
 });
