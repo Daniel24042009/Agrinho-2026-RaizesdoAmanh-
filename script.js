@@ -38,7 +38,7 @@ const bdsDiretrizesAgroecologicas = {
     "policultivo": {
         titulo: "Policultivos e Rotação de Culturas",
         sub: "Quebra de ciclos de pragas e sinergia de nutrientes",
-        corpo: "Cultivar múltiplas espécies na mesma área diversifica o sistema radicular, melhorando a estrutura física do solo. A inclusão de leguminosas fixa o nitrogênio atmosférico biologicamente, enquanto a rotação sistemática interrompe o ciclo reprodutivo de pragas e patógenos específicos de uma única cultura.",
+        corpo: "Cultivar múltiplas espécies na mesma área diversifica o systema radicular, melhorando a estrutura física do solo. A inclusion de leguminosas fixa o nitrogênio atmosférico biologicamente, enquanto a rotação sistemática interrompe o ciclo reprodutivo de pragas e patógenos específicos de uma única cultura.",
         tag: "Biodiversidade"
     },
     "insumos": {
@@ -98,7 +98,7 @@ function fecharModalPorCliqueFora(e) {
 }
 
 // ==========================================================================
-// 3. MOTOR DO SIMULADOR DE DIAGNÓSTICO MATEMÁTICO (CORRIGIDO)
+// 3. MOTOR DO SIMULADOR DE DIAGNÓSTICO MATEMÁTICO
 // ==========================================================================
 function processarCalculoDiagnostico() {
     const s1 = parseInt(document.getElementById('sim-cobertura').value) || 0;
@@ -143,11 +143,11 @@ function processarCalculoDiagnostico() {
 const bancoQuestoesQuiz = [
     // NÍVEL FÁCIL
     { nivel: "facil", q: "Qual o principal objetivo ecológico da cobertura permanente do solo?", o: ["Eliminar microrganismos", "Impedir a infiltração de ar", "Reduzir o impacto mecânico da chuva e reter umidade", "Facilitar a aração mecânica profunda"], a: 2 },
-    { nivel: "facil", q: "Como as leguminosas atuam na fertilidade do solo dentro de uma rotação de culturas?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
+    { nivel: "facil", q: "Como as leguminosas atuam na fertility do solo dentro de uma rotação de culturas?", o: ["Absorvem nitrogênio excessivo", "Fixam o nitrogênio atmosférico biologicamente em simbiose com bactérias", "Compactam solos arenosos", "Impedem o crescimento de espécies"], a: 1 },
     { nivel: "facil", q: "O que caracteriza a 'erosão laminar' em solos sem proteção?", o: ["Abertura de crateras profundas", "A remoção uniforme da camada superficial mais rica em matéria orgânica", "A quebra de rochas profundas", "O aumento da fauna de minhocas"], a: 1 },
-    { nivel: "facil", q: "A diversificação biológica melhora a estabilidade econômica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
+    { nivel: "facil", q: "A diversificação biológica melhora a estabilidade económica do produtor rural porque:", o: ["Reduz as opções de venda", "Evita perdas totais se uma cultura falhar ou sofrer desvalorização", "Exige maquinários caros", "Duplica os subsídios automaticamente"], a: 1 },
     { nivel: "facil", q: "As matas ciliares são fundamentais para os ecossistemas agrícolas porque:", o: ["Evitam o assoreamento de rios e filtram resíduos", "Serveme unicamente como divisórias", "Fornecem lenha de corte diário", "Absorvem água dos rios secando áreas"], a: 0 },
-    { nivel: "facil", q: "Qual la função da bioestrutura (agregados do solo) na agroecologia?", o: ["Impedir que as raízes respirem", "Garantir porosidade equilibrada para circulação de água e ar", "Tornar o solo impermeável", "Facilitar a lixiviação de minerais"], a: 1 },
+    { nivel: "facil", q: "Qual a função da bioestrutura (agregados do solo) na agroecologia?", o: ["Impedir que as raízes respirem", "Garantir porosidade equilibrada para circulação de água e ar", "Tornar o solo impermeável", "Facilitar a lixiviação de minerais"], a: 1 },
     { nivel: "facil", q: "O conceito de 'plantas companheiras' baseia-se em quê?", o: ["Espécies que competem por espaço", "Associações vegetais onde uma espécie beneficia a outra", "Plantas que devem ser colhidas juntas", "Espécies ornamentais sem valor"], a: 1 },
     { nivel: "facil", q: "Em agroecologia, os insetos vulgarmente chamados 'pragas' são vistos como:", o: ["Inimigos que devem ser extintos", "Sinais indicadores de desequilíbrio ecológico no sistema", "Animais impossíveis de controlar", "Seres sem relevância trófica"], a: 1 },
     { nivel: "facil", q: "O uso de adubos verdes (como a mucuna ou guandu) serve para:", o: ["Colorir o campo para ecoturismo", "Produzir biomassa, cobrir o solo e fixar/reciclar nutrientes", "Substituir a cultura principal", "Eliminar a necessidade de rotação"], a: 1 },
@@ -275,13 +275,13 @@ function finalizarExibicaoNivelQuiz() {
     containerAcao.innerHTML = ""; 
 
     if (nivelAtual === "facil") {
-        txtAnalise.innerText = `Parabéns! Você completou o Nível Fácil com ${scoreAcertosQuiz} acertos. Vamos avançar para o nível Médio?`;
+        txtAnalise.innerText = `Parabéns! Completou o Nível Fácil com ${scoreAcertosQuiz} acertos. Vamos avançar para o nível Médio?`;
         containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('medio')">Avançar para o Nível Médio 🌽</button>`;
     } else if (nivelAtual === "medio") {
         txtAnalise.innerText = `Excelente progresso! O nível Médio foi concluído com ${scoreAcertosQuiz} acertos. Agora vem o desafio final: Nível Difícil.`;
         containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px;" onclick="inicializarEstruturaQuiz('dificil')">Avançar para o Nível Difícil 🌳</button>`;
     } else {
-        txtAnalise.innerText = `Fim da Jornada Científica! Você percorreu todas as 30 perguntas. Pontuação acumulada final: ${scoreTotalGeral} de 30 acertos.`;
+        txtAnalise.innerText = `Fim da Jornada Científica! Percorreu todas as 30 perguntas. Pontuação acumulada final: ${scoreTotalGeral} de 30 acertos.`;
         containerAcao.innerHTML = `<button class="btn-primary" style="padding: 12px 24px; background:#6c757d;" onclick="resetarQuizCompleto()">Reiniciar Todo o Quiz 🌱</button>`;
     }
     
@@ -339,7 +339,7 @@ function iniciarNovoJogoMemoria() {
         const elementoCarta = document.createElement('div');
         elementoCarta.className = "memory-tile";
         elementoCarta.style.height = "100px";
-        elementoCarta.style.background = "#e9ecef";
+        elementoCarta.style.background = "var(--primary-green)";
         elementoCarta.style.borderRadius = "8px";
         elementoCarta.style.cursor = "pointer";
         elementoCarta.style.display = "flex";
@@ -404,12 +404,12 @@ function gerirCliqueCartaMemoria(elementoCarta, objetoDado) {
         } else {
             setTimeout(() => {
                 vetorTemporarioCartas[0].el.classList.remove('flipped');
-                vetorTemporarioCartas[0].el.style.background = "#e9ecef";
+                vetorTemporarioCartas[0].el.style.background = "var(--primary-green)";
                 vetorTemporarioCartas[0].el.querySelector('.tile-back').style.display = "flex";
                 vetorTemporarioCartas[0].el.querySelector('.tile-front').style.display = "none";
                 
                 vetorTemporarioCartas[1].el.classList.remove('flipped');
-                vetorTemporarioCartas[1].el.style.background = "#e9ecef";
+                vetorTemporarioCartas[1].el.style.background = "var(--primary-green)";
                 vetorTemporarioCartas[1].el.querySelector('.tile-back').style.display = "flex";
                 vetorTemporarioCartas[1].el.querySelector('.tile-front').style.display = "none";
                 vetorTemporarioCartas = [];
@@ -465,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
     irParaAba('painel');
     inicializarEstruturaQuiz('facil');
     
-    // Deixa as medalhas visíveis com opacidade de bloqueio controlada via JS
+    // Configura opacidade inicial para bloqueado
     document.getElementById('medalha-simulador').style.opacity = "0.6";
     document.getElementById('medalha-quiz').style.opacity = "0.6";
     document.getElementById('medalha-memoria').style.opacity = "0.6";

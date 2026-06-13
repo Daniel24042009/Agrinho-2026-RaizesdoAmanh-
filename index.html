@@ -14,7 +14,6 @@
 </head>
 <body>
     <div class="app-layout">
-        <!-- SIDEBAR -->
         <aside class="sidebar-container">
             <div class="brand-wrapper">
                 <div class="brand-avatar">🌾</div>
@@ -47,61 +46,61 @@
             </div>
         </aside>
 
-        <!-- CONTEÚDO PRINCIPAL (MAIN VIEW) -->
         <main class="main-viewport">
-            <!-- TOPBAR DINÂMICA -->
             <header class="topbar-dashboard">
                 <h1 class="topbar-title" id="dinamico-titulo-aba">Monitoramento de Impacto Agroecológico</h1>
                 <p class="topbar-subtitle" id="dinamico-subtitulo-aba">Tecnologia aplicada ao desenvolvimento sustentável da Escola do Campo rural.</p>
             </header>
 
             <div class="content-scroller">
-                <!-- ABA 1: PAINEL / SIMULADOR -->
+                
                 <div id="view-painel" class="view-pane active">
                     <div class="dashboard-grid">
-                        <!-- FORMULÁRIO DO SIMULADOR -->
-                        <section class="card-base">
-                            <h3 style="color: var(--primary-green); margin-bottom: 20px;"><i class="fa-solid fa-sliders" style="margin-right: 8px;"></i> Parâmetros da Propriedade</h3>
+                        
+                        <div class="card-base">
+                            <h3 style="color: var(--primary-green); margin-bottom: 20px;">
+                                <i class="fa-solid fa-sliders" style="margin-right: 8px;"></i> Parâmetros da Propriedade
+                            </h3>
                             
-                            <div class="input-group-wrapper" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">
-                                <label class="field-label" style="font-weight: 600; font-size: 0.9rem;">Manejo de Cobertura Permanente do Solo</label>
-                                <select class="styled-select" id="sim-cobertura" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray);">
+                            <div class="input-group-wrapper" style="margin-bottom: 16px;">
+                                <label class="field-label" style="font-weight: 600; display: block; margin-bottom: 6px;">Manejo de Cobertura Permanente do Solo</label>
+                                <select class="styled-select" id="sim-cobertura" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray); background-color: #fff;">
                                     <option value="100">Excelente - Palhada espessa e Plantio Direto consolidado</option>
                                     <option value="70">Moderado - Cobertura parcial ou períodos curtos de solo descoberto</option>
                                     <option value="30">Crítico - Solo totalmente exposto às intempéries, aração agressiva</option>
                                 </select>
                             </div>
 
-                            <div class="input-group-wrapper" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">
-                                <label class="field-label" style="font-weight: 600; font-size: 0.9rem;">Diversificação de Culturas (Policultivo)</label>
-                                <select class="styled-select" id="sim-policultivo" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray);">
+                            <div class="input-group-wrapper" style="margin-bottom: 16px;">
+                                <label class="field-label" style="font-weight: 600; display: block; margin-bottom: 6px;">Diversificação de Culturas (Policultivo)</label>
+                                <select class="styled-select" id="sim-policultivo" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray); background-color: #fff;">
                                     <option value="100">Excelente - Rotação sistemática com leguminosas e consórcios múltiplos</option>
                                     <option value="60">Moderado - Sucessão simples de culturas sem diversificação profunda</option>
                                     <option value="20">Crítico - Monocultura extensiva continuada há várias safras</option>
                                 </select>
                             </div>
 
-                            <div class="input-group-wrapper" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">
-                                <label class="field-label" style="font-weight: 600; font-size: 0.9rem;">Uso de Insumos Químicos e Defensivos</label>
-                                <select class="styled-select" id="sim-insumos" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray);">
+                            <div class="input-group-wrapper" style="margin-bottom: 16px;">
+                                <label class="field-label" style="font-weight: 600; display: block; margin-bottom: 6px;">Uso de Insumos Químicos e Defensivos</label>
+                                <select class="styled-select" id="sim-insumos" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray); background-color: #fff;">
                                     <option value="100">Excelente - Substituição total por caldas naturais e bioinsumos</option>
                                     <option value="50">Moderado - Uso racional combinado com caldas ecológicas protetoras</option>
                                     <option value="10">Crítico - Dependência severa e aplicação contínua de agroquímicos</option>
                                 </select>
                             </div>
 
-                            <div class="input-group-wrapper" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;">
-                                <label class="field-label" style="font-weight: 600; font-size: 0.9rem;">Sistemas Agroflorestais (SAFs)</label>
-                                <select class="styled-select" id="sim-agrofloresta" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray);">
+                            <div class="input-group-wrapper" style="margin-bottom: 16px;">
+                                <label class="field-label" style="font-weight: 600; display: block; margin-bottom: 6px;">Sistemas Agroflorestais (SAFs)</label>
+                                <select class="styled-select" id="sim-agrofloresta" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray); background-color: #fff;">
                                     <option value="100">Excelente - Estrutura multiestratificada com árvores e culturas consorciadas</option>
                                     <option value="50">Moderado - Quintais agroflorestais integrados na bordadura ou pomares</option>
                                     <option value="0">Crítico - Ausência completa de árvores perenes integradas na lavoura</option>
                                 </select>
                             </div>
 
-                            <div class="input-group-wrapper" style="display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px;">
-                                <label class="field-label" style="font-weight: 600; font-size: 0.9rem;">Manejo Ecológico de Recursos Hídricos</label>
-                                <select class="styled-select" id="sim-agua" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray);">
+                            <div class="input-group-wrapper" style="margin-bottom: 20px;">
+                                <label class="field-label" style="font-weight: 600; display: block; margin-bottom: 6px;">Manejo Ecológico de Recursos Hídricos</label>
+                                <select class="styled-select" id="sim-agua" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid var(--border-gray); background-color: #fff;">
                                     <option value="100">Excelente - Curvas de nível, terraços, captação e gotejamento eficiente</option>
                                     <option value="60">Moderado - Proteção básica de nascentes, mas com perdas por escoamento</option>
                                     <option value="20">Crítico - Irrigação por inundação ou ausência de contenção de enxurradas</option>
@@ -111,44 +110,45 @@
                             <button class="btn-primary" style="width: 100%; padding: 14px;" onclick="processarCalculoDiagnostico()">
                                 <i class="fa-solid fa-calculator" style="margin-right: 8px;"></i> Processar Diagnóstico Ecológico
                             </button>
-                        </section>
+                        </div>
 
-                        <!-- RESULTADOS DO SIMULADOR -->
-                        <section class="card-base" style="display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;">
+                        <div class="card-base" style="display: flex; flex-direction: column; justify-content: flex-start; gap: 20px;">
                             <div>
-                                <h3 style="color: var(--primary-green); margin-bottom: 20px;"><i class="fa-solid fa-square-poll-vertical" style="margin-right: 8px;"></i> Índice de Sustentabilidade</h3>
-                                <div class="gauge-score-wrapper" style="margin-bottom: 15px;">
+                                <h3 style="color: var(--primary-green); margin-bottom: 20px;">
+                                    <i class="fa-solid fa-square-poll-vertical" style="margin-right: 8px;"></i> Índice de Sustentabilidade
+                                </h3>
+                                <div class="gauge-score-wrapper" style="margin-bottom: 15px; display: flex; align-items: baseline;">
                                     <span class="score-display" id="score-display-num" style="font-size: 3rem; font-weight: 800; color: var(--primary-green);">--</span>
                                     <span style="font-size: 1rem; font-weight: 600; color: var(--text-light); margin-left: 10px;">pontos ponderados</span>
                                 </div>
                                 <div class="progress-bar-container" style="background: #e9ecef; border-radius: 10px; height: 12px; width: 100%; overflow: hidden;">
-                                    <div class="progress-bar-fill" id="bar-fill-diagnostico" style="width: 0%; height: 100%; background: var(--primary-green); transition: width 0.5s ease;"></div>
+                                    <div class="progress-bar-fill" id="bar-fill-diagnostico" style="width: 0%; height: 100%; background: var(--accent-lime); transition: width 0.5s ease;"></div>
                                 </div>
                             </div>
                             
                             <div id="output-feedback-box" class="output-alert hidden">
-                                <!-- Feedback Dinâmico do JS -->
-                            </div>
-                        </section>
+                                </div>
+                        </div>
                     </div>
 
-                    <!-- SEÇÃO CONQUISTAS -->
-                    <section class="card-base" style="margin-top:30px;">
-                        <h3 style="color: var(--primary-green); margin-bottom: 20px;"><i class="fa-solid fa-medal" style="margin-right: 8px;"></i> Conquistas e Medalhas Tecnológicas</h3>
+                    <section class="card-base" style="margin-top: 30px;">
+                        <h3 style="color: var(--primary-green); margin-bottom: 20px;">
+                            <i class="fa-solid fa-medal" style="margin-right: 8px;"></i> Conquistas e Medalhas Tecnológicas
+                        </h3>
                         <div class="conquistas-wrapper-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
-                            <div class="card-base conquista-card bloqueada" id="medalha-simulador" style="text-align: center; padding: 20px;">
+                            <div class="card-base conquista-card" id="medalha-simulador" style="text-align: center; padding: 20px; transition: all 0.3s;">
                                 <div class="badge-icon" style="font-size: 2.5rem; margin-bottom: 10px;">🏆</div>
                                 <h4 class="titulo-medalha" style="font-weight: 700; margin-bottom: 6px;">Mestre do Simulador</h4>
                                 <p class="desc-medalha" style="font-size: 0.82rem; color: var(--text-light); margin-bottom: 12px;">Alcance nota superior a 80 nos parâmetros da propriedade.</p>
                                 <span class="status-medalha" style="font-weight: 600; font-size: 0.85rem;">🔒 Bloqueada</span>
                             </div>
-                            <div class="card-base conquista-card bloqueada" id="medalha-quiz" style="text-align: center; padding: 20px;">
+                            <div class="card-base conquista-card" id="medalha-quiz" style="text-align: center; padding: 20px; transition: all 0.3s;">
                                 <div class="badge-icon" style="font-size: 2.5rem; margin-bottom: 10px;">🌿</div>
                                 <h4 class="titulo-medalha" style="font-weight: 700; margin-bottom: 6px;">Cientista Verde</h4>
                                 <p class="desc-medalha" style="font-size: 0.82rem; color: var(--text-light); margin-bottom: 12px;">Complete os 3 níveis atingindo mais de 25 acertos no total.</p>
                                 <span class="status-medalha" style="font-weight: 600; font-size: 0.85rem;">🔒 Bloqueada</span>
                             </div>
-                            <div class="card-base conquista-card bloqueada" id="medalha-memoria" style="text-align: center; padding: 20px;">
+                            <div class="card-base conquista-card" id="medalha-memoria" style="text-align: center; padding: 20px; transition: all 0.3s;">
                                 <div class="badge-icon" style="font-size: 2.5rem; margin-bottom: 10px;">⚡</div>
                                 <h4 class="titulo-medalha" style="font-weight: 700; margin-bottom: 6px;">Memória Computacional</h4>
                                 <p class="desc-medalha" style="font-size: 0.82rem; color: var(--text-light); margin-bottom: 12px;">Vença o Jogo da Memória em menos de 18 movimentos.</p>
@@ -158,45 +158,43 @@
                     </section>
                 </div>
 
-                <!-- ABA 2: DIRETRIZES AGROECOLÓGICAS -->
                 <div id="view-agroecologia" class="view-pane">
                     <div class="conquistas-wrapper-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
-                        <div class="card-base diretriz-card" onclick="dispararModalInjetado('cobertura')" style="cursor: pointer; padding: 20px;">
-                            <div class="icon-diretriz-circulo" style="font-size: 2rem; margin-bottom: 10px;">🌱</div>
+                        <div class="card-base" onclick="dispararModalInjetado('cobertura')" style="cursor: pointer; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🌱</div>
                             <h4 style="font-weight:700;">Cobertura do Solo</h4>
                             <p style="font-size:0.85rem; color:var(--text-light);">Proteção contra o impacto mecânico da chuva.</p>
                         </div>
-                        <div class="card-base diretriz-card" onclick="dispararModalInjetado('policultivo')" style="cursor: pointer; padding: 20px;">
-                            <div class="icon-diretriz-circulo" style="font-size: 2rem; margin-bottom: 10px;">🌽</div>
+                        <div class="card-base" onclick="dispararModalInjetado('policultivo')" style="cursor: pointer; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🌽</div>
                             <h4 style="font-weight:700;">Policultivos e Rotação</h4>
                             <p style="font-size:0.85rem; color:var(--text-light);">Quebra de ciclo de pragas e sinergia mineral.</p>
                         </div>
-                        <div class="card-base diretriz-card" onclick="dispararModalInjetado('insumos')" style="cursor: pointer; padding: 20px;">
-                            <div class="icon-diretriz-circulo" style="font-size: 2rem; margin-bottom: 10px;">🧪</div>
+                        <div class="card-base" onclick="dispararModalInjetado('insumos')" style="cursor: pointer; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🧪</div>
                             <h4 style="font-weight:700;">Redução de Químicos</h4>
                             <p style="font-size:0.85rem; color:var(--text-light);">Transição biológica baseada em bioinsumos.</p>
                         </div>
-                        <div class="card-base diretriz-card" onclick="dispararModalInjetado('agrofloresta')" style="cursor: pointer; padding: 20px;">
-                            <div class="icon-diretriz-circulo" style="font-size: 2rem; margin-bottom: 10px;">🌳</div>
+                        <div class="card-base" onclick="dispararModalInjetado('agrofloresta')" style="cursor: pointer; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🌳</div>
                             <h4 style="font-weight:700;">Agroflorestas (SAFs)</h4>
                             <p style="font-size:0.85rem; color:var(--text-light);">Mimetismo e organização em estratos verticais.</p>
                         </div>
-                        <div class="card-base diretriz-card" onclick="dispararModalInjetado('agua')" style="cursor: pointer; padding: 20px;">
-                            <div class="icon-diretriz-circulo" style="font-size: 2rem; margin-bottom: 10px;">💧</div>
+                        <div class="card-base" onclick="dispararModalInjetado('agua')" style="cursor: pointer; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">💧</div>
                             <h4 style="font-weight:700;">Manejo da Água</h4>
                             <p style="font-size:0.85rem; color:var(--text-light);">Contenção em curvas de nível e infiltração local.</p>
                         </div>
-                        <div class="card-base diretriz-card" onclick="dispararModalInjetado('comunidades')" style="cursor: pointer; padding: 20px;">
-                            <div class="icon-diretriz-circulo" style="font-size: 2rem; margin-bottom: 10px;">🏡</div>
+                        <div class="card-base" onclick="dispararModalInjetado('comunidades')" style="cursor: pointer; padding: 20px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🏡</div>
                             <h4 style="font-weight:700;">Socioecologia</h4>
                             <p style="font-size:0.85rem; color:var(--text-light);">Circuitos curtos e valorização do saber do campo.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- ABA 3: QUIZ -->
                 <div id="view-licoes" class="view-pane">
-                    <section class="card-base quiz-box-container" style="padding: 25px;">
+                    <section class="card-base" style="padding: 25px;">
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--border-gray); padding-bottom: 12px; margin-bottom: 20px;">
                             <h3 style="color: var(--primary-green);"><i class="fa-solid fa-circle-question"></i> Teste de Conhecimento Científico</h3>
                             <span id="quiz-nivel-badge" style="background: var(--primary-green); color: #fff; padding: 6px 14px; border-radius: 6px; font-size: 0.82rem; font-weight: 800;">
@@ -215,8 +213,7 @@
                             <h2 id="quiz-pergunta-texto" style="color: var(--primary-green); font-size: 1.2rem; font-weight: 700; margin-bottom: 25px; line-height: 1.4;">Carregando pergunta...</h2>
                             
                             <div id="quiz-container-opcoes" style="display: flex; flex-direction: column; gap: 12px;">
-                                <!-- Botões dinâmicos -->
-                            </div>
+                                </div>
                         </div>
 
                         <div id="quiz-painel-conclusao" class="hidden" style="text-align: center; padding: 30px 10px;">
@@ -229,7 +226,6 @@
                     </section>
                 </div>
 
-                <!-- ABA 4: ACERVO DIGITAL UFPR -->
                 <div id="view-materiais" class="view-pane">
                     <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 30px;">
                         <section class="card-base" style="height: 550px; display: flex; flex-direction: column;">
@@ -248,21 +244,18 @@
                     </div>
                 </div>
 
-                <!-- ABA 5: JOGO DA MEMÓRIA -->
                 <div id="view-desafios" class="view-pane">
                     <section class="card-base" style="max-width: 650px; margin: 0 auto;">
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; background: #f8faf9; padding: 12px 20px; border-radius: 10px; border: 1px solid var(--border-gray);">
-                            <div><i class="fa-solid fa-clone"></i> Movimentos: <strong id="moves-val" style="color: var(--primary-green);">0</strong></div>
-                            <div><i class="fa-solid fa-clock"></i> Tempo: <strong id="timer-val" style="color: var(--primary-green);">0s</strong></div>
+                            <div><i class="fa-solid fa-clone"></i> Movimentos: <strong id="moves-val" style="color: var(--var(--accent-lime));">0</strong></div>
+                            <div><i class="fa-solid fa-clock"></i> Tempo: <strong id="timer-val" style="color: var(--var(--accent-lime));">0s</strong></div>
                             <button class="btn-primary" onclick="iniciarNovoJogoMemoria()"><i class="fa-solid fa-play"></i> Iniciar Jogo</button>
                         </div>
                         <div class="memory-board-grid" id="memory-canvas" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;">
-                            <!-- Gerado dinamicamente -->
-                        </div>
+                            </div>
                     </section>
                 </div>
 
-                <!-- SESSÃO DE MÉTRICAS FIXAS INFERIORES -->
                 <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div style="background: #f8faf9; padding: 16px; border-radius: 10px; border: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center;">
                         <div>
@@ -284,7 +277,6 @@
         </main>
     </div>
 
-    <!-- MODAL -->
     <div id="global-modal-overlay" class="modal-backdrop hidden" onclick="fecharModalPorCliqueFora(event)">
         <div class="modal-box-body">
             <button class="modal-btn-x" onclick="ocultarModal()">✕</button>
